@@ -18,6 +18,15 @@ void big_print(ui a, ui_t al, char *s) {
     printf(";\n\n");
 }
 
+void big_print_F(ui a, ui_t al, char *s) {
+	printf("%s := F!(", s);
+    printf("%u", a[0]);
+    for(int i = 1; i < al; i++) {
+        printf(" + %u * (2^%d)^%d", a[i], W, i);
+    }
+    printf(");\n\n");
+}
+
 void big_fprint(FILE *fp, ui a, ui_t al, char *s) {
     fprintf(fp, "%s := ", s);
     fprintf(fp, "%u", a[0]);
