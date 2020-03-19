@@ -1,5 +1,5 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "mplib.h"
 
 void big_rand(ui z, ui_t l) {
@@ -9,31 +9,17 @@ void big_rand(ui z, ui_t l) {
 	}
 }
 
-void big_print(ui a, ui_t al, char *s) {
-    printf("%s := ", s);
-    printf("%u", a[0]);
-    for(int i = 1; i < al; i++) {
-        printf(" + %u * (2^%d)^%d", a[i], W, i);
+void big_print(FILE *fp, ui a, ui_t al, char *s, char *R) {
+    if(R != NULL) {
+	    fprintf(fp, "%s := %s!(", s, R);
+    } else {
+        fprintf(fp, "%s := (", s);
     }
-    printf(";\n\n");
-}
-
-void big_print_F(ui a, ui_t al, char *s) {
-	printf("%s := F!(", s);
-    printf("%u", a[0]);
-    for(int i = 1; i < al; i++) {
-        printf(" + %u * (2^%d)^%d", a[i], W, i);
-    }
-    printf(");\n\n");
-}
-
-void big_fprint(FILE *fp, ui a, ui_t al, char *s) {
-    fprintf(fp, "%s := ", s);
     fprintf(fp, "%u", a[0]);
     for(int i = 1; i < al; i++) {
-        fprintf(fp, " + %u * 2^(%d * %d)", a[i], W, i);
+        fprintf(fp, " + %u * (2^%d)^%d", a[i], W, i);
     }
-    fprintf(fp, ";\n");
+    fprintf(fp, ");\n\n");
 }
 
 void big_add(ui z, ui a, ui_t al, ui b, ui_t bl) {
