@@ -140,33 +140,20 @@ int aff_is_on_curve(ui A, ui B, ui x, ui y, ui n) {
 int main() {
     MONTG_CURVE c = (MONTG_CURVE)malloc(sizeof(MONTG_CURVE_t) * 1);
     PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-    FILE *fp = fopen("/home/ozbayelif/Development/FIWE/ecm/input.magma", "a");
     ui_t nl = 5;
+    ui_t n[nl], mu[nl + 1], d[nl];
     int flag = 0;
-    ui_t n[nl];
-    ui_t d[nl];
-    ui_t mu[nl + 1];
-    mpz_t mp_n, mp_b2k, mp_mu;
-
-    mpz_init(mp_n);
-    mpz_init(mp_b2k);
-    mpz_init(mp_mu);
+    // FILE *fp = fopen("/home/ozbayelif/Development/FIWE/ecm/input.magma", "a");
 
     for (int i = 0; i < nl; i++) {
-        n[i] = 0;
         d[i] = 0;
     }
 
     for (int i = 0; i < 10000; i++) {
         flag = 0;
+        
         big_rand(n, nl);
-        mpz_set_ui(mp_b2k, 0L);
-        mpz_set_ui(mp_mu, 0L);
-        mpz_import(mp_n, nl, -1, 4, 0, 0, n);
-        mpz_add_ui(mp_b2k, mp_b2k, 1);
-        mpz_mul_2exp(mp_b2k, mp_b2k, W * (2 * nl));
-        mpz_fdiv_q(mp_mu, mp_b2k, mp_n);
-        mpz_export(mu, NULL, -1, 4, 0, 0, mp_mu);
+        big_get_mu(mu, n, nl);
 
         big_print(stdout, n, nl, "n", NULL);
         fprintf(stdout, "R := Integers(n);\n\n");
@@ -184,7 +171,7 @@ int main() {
             fprintf(stdout, "assert B*Y^2*Z eq X^3 + A*X^2*Z + X*Z^2;\n\n");
         }
     }
-    fclose(fp);
+    // fclose(fp);
 
     return 0;
 }

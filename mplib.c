@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <gmp.h>
 #include "mplib.h"
 
 void big_rand(ui z, ui_t l) {
@@ -70,6 +71,23 @@ void big_mul(ui z, ui a, ui_t al, ui b, ui_t bl) {
 		}
 		z[i + bl] = u;
 	}		
+}
+
+void big_get_mu(ui mu, ui n, ui_t nl) {
+	mpz_t mp_n, mp_b2k, mp_mu;
+
+    mpz_init(mp_n);
+    mpz_init(mp_b2k);
+    mpz_init(mp_mu);
+
+	mpz_set_ui(mp_b2k, 0L);
+	mpz_set_ui(mp_mu, 0L);
+	
+	mpz_import(mp_n, nl, -1, 4, 0, 0, n);
+	mpz_add_ui(mp_b2k, mp_b2k, 1);
+	mpz_mul_2exp(mp_b2k, mp_b2k, W * (2 * nl));
+	mpz_fdiv_q(mp_mu, mp_b2k, mp_n);
+	mpz_export(mu, NULL, -1, 4, 0, 0, mp_mu);
 }
 
 uni_t barret_reduction_UL(uni_t p, uni_t b, uni_t k, uni_t z, uni_t m, uni_t L) { // Calculate z mod p where z < 2^W and p < 2^W
