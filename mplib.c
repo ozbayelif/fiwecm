@@ -112,7 +112,7 @@ uni_t barret_reduction_UL(uni_t p, uni_t b, uni_t k, uni_t z, uni_t m, uni_t L) 
 void barret_reduction(ui z, ui m, ui_t ml, ui n, ui_t nl, ui mu, ui_t mul) { // Calculate m mod n
     ui_t k = nl, md[k + 1], mdmu[mul + k + 1], q[mul], mm[k + 1], qn[mul + nl], qnm[k + 1], r2[k + 1];
     int i, j, b;
-    
+
     big_cpy(md, m, k - 1, k + 1); // md = m / b^(k - 1) 
     big_mul(mdmu, md, k + 1, mu, mul); // mdmu = md * mu 
     big_cpy(q, mdmu, k + 1, mul); // q = (m / b^(k - 1) * mu) / b^(k + 1) 
@@ -120,9 +120,11 @@ void barret_reduction(ui z, ui m, ui_t ml, ui n, ui_t nl, ui mu, ui_t mul) { // 
     big_mul(qn, q, mul, n, nl); // qn = q * n 
     big_cpy(qnm, qn, 0, k + 1); // qnm = qn mod b^(k + 1) 
     big_sub(z, mm, k + 1, qnm, k + 1); // r = mm - qnm
-    b = big_sub(r2, z, nl + 1, n, nl + 1); // while r >= n do: r <- r - n
-    while(!b) {
+    b = big_sub(r2, z, nl, n, nl); // while r >= n do: r <- r - n
+	r2[nl] = z[nl] - b;
+    while(!(r2[nl] >> (W - 1))) {
         big_cpy(z, r2, 0, k + 1);
-        b = big_sub(r2, z, nl + 1, n, nl + 1);
+        b = big_sub(r2, z, nl, n, nl);
+		r2[nl] = z[nl] - b;
     }
 }
