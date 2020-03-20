@@ -41,7 +41,7 @@ void curve_pro_point_init_rand(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, 
     big_rand(Y, nl);
     big_rand(Z, nl);
 
-    fprintf(fp, "nl:=%d;\n\n", nl);
+    fprintf(fp, "nl:=%lu;\n\n", nl);
     big_print(fp, A, nl, "A", "R");
     big_print(fp, X, nl, "X", "R");
     big_print(fp, Y, nl, "Y", "R");
