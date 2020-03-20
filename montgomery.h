@@ -21,7 +21,7 @@ typedef struct Aff_Point_s {
 void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_t mul, int *flag);
 
 // Random montgomery curve and affine point initialization
-void aff_curve_point(MONTG_CURVE c, AFF_POINT p, ui n);
+void aff_curve_point(ui d, MONTG_CURVE c, AFF_POINT p, ui n, ui_t nl, ui mu, ui_t mul, int *flag);
 
 // Differential addition on projective coordinates
 void pro_add(ui X, ui Z, ui X1, ui Z1, ui X2, ui Z2, ui Xd, ui Zd, ui n);

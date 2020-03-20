@@ -61,7 +61,7 @@ void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_
     big_mul(Y2Z_, Y2, nl, Z, nl);
     barret_reduction(Y2Z, Y2Z_, 2 * nl, n, nl, mu, mul);
     
-    // R = X^3 + AX^2Z + XZ^2
+    // RHS = X^3 + AX^2Z + XZ^2
     for(i = nl + 1; i < 2 * nl; i++) {
         RHS1_[i] = 0L;
         RHS_[i] = 0L;
@@ -92,7 +92,75 @@ void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_
     }
 }
 
-void aff_curve_point(MONTG_CURVE c, AFF_POINT p, ui n) {
+void aff_curve_point(ui d, MONTG_CURVE c, AFF_POINT p, ui n, ui_t nl, ui mu, ui_t mul, int *flag) {
+    ui A = (ui)malloc(sizeof(ui_t) * nl);
+    ui B = (ui)malloc(sizeof(ui_t) * nl);
+    ui x = (ui)malloc(sizeof(ui_t) * nl);
+    ui y = (ui)malloc(sizeof(ui_t) * nl);
+    ui_t B_[2 * nl];
+    ui_t x2_[2 * nl], x2[nl];
+    ui_t x3_[2 * nl], x3[nl];
+    ui_t Ax2_[2 * nl], Ax2[nl];
+    ui_t y2_[2 * nl], y2[nl];
+    ui_t iy2[nl];
+    ui_t rhs1_[2 * nl], rhs1[nl];
+    ui_t rhs_[2 * nl], rhs[nl];
+    mpz_t mp_n, mp_y2, mp_iy2, mp_d;
+    int i;
+
+    mpz_init(mp_n);
+    mpz_init(mp_y2);
+    mpz_init(mp_iy2);
+    mpz_init(mp_d);
+    mpz_set_ui(mp_iy2, 0L);
+    mpz_set_ui(mp_d, 0L);
+    mpz_import(mp_n, nl, -1, 4, 0, 0, n);
+    big_rand(A, nl);
+    big_rand(x, nl);
+    big_rand(y, nl);
+
+    // Ax^2
+    big_mul(x2_, x, nl, x, nl);
+    barret_reduction(x2, x2_, 2 * nl, n, nl, mu, mul);
+    big_mul(Ax2_, A, nl, x2, nl);
+    barret_reduction(Ax2, Ax2_, 2 * nl, n, nl, mu, mul);
+
+    // x^3
+    big_mul(x3_, x2, nl, x, nl);
+    barret_reduction(x3, x3_, 2 * nl, n, nl, mu, mul);
+
+    // y^2
+    big_mul(y2_, y, nl, y, nl);
+    barret_reduction(y2, y2_, 2 * nl, n, nl, mu, mul);
+    
+    // rhs = x^3 + Ax^2 + X
+    for(i = nl + 1; i < 2 * nl; i++) {
+        rhs1_[i] = 0L;
+        rhs_[i] = 0L;
+    }
+    big_add(rhs1_, x3, nl, Ax2, nl);
+    barret_reduction(rhs1, rhs1_, 2 * nl, n, nl, mu, mul);
+    big_add(rhs_, rhs1, nl, x, nl);
+    barret_reduction(rhs, rhs_, 2 * nl, n, nl, mu, mul);
+
+    // B or factorize
+    mpz_import(mp_y2, nl, -1, 4, 0, 0, y2);
+    mpz_gcd(mp_d, mp_y2, mp_n);
+    mpz_export(d, NULL, -1, 4, 0, 0, mp_d);
+
+    if(mpz_cmp_ui(mp_d, 1) == 0 || mpz_cmp(mp_d, mp_n) == 0) {
+        mpz_invert(mp_iy2, mp_y2, mp_n);
+        mpz_export(iy2, NULL, -1, 4, 0, 0, mp_iy2);
+        big_mul(B_, rhs, nl, iy2, nl);
+        barret_reduction(B, B_, 2 * nl, n, nl, mu, mul);
+
+        c->A = A;
+        c->B = B;
+        c->n = n;
+        p->x = x;
+        p->y = y;
+        *flag = 1;
+    }
 }
 
 void pro_add(ui X, ui Z, ui X1, ui Z1, ui X2, ui Z2, ui Xd, ui Zd, ui n) {
