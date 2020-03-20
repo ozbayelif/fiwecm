@@ -165,7 +165,7 @@ void pro_add_test() {
     PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p2 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-    mpz_t  mp_n, mp_x1, mp_x2, mp_z1, mp_z2, mp_a, mp_a1, mp_a2; 
+    mpz_t  mp_n, mp_x1, mp_x2, mp_z1, mp_z2, mp_a, mp_a2; 
     ui_t nl;
     int i, trues = 0, falses = 0;
 
@@ -175,7 +175,6 @@ void pro_add_test() {
     mpz_init(mp_z1);
     mpz_init(mp_z2);
     mpz_init(mp_a);
-    mpz_init(mp_a1);
     mpz_init(mp_a2);
     
     for (i = 0; i < 1000000; i++) {
@@ -184,7 +183,6 @@ void pro_add_test() {
         ui_t a1[nl]; // temp
 
         mpz_set_ui(mp_a, 0L);
-        mpz_set_ui(mp_a1, 0L);
         mpz_set_ui(mp_a2, 0L);
 
         big_rand(n, nl);
@@ -207,11 +205,12 @@ void pro_add_test() {
 
         pro_add(p, p1, p2, p, n, nl, mu, nl + 1);
 
-        mpz_add(mp_a, mp_x2, mp_z2);
-        mpz_mod(mp_a1, mp_a, mp_n);
+        mpz_sub(mp_a, mp_x2, mp_z2);
+        while(mpz_sgn(mp_a) == -1) {
+            mpz_add(mp_a, mp_a, mp_n);
+        }
         mpz_import(mp_a2, nl, -1, 4, 0, 0, p->X); // p->X keeps a temp
-        int res = mpz_cmp(mp_a1, mp_a2);
-        mpz_export(a1, NULL, -1, 4, 0, 0, mp_a1);
+        int res = mpz_cmp(mp_a, mp_a2);
         if(res == 0) {
             trues++;
         } else {
@@ -225,5 +224,5 @@ void pro_add_test() {
 int main() {
     // pro_curve_point_test();
     // aff_curve_point_test();
-    // pro_add_test();
+    pro_add_test();
 }

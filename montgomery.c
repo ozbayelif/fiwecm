@@ -193,8 +193,8 @@ void aff_curve_point(ui d, MONTG_CURVE c, AFF_POINT p, ui n, ui_t nl, ui mu, ui_
 }
 
 void pro_add(PRO_POINT p, PRO_POINT p1, PRO_POINT p2, PRO_POINT pd, ui n, ui_t nl, ui mu, ui_t mul) {
-    ui_t a_[2 * nl]/*, a[nl]*/, b[nl], c_[2 * nl], c[nl], d[nl], da_[2 * nl], da[nl], cb_[2 * nl], cb[nl];
-    int i;
+    ui_t a_[2 * nl]/*, a[nl]*/, b[nl], b2[nl + 1], c_[2 * nl], c[nl], d[nl], da_[2 * nl], da[nl], cb_[2 * nl], cb[nl];
+    int i, s;
     ui a = (ui)malloc(sizeof(ui_t) * nl); // temp -> will be static later
 
     for(i = nl + 1; i < 2 * nl; i++) {
@@ -204,7 +204,15 @@ void pro_add(PRO_POINT p, PRO_POINT p1, PRO_POINT p2, PRO_POINT pd, ui n, ui_t n
 
     big_add(a_, p2->X, nl, p2->Z, nl);
     barret_reduction(a, a_, 2 * nl, n, nl, mu, mul);
-    p->X = a;
+    
+    s = big_sub(b, p2->X, nl, p2->Z, nl);
+    if(s) {
+        do {
+            big_add(b2, b, nl, n, nl);
+            big_cpy(b, b2, 0, nl);
+        } while((b2[nl] == 0));
+    }
+    // p->X = b;
 }
 
 // void aff_add(ui x, ui y, ui x1, ui y1, ui x2, ui y2, ui ..)
