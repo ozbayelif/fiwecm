@@ -169,7 +169,7 @@ void aff_curve_point_test() {
     printf("SINGULAR: %d\n", singulars);
 }
 
-void pro_add_test(FILE *fp) {
+void pro_add_gmp_test() {
     MONTG_CURVE c = (MONTG_CURVE)malloc(sizeof(MONTG_CURVE_t) * 1);
     PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
@@ -201,7 +201,6 @@ void pro_add_test(FILE *fp) {
     mpz_init(mp_res);
     mpz_init(mp_res2);
     
-    /* For debugging with gmp
     for (i = 0; i < 100000; i++) {
         nl = (ui_t)(rand() % 100 + 1);
         ui_t n[nl], mu[nl + 1], X1[nl], X2[nl], Xd[nl], Z1[nl], Z2[nl], Zd[nl];
@@ -287,7 +286,18 @@ void pro_add_test(FILE *fp) {
         }
     
     }
-    */
+    printf("TRUE: %d\n", trues);
+    printf("FALSE: %d\n", falses);
+}
+
+void pro_add_magma_test() {
+    FILE *fp = fopen("/home/ozbayelif/Development/FIWE/ecm/input.magma", "a");
+    PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    PRO_POINT p2 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    PRO_POINT pd = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    ui_t nl;
+    int i, trues = 0, falses = 0;
 
     fprintf(fp, "clear;\n");
     fprintf(fp, "/****************************************************************************/\n");
@@ -338,19 +348,72 @@ void pro_add_test(FILE *fp) {
         fprintf(fp, "end if;\n");
         
     }
-    // printf("TRUE: %d\n", trues);
-    // printf("FALSE: %d\n", falses);
-
     fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/output.magma\", trues);\n");
     fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/output.magma\", falses);\n");
+
+    fclose(fp);
+}
+
+void pro_dbl_magma_test() {
+    FILE *fp = fopen("/home/ozbayelif/Development/FIWE/ecm/input.magma", "a");
+    PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    ui_t nl;
+    int i, trues = 0, falses = 0;
+
+    fprintf(fp, "clear;\n");
+    fprintf(fp, "/****************************************************************************/\n");
+    fprintf(fp, "DBLM:=function(X1, Z1, A24)\n");
+    fprintf(fp, "return ((X1+Z1)*(X1+Z1))*((X1-Z1)*(X1-Z1)),(((X1+Z1)*(X1+Z1))-((X1-Z1)*(X1-Z1)))*(((X1-Z1)*(X1-Z1))+A24*(((X1+Z1)*(X1+Z1)) - ((X1-Z1)*(X1-Z1))));\n");
+    fprintf(fp, "end function;\n");
+    fprintf(fp, "trues := 0;\n");
+    fprintf(fp, "falses := 0;\n");
+
+    for (i = 0; i < 10000; i++) {
+        nl = (ui_t)(rand() % 100 + 1);
+        ui_t n[nl], mu[nl + 1], X1[nl], Z1[nl], A24[nl];
+
+        big_rand(n, nl);
+        big_get_mu(mu, n, nl);
+        big_rand(X1, nl);
+        big_rand(Z1, nl);
+        big_rand(A24, nl);
+
+        p1->X = X1;
+        p1->Z = Z1;
+
+        pro_dbl(p, p1, A24, n, nl, mu, nl + 1);
+
+        big_print(fp, n, nl, "n", NULL);
+        fprintf(fp, "R:=Integers(n);\n");
+        big_print(fp, p1->X, nl, "X1", "R");
+        big_print(fp, p1->Z, nl, "Z1", "R");
+        big_print(fp, A24, nl, "A24", "R");
+
+        big_print(fp, p->X, nl, "pX", "R");
+        big_print(fp, p->Z, nl, "pZ", "R");
+
+        fprintf(fp, "qX, qZ := DBLM(X1, Z1, A24);\n");
+        fprintf(fp, "if qX eq pX then\n");
+        fprintf(fp, "trues := trues + 1;\n");
+        fprintf(fp, "else\n");
+        fprintf(fp, "falses := falses + 1;\n");
+        fprintf(fp, "end if;\n");
+        
+    }
+    fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/output.magma\", trues);\n");
+    fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/output.magma\", falses);\n");
+
+    fclose(fp);
 }
 
 int main() {
-    // FILE *fp = fopen("/home/ozbayelif/Development/FIWE/ecm/input.magma", "a");
+    
 
-    pro_curve_point_test();
+    // pro_curve_point_test();
     // aff_curve_point_test();
-    // pro_add_test(fp);
-
-    // fclose(fp);
+    // pro_add_gmp_test();
+    // pro_add_magma_test();
+    // pro_dbl_magma_test();
+    
 }
