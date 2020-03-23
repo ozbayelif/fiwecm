@@ -37,55 +37,44 @@ void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_
         if(A2[i] != 0L) {
             s = 1;
         }
-    }
+    }                                                           // Check singularity
     if(s != 0) {
-        // AX^2Z
         big_mul(X2_, X, nl, X, nl);
-        barret_reduction(X2, X2_, 2 * nl, n, nl, mu, mul);
+        barret_reduction(X2, X2_, 2 * nl, n, nl, mu, mul);      // X2 = X^2
         big_mul(AX2_, A, nl, X2, nl);
-        barret_reduction(AX2, AX2_, 2 * nl, n, nl, mu, mul);
+        barret_reduction(AX2, AX2_, 2 * nl, n, nl, mu, mul);    // AX = AX^2
         big_mul(AX2Z_, AX2, nl, Z, nl);
-        barret_reduction(AX2Z, AX2Z_, 2 * nl, n, nl, mu, mul);
-
-        // X^3
+        barret_reduction(AX2Z, AX2Z_, 2 * nl, n, nl, mu, mul);  // AX2Z = AX^2Z
         big_mul(X3_, X2, nl, X, nl);
-        barret_reduction(X3, X3_, 2 * nl, n, nl, mu, mul);
-
-        // XZ^2
+        barret_reduction(X3, X3_, 2 * nl, n, nl, mu, mul);      // X3 = X^3
         big_mul(Z2_, Z, nl, Z, nl);
-        barret_reduction(Z2, Z2_, 2 * nl, n, nl, mu, mul);
+        barret_reduction(Z2, Z2_, 2 * nl, n, nl, mu, mul);      // Z2 = Z^2
         big_mul(XZ2_, X, nl, Z2, nl);
-        barret_reduction(XZ2, XZ2_, 2 * nl, n, nl, mu, mul);
-        
-        // Y^2Z
+        barret_reduction(XZ2, XZ2_, 2 * nl, n, nl, mu, mul);    // XZ2 = XZ^2
         big_mul(Y2_, Y, nl, Y, nl);
-        barret_reduction(Y2, Y2_, 2 * nl, n, nl, mu, mul);
+        barret_reduction(Y2, Y2_, 2 * nl, n, nl, mu, mul);      // Y2 = Y^2
         big_mul(Y2Z_, Y2, nl, Z, nl);
-        barret_reduction(Y2Z, Y2Z_, 2 * nl, n, nl, mu, mul);
-        
-        // RHS = X^3 + AX^2Z + XZ^2
+        barret_reduction(Y2Z, Y2Z_, 2 * nl, n, nl, mu, mul);    // Y2Z = Y^2Z
         for(i = nl + 1; i < 2 * nl; i++) {
             RHS1_[i] = 0L;
             RHS_[i] = 0L;
         }
         big_add(RHS1_, X3, nl, AX2Z, nl);
-        barret_reduction(RHS1, RHS1_, 2 * nl, n, nl, mu, mul);
+        barret_reduction(RHS1, RHS1_, 2 * nl, n, nl, mu, mul);  // RHS1 = X^3 + AX^2Z
         big_add(RHS_, RHS1, nl, XZ2, nl);
-        barret_reduction(RHS, RHS_, 2 * nl, n, nl, mu, mul);
-
-        // B or factorize
+        barret_reduction(RHS, RHS_, 2 * nl, n, nl, mu, mul);    // RHS = X^3 + AX^2Z + XZ^2
         mpz_import(mp_Y2Z, nl, -1, 4, 0, 0, Y2Z);
         mpz_gcd(mp_d, mp_Y2Z, mp_n);
-        mpz_export(d, NULL, -1, 4, 0, 0, mp_d);
+        mpz_export(d, NULL, -1, 4, 0, 0, mp_d);                 // d = GCD(Y^2Z, n)
 
         if(mpz_cmp_ui(mp_d, 1) == 0 || mpz_cmp(mp_d, mp_n) == 0) {
-            for(i = 0; i < nl; i++) { // mpz_export does not write anything
-                iY2Z[i] = 0L;           // if the number is 0
+            for(i = 0; i < nl; i++) {
+                iY2Z[i] = 0L;
             }
             mpz_invert(mp_iY2Z, mp_Y2Z, mp_n);
-            mpz_export(iY2Z, NULL, -1, 4, 0, 0, mp_iY2Z);
+            mpz_export(iY2Z, NULL, -1, 4, 0, 0, mp_iY2Z);       // iY2Z = Inv(Y^2Z)
             big_mul(B_, RHS, nl, iY2Z, nl);
-            barret_reduction(B, B_, 2 * nl, n, nl, mu, mul);
+            barret_reduction(B, B_, 2 * nl, n, nl, mu, mul);    // B = RHS * Inv(Y^2Z)
             mpz_import(mp_b, nl, -1, 4, 0, 0, B);
             s = mpz_cmp_ui(mp_b, 0L);
             if(s != 0) {
@@ -134,45 +123,36 @@ void aff_curve_point(ui d, MONTG_CURVE c, AFF_POINT p, ui n, ui_t nl, ui mu, ui_
         if(A2[i] != 0L) {
             s = 1;
         }
-    }
+    }                                                           // Check singularity
     if(s != 0) {
-        // Ax^2
         big_mul(x2_, x, nl, x, nl);
-        barret_reduction(x2, x2_, 2 * nl, n, nl, mu, mul);
+        barret_reduction(x2, x2_, 2 * nl, n, nl, mu, mul);      // x2 = x^2
         big_mul(Ax2_, A, nl, x2, nl);
-        barret_reduction(Ax2, Ax2_, 2 * nl, n, nl, mu, mul);
-
-        // x^3
+        barret_reduction(Ax2, Ax2_, 2 * nl, n, nl, mu, mul);    // Ax2 = Ax^2
         big_mul(x3_, x2, nl, x, nl);
-        barret_reduction(x3, x3_, 2 * nl, n, nl, mu, mul);
-
-        // y^2
+        barret_reduction(x3, x3_, 2 * nl, n, nl, mu, mul);      // x3 = x^3
         big_mul(y2_, y, nl, y, nl);
-        barret_reduction(y2, y2_, 2 * nl, n, nl, mu, mul);
-        
-        // rhs = x^3 + Ax^2 + X
+        barret_reduction(y2, y2_, 2 * nl, n, nl, mu, mul);      // y2 = y^2
         for(i = nl + 1; i < 2 * nl; i++) {
             rhs1_[i] = 0L;
             rhs_[i] = 0L;
         }
         big_add(rhs1_, x3, nl, Ax2, nl);
-        barret_reduction(rhs1, rhs1_, 2 * nl, n, nl, mu, mul);
+        barret_reduction(rhs1, rhs1_, 2 * nl, n, nl, mu, mul);  // rhs1 = x^3 + Ax^2
         big_add(rhs_, rhs1, nl, x, nl);
-        barret_reduction(rhs, rhs_, 2 * nl, n, nl, mu, mul);
-
-        // B or factorize
+        barret_reduction(rhs, rhs_, 2 * nl, n, nl, mu, mul);    // rhs = x^3 + Ax^2 + x
         mpz_import(mp_y2, nl, -1, 4, 0, 0, y2);
         mpz_gcd(mp_d, mp_y2, mp_n);
-        mpz_export(d, NULL, -1, 4, 0, 0, mp_d);
+        mpz_export(d, NULL, -1, 4, 0, 0, mp_d);                 // d = GCD(y^2, n)
 
         if(mpz_cmp_ui(mp_d, 1) == 0 || mpz_cmp(mp_d, mp_n) == 0) {
-            for(i = 0; i < nl; i++) { // mpz_export does not write anything
-                iy2[i] = 0L;           // if the number is 0
+            for(i = 0; i < nl; i++) {
+                iy2[i] = 0L;
             }
             mpz_invert(mp_iy2, mp_y2, mp_n);
-            mpz_export(iy2, NULL, -1, 4, 0, 0, mp_iy2);
+            mpz_export(iy2, NULL, -1, 4, 0, 0, mp_iy2);         // iy2 = Inv(y^2)
             big_mul(B_, rhs, nl, iy2, nl);
-            barret_reduction(B, B_, 2 * nl, n, nl, mu, mul);
+            barret_reduction(B, B_, 2 * nl, n, nl, mu, mul);    // B = rhs * Inv(y^2)
             mpz_import(mp_b, nl, -1, 4, 0, 0, B);
             s = mpz_cmp_ui(mp_b, 0L);
             if(s != 0) {
