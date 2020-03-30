@@ -19,5 +19,6 @@ void big_add(ui z, ui a, ui_t al, ui b, ui_t bl);
 int big_sub(ui z, ui a, ui_t al, ui b, ui_t bl);
 void big_mul(ui z, ui a, ui_t al, ui b, ui_t bl);
 void big_get_mu(ui z, ui n, ui_t nl);
+void big_get_A24(ui A24, ui A, ui n, ui_t nl, ui mu, ui_t mul);
 uni_t barret_reduction_UL(uni_t p, uni_t b, uni_t k, uni_t z, uni_t m, uni_t L);
 void barret_reduction(ui z, ui m, ui_t ml, ui n, ui_t nl, ui mu, ui_t mul);

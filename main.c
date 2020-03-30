@@ -291,7 +291,7 @@ void pro_add_gmp_test() {
 }
 
 void pro_add_magma_test() {
-    FILE *fp = fopen("/home/ozbayelif/Development/FIWE/ecm/input.magma", "a");
+    FILE *fp = fopen("/home/ozbayelif/Development/FIWE/ecm/pro_add_test.magma", "a");
     PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p2 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
@@ -348,14 +348,14 @@ void pro_add_magma_test() {
         fprintf(fp, "end if;\n");
         
     }
-    fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/output.magma\", trues);\n");
-    fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/output.magma\", falses);\n");
+    fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/pro_add_results.magma\", trues);\n");
+    fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/pro_add_results.magma\", falses);\n");
 
     fclose(fp);
 }
 
 void pro_dbl_magma_test() {
-    FILE *fp = fopen("/home/ozbayelif/Development/FIWE/ecm/input.magma", "a");
+    FILE *fp = fopen("/home/ozbayelif/Development/FIWE/ecm/pro_dbl_test.magma", "a");
     PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     ui_t nl;
@@ -401,19 +401,77 @@ void pro_dbl_magma_test() {
         fprintf(fp, "end if;\n");
         
     }
-    fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/output.magma\", trues);\n");
-    fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/output.magma\", falses);\n");
+    fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/pro_dbl_results.magma\", trues);\n");
+    fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/pro_dbl_results.magma\", falses);\n");
+
+    fclose(fp);
+}
+
+void pro_ladder_test() {
+    FILE *fp = fopen("/home/ozbayelif/Development/FIWE/ecm/pro_ladder_test.magma", "a");
+    MONTG_CURVE c = (MONTG_CURVE)malloc(sizeof(MONTG_CURVE_t) * 1);
+    PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    ui_t nl, kl;
+    int i, j, flag, trues = 0, falses = 0;
+
+    fprintf(fp, "trues := 0;\n");
+    fprintf(fp, "falses := 0;\n");
+
+    for (i = 0; i < 1000; i++) {
+        nl = (ui_t)(rand() % 100 + 1);
+        kl = 1;
+        ui_t n[nl], mu[nl + 1], X1[nl], Z1[nl], k[kl];
+        ui d = (ui)malloc(sizeof(ui_t) * nl);
+        ui A24 = (ui)malloc(sizeof(ui_t) * nl);
+        flag = 0;
+
+        big_rand(n, nl);
+        big_get_mu(mu, n, nl);
+        pro_curve_point(d, c, p1, n, nl, mu, nl + 1, &flag);
+        if(flag) {
+            big_print(fp, n, nl, "n", NULL);
+            fprintf(fp, "R:=RingOfIntegers(n);\n");
+            big_print(fp, k, kl, "k", NULL);
+            big_print(fp, c->A, nl, "A", "R");
+            big_print(fp, c->B, nl, "B", "R");
+            fprintf(fp, "S<X,Y,Z>:=ProjectiveSpace(R,2);\n");
+            fprintf(fp, "C<X,Y,Z>:=Curve(S,[B*Y^2*Z-(X^3+A*X^2*Z+X*Z^2)]);\n");
+            // fprintf(fp, "E,MtoW:=EllipticCurve(C,C![0,1,0]);\n");
+            // fprintf(fp, "WtoM:=Inverse(MtoW);\n\n");
+
+            big_print(fp, p1->X, nl, "X1", "R");
+            big_print(fp, p1->Y, nl, "Y1", "R");
+            big_print(fp, p1->Z, nl, "Z1", "R");
+
+            fprintf(fp, "P1:=C![X1, Y1, Z1];\n\n");
+
+            big_get_A24(A24, c->A, n, nl, mu, nl + 1);
+            pro_ladder(p, p1, A24, k, kl, n, nl, mu, nl + 1);
+
+            big_print(fp, p->X, nl, "X", "R");
+            big_print(fp, p->Z, nl, "Z", "R");
+
+            fprintf(fp, "P2 := k*P1;\n");
+            fprintf(fp, "if (P2[1] eq X and P2[3] eq Z) then\n");
+            fprintf(fp, "trues := trues + 1;\n");
+            fprintf(fp, "else\n");
+            fprintf(fp, "falses := falses + 1;\n");
+            fprintf(fp, "end if;\n\n");
+
+        }
+    }
+    fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/pro_ladder_results.magma\", trues);\n");
+    fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/pro_ladder_results.magma\", falses);\n");
 
     fclose(fp);
 }
 
 int main() {
-    
-
     // pro_curve_point_test();
     // aff_curve_point_test();
     // pro_add_gmp_test();
     // pro_add_magma_test();
     // pro_dbl_magma_test();
-    
+    pro_ladder_test();
 }

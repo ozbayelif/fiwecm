@@ -90,6 +90,30 @@ void big_get_mu(ui mu, ui n, ui_t nl) {
 	mpz_export(mu, NULL, -1, 4, 0, 0, mp_mu);
 }
 
+void big_get_A24(ui A24, ui A, ui n, ui_t nl, ui mu, ui_t mul) {
+	ui_t c_2[nl], A2_[2 * nl], A2[nl];
+	ui_t temp = 0L;
+	int i;
+
+	for(i = nl + 1; i < 2 * nl; i++) {
+        A2_[i] = 0L;
+    }
+	c_2[0] = 2L;
+	for (i = 1; i < nl; i++) {
+		c_2[i] = 0L;
+	}
+	big_add(A2_, A, nl, c_2, nl);
+	barret_reduction(A2, A2_, 2 * nl, n, nl, mu, mul);
+	big_cpy(A24, A2, 0, nl);
+	for(i = 0; i < nl - 1; i++) {
+		A24[i] >>= 2;
+		temp = A24[i + 1];
+		temp <<= (W - 2);
+		A24[i] |= temp; 
+	}
+	A24[nl - 1] >>= 2;
+}
+
 uni_t barret_reduction_UL(uni_t p, uni_t b, uni_t k, uni_t z, uni_t m, uni_t L) { // Calculate z mod p where z < 2^W and p < 2^W
     uni_t bkpp = (k + 1) * L;
     uni_t bkmp = (k - 1) * L;

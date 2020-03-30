@@ -5,7 +5,7 @@
 #include "mplib.h"
 
 void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_t mul, int *flag) {
-    ui_t A2_[2 * nl], A2[nl], B_[2 * nl], X2_[2 * nl], X2[nl], AX2_[2 * nl], AX2[nl], AX2Z_[2 * nl], AX2Z[nl], X3_[2 * nl], X3[nl], Z2_[2 * nl], Z2[nl], XZ2_[2 * nl], XZ2[nl], Y2_[2 * nl], Y2[nl], Y2Z_[2 * nl], Y2Z[nl], iY2Z[nl], RHS1_[2 * nl], RHS1[nl], RHS_[2 * nl], RHS[nl];
+    ui_t A__[2 * nl], X__[2 * nl], Y__[2 * nl], Z__[2 * nl], A2_[2 * nl], A2[nl], B_[2 * nl], X2_[2 * nl], X2[nl], AX2_[2 * nl], AX2[nl], AX2Z_[2 * nl], AX2Z[nl], X3_[2 * nl], X3[nl], Z2_[2 * nl], Z2[nl], XZ2_[2 * nl], XZ2[nl], Y2_[2 * nl], Y2[nl], Y2Z_[2 * nl], Y2Z[nl], iY2Z[nl], RHS1_[2 * nl], RHS1[nl], RHS_[2 * nl], RHS[nl];
     ui A = (ui)malloc(sizeof(ui_t) * nl);
     ui B = (ui)malloc(sizeof(ui_t) * nl);
     ui X = (ui)malloc(sizeof(ui_t) * nl);
@@ -23,10 +23,14 @@ void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_
     mpz_set_ui(mp_d, 0L);
 
     mpz_import(mp_n, nl, -1, 4, 0, 0, n);
-    big_rand(A, nl);
-    big_rand(X, nl);
-    big_rand(Y, nl);
-    big_rand(Z, nl);
+    big_rand(A__, 2 * nl);
+    barret_reduction(A, A__, 2 * nl, n, nl, mu, mul);
+    big_rand(X__, 2 * nl);
+    barret_reduction(X, X__, 2 * nl, n, nl, mu, mul);
+    big_rand(Y__, nl);
+    barret_reduction(Y, Y__, 2 * nl, n, nl, mu, mul);
+    big_rand(Z__, nl);
+    barret_reduction(Z, Z__, 2 * nl, n, nl, mu, mul);
     
     big_mul(A2_, A, nl, A, nl);
     barret_reduction(A2, A2_, 2 * nl, n, nl, mu, mul);
@@ -231,6 +235,7 @@ void pro_add(PRO_POINT p, PRO_POINT p1, PRO_POINT p2, PRO_POINT pd, ui n, ui_t n
     p->Z = Z;
 }
 
+// Reuqires division
 void aff_add(AFF_POINT p, AFF_POINT p1, AFF_POINT p2, ui A, ui B, ui n, ui_t nl, ui mu, ui_t mul) {
     // ui_t c[nl], cs[nl + 1], c2_[2 * nl], c2[nl], c3_[2 * nl], c3[nl], d[nl], ds[nl + 1], d2_[2 * nl], d2[nl], d3_[2 * nl], d3[nl];
     // ui x = (ui)malloc(sizeof(ui_t) * nl);
@@ -317,10 +322,61 @@ void pro_dbl(PRO_POINT p, PRO_POINT p1, ui A24, ui n, ui_t nl, ui mu, ui_t mul) 
     p->Z = Z;
 }
 
+// Reuqires division
 void aff_dbl(ui x, ui z, ui x1, ui y1, ui A, ui B, ui n) {
 }
 
-void pro_ladder(ui X, ui Z, ui X1, ui Z1, ui k, ui n) {
+void pro_ladder(PRO_POINT p, PRO_POINT p1, ui A24, ui k, ui_t kl, ui n, ui_t nl, ui mu, ui_t mul) {
+    ui_t a, x;
+    PRO_POINT R0 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    PRO_POINT R1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    PRO_POINT_t R0_, R1_;
+    int i, j;
+
+    R0->X = p1->X;
+    R0->Z = p1->Z;
+    pro_dbl(R1, p1, A24, n, nl, mu, mul);
+
+    a = k[kl - 1];
+    j = 0;
+    while(a > 0) {
+        a = a >> 1;
+        j++;
+    }                                                           // Find the index of the first 1
+    for(i = j - 2; i >= 0; i--) {
+        x = 1;
+        x <<= i;
+        R0_->X = R0->X;
+        R0_->Z = R0->Z;
+        R1_->X = R1->X;
+        R1_->Z = R1->Z;
+        if(!(k[kl - 1] & x)) {
+            pro_dbl(R0, R0_, A24, n, nl, mu, mul);
+            pro_add(R1, R0_, R1_, p1, n, nl, mu, mul);
+        } else {
+            pro_add(R0, R0_, R1_, p1, n, nl, mu, mul);
+            pro_dbl(R1, R1_, A24, n, nl, mu, mul);
+        }
+    }
+    for (i = kl - 2; i >= 0; i--) {
+        for(j = W - 1; j >= 0; j--) {
+            x = 1;
+            x <<= i;
+            R0_->X = R0->X;
+            R0_->Z = R0->Z;
+            R1_->X = R1->X;
+            R1_->Z = R1->Z;
+            if(!(k[kl - 1] & x)) {
+                pro_dbl(R0, R0_, A24, n, nl, mu, mul);
+                pro_add(R1, R0_, R1_, p1, n, nl, mu, mul);
+            } else {
+                pro_add(R0, R0_, R1_, p1, n, nl, mu, mul);
+                pro_dbl(R1, R1_, A24, n, nl, mu, mul);
+            }
+        }
+    }
+    p->X = R0->X;
+    p->Z = R0->Z;
 }
 
 void aff_ladder(ui x, ui y, ui x1, ui y1, ui k, ui n) {
