@@ -32,7 +32,7 @@ void pro_curve_point_test() {
     mpz_set_ui(mp_mod, 0L);
     mpz_set_ui(mp_dif, 0L);
 
-    for (i = 0; i < 100000; i++) {
+    for (i = 0; i < 1000; i++) {
         nl = (ui_t)(rand() % 100 + 1);
         ui_t n[nl], mu[nl + 1], d[nl];
         
@@ -89,6 +89,7 @@ void pro_curve_point_test() {
     }
     printf("TRUE: %d\n", trues);
     printf("FALSE: %d\n", falses);
+    printf("SINGULAR: %d\n", singulars);
 }
 
 void aff_curve_point_test() {
@@ -210,12 +211,12 @@ void pro_add_gmp_test() {
 
         big_rand(n, nl);
         big_get_mu(mu, n, nl);
-        big_rand(X1, nl);
-        big_rand(X2, nl);
-        big_rand(Xd, nl);
-        big_rand(Z1, nl);
-        big_rand(Z2, nl);
-        big_rand(Zd, nl);
+        big_mod_rand(X1, nl, n, nl, mu, nl + 1);
+        big_mod_rand(X2, nl, n, nl, mu, nl + 1);
+        big_mod_rand(Xd, nl, n, nl, mu, nl + 1);
+        big_mod_rand(Z1, nl, n, nl, mu, nl + 1);
+        big_mod_rand(Z2, nl, n, nl, mu, nl + 1);
+        big_mod_rand(Zd, nl, n, nl, mu, nl + 1);
     
         mpz_import(mp_n, nl, -1, 4, 0, 0, n);
         mpz_import(mp_x1, nl, -1, 4, 0, 0, X1);
@@ -313,12 +314,12 @@ void pro_add_magma_test() {
 
         big_rand(n, nl);
         big_get_mu(mu, n, nl);
-        big_rand(X1, nl);
-        big_rand(X2, nl);
-        big_rand(Xd, nl);
-        big_rand(Z1, nl);
-        big_rand(Z2, nl);
-        big_rand(Zd, nl);
+        big_mod_rand(X1, nl, n, nl, mu, nl + 1);
+        big_mod_rand(X2, nl, n, nl, mu, nl + 1);
+        big_mod_rand(Xd, nl, n, nl, mu, nl + 1);
+        big_mod_rand(Z1, nl, n, nl, mu, nl + 1);
+        big_mod_rand(Z2, nl, n, nl, mu, nl + 1);
+        big_mod_rand(Zd, nl, n, nl, mu, nl + 1);
 
         p1->X = X1;
         p2->X = X2;
@@ -375,9 +376,9 @@ void pro_dbl_magma_test() {
 
         big_rand(n, nl);
         big_get_mu(mu, n, nl);
-        big_rand(X1, nl);
-        big_rand(Z1, nl);
-        big_rand(A24, nl);
+        big_mod_rand(X1, nl, n, nl, mu, nl + 1);
+        big_mod_rand(Z1, nl, n, nl, mu, nl + 1);
+        big_mod_rand(A24, nl, n, nl, mu, nl + 1);
 
         p1->X = X1;
         p1->Z = Z1;
@@ -407,71 +408,71 @@ void pro_dbl_magma_test() {
     fclose(fp);
 }
 
-void pro_ladder_test() {
-    FILE *fp = fopen("/home/ozbayelif/Development/FIWE/ecm/pro_ladder_test.magma", "a");
-    MONTG_CURVE c = (MONTG_CURVE)malloc(sizeof(MONTG_CURVE_t) * 1);
-    PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-    PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-    ui_t nl, kl;
-    int i, j, flag, trues = 0, falses = 0;
+// void pro_ladder_test() {
+//     FILE *fp = fopen("/home/ozbayelif/Development/FIWE/ecm/pro_ladder_test.magma", "a");
+//     MONTG_CURVE c = (MONTG_CURVE)malloc(sizeof(MONTG_CURVE_t) * 1);
+//     PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+//     PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+//     ui_t nl, kl;
+//     int i, j, flag, trues = 0, falses = 0;
 
-    fprintf(fp, "trues := 0;\n");
-    fprintf(fp, "falses := 0;\n");
+//     fprintf(fp, "trues := 0;\n");
+//     fprintf(fp, "falses := 0;\n");
 
-    for (i = 0; i < 1000; i++) {
-        nl = (ui_t)(rand() % 100 + 1);
-        kl = 1;
-        ui_t n[nl], mu[nl + 1], X1[nl], Z1[nl], k[kl];
-        ui d = (ui)malloc(sizeof(ui_t) * nl);
-        ui A24 = (ui)malloc(sizeof(ui_t) * nl);
-        flag = 0;
+//     for (i = 0; i < 1000; i++) {
+//         nl = (ui_t)(rand() % 100 + 1);
+//         kl = 1;
+//         ui_t n[nl], mu[nl + 1], X1[nl], Z1[nl], k[kl];
+//         ui d = (ui)malloc(sizeof(ui_t) * nl);
+//         ui A24 = (ui)malloc(sizeof(ui_t) * nl);
+//         flag = 0;
 
-        big_rand(n, nl);
-        big_get_mu(mu, n, nl);
-        pro_curve_point(d, c, p1, n, nl, mu, nl + 1, &flag);
-        if(flag) {
-            big_print(fp, n, nl, "n", NULL);
-            fprintf(fp, "R:=RingOfIntegers(n);\n");
-            big_print(fp, k, kl, "k", NULL);
-            big_print(fp, c->A, nl, "A", "R");
-            big_print(fp, c->B, nl, "B", "R");
-            fprintf(fp, "S<X,Y,Z>:=ProjectiveSpace(R,2);\n");
-            fprintf(fp, "C<X,Y,Z>:=Curve(S,[B*Y^2*Z-(X^3+A*X^2*Z+X*Z^2)]);\n");
-            // fprintf(fp, "E,MtoW:=EllipticCurve(C,C![0,1,0]);\n");
-            // fprintf(fp, "WtoM:=Inverse(MtoW);\n\n");
+//         big_rand(n, nl);
+//         big_get_mu(mu, n, nl);
+//         pro_curve_point(d, c, p1, n, nl, mu, nl + 1, &flag);
+//         if(flag) {
+//             big_print(fp, n, nl, "n", NULL);
+//             fprintf(fp, "R:=RingOfIntegers(n);\n");
+//             big_print(fp, k, kl, "k", NULL);
+//             big_print(fp, c->A, nl, "A", "R");
+//             big_print(fp, c->B, nl, "B", "R");
+//             fprintf(fp, "S<X,Y,Z>:=ProjectiveSpace(R,2);\n");
+//             fprintf(fp, "C<X,Y,Z>:=Curve(S,[B*Y^2*Z-(X^3+A*X^2*Z+X*Z^2)]);\n");
+//             // fprintf(fp, "E,MtoW:=EllipticCurve(C,C![0,1,0]);\n"); // TODO: maile bak
+//             // fprintf(fp, "WtoM:=Inverse(MtoW);\n\n");
 
-            big_print(fp, p1->X, nl, "X1", "R");
-            big_print(fp, p1->Y, nl, "Y1", "R");
-            big_print(fp, p1->Z, nl, "Z1", "R");
+//             big_print(fp, p1->X, nl, "X1", "R");
+//             big_print(fp, p1->Y, nl, "Y1", "R");
+//             big_print(fp, p1->Z, nl, "Z1", "R");
 
-            fprintf(fp, "P1:=C![X1, Y1, Z1];\n\n");
+//             fprintf(fp, "P1:=C![X1, Y1, Z1];\n\n");
 
-            big_get_A24(A24, c->A, n, nl, mu, nl + 1);
-            pro_ladder(p, p1, A24, k, kl, n, nl, mu, nl + 1);
+//             big_get_A24(A24, c->A, n, nl, mu, nl + 1);
+//             pro_ladder(p, p1, A24, k, kl, n, nl, mu, nl + 1);
 
-            big_print(fp, p->X, nl, "X", "R");
-            big_print(fp, p->Z, nl, "Z", "R");
+//             big_print(fp, p->X, nl, "X", "R");
+//             big_print(fp, p->Z, nl, "Z", "R");
 
-            fprintf(fp, "P2 := k*P1;\n");
-            fprintf(fp, "if (P2[1] eq X and P2[3] eq Z) then\n");
-            fprintf(fp, "trues := trues + 1;\n");
-            fprintf(fp, "else\n");
-            fprintf(fp, "falses := falses + 1;\n");
-            fprintf(fp, "end if;\n\n");
+//             fprintf(fp, "P2 := k*P1;\n");
+//             fprintf(fp, "if (P2[1] eq X and P2[3] eq Z) then\n");
+//             fprintf(fp, "trues := trues + 1;\n");
+//             fprintf(fp, "else\n");
+//             fprintf(fp, "falses := falses + 1;\n");
+//             fprintf(fp, "end if;\n\n");
 
-        }
-    }
-    fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/pro_ladder_results.magma\", trues);\n");
-    fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/pro_ladder_results.magma\", falses);\n");
+//         }
+//     }
+//     fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/pro_ladder_results.magma\", trues);\n");
+//     fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/pro_ladder_results.magma\", falses);\n");
 
-    fclose(fp);
-}
+//     fclose(fp);
+// }
 
 int main() {
     // pro_curve_point_test();
     // aff_curve_point_test();
     // pro_add_gmp_test();
     // pro_add_magma_test();
-    // pro_dbl_magma_test();
-    pro_ladder_test();
+    pro_dbl_magma_test();
+    // pro_ladder_test();
 }

@@ -14,10 +14,12 @@ typedef unsigned int ui_t;
     } \
 };
 void big_rand(ui z, ui_t l);
+void big_mod_rand(ui z, ui_t l, ui n, ui_t nl, ui mu, ui_t mul);
 void big_print(FILE *fp, ui a, ui_t al, char *s, char *R);
 void big_add(ui z, ui a, ui_t al, ui b, ui_t bl);
 int big_sub(ui z, ui a, ui_t al, ui b, ui_t bl);
 void big_mul(ui z, ui a, ui_t al, ui b, ui_t bl);
+void big_mod_mul(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl, ui mu, ui_t mul);
 void big_get_mu(ui z, ui n, ui_t nl);
 void big_get_A24(ui A24, ui A, ui n, ui_t nl, ui mu, ui_t mul);
 uni_t barret_reduction_UL(uni_t p, uni_t b, uni_t k, uni_t z, uni_t m, uni_t L);

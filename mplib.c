@@ -5,9 +5,23 @@
 
 void big_rand(ui z, ui_t l) {
 	int i;
-	for(i=0; i<l; i++) {
+
+	for(i = 0; i < l; i++) {
 		z[i] = ((ui_t)rand()) * ((ui_t)rand()) * ((ui_t)rand()) * ((ui_t)rand());
 	}
+}
+
+void big_mod_rand(ui z, ui_t l, ui n, ui_t nl, ui mu, ui_t mul) {
+	ui_t z_[2 * nl];
+	int i;
+
+	for(i = 0; i < l; i++) {
+		z[i] = ((ui_t)rand()) * ((ui_t)rand()) * ((ui_t)rand()) * ((ui_t)rand());
+	}
+	for(i = l; i < 2 * nl; i++) {
+		z_[i] = 0L;
+	}
+	barret_reduction(z, z_, 2 * nl, n, nl, mu, mul);
 }
 
 void big_print(FILE *fp, ui a, ui_t al, char *s, char *R) {
@@ -36,6 +50,8 @@ void big_add(ui z, ui a, ui_t al, ui b, ui_t bl) {
 		}
 	}
 	z[al] = carry_bit;
+
+	// TODO: subtract one n if (a+b) ge n
 }
 
 int big_sub(ui z, ui a, ui_t al, ui b, ui_t bl) {
@@ -51,6 +67,8 @@ int big_sub(ui z, ui a, ui_t al, ui b, ui_t bl) {
 		}
 	}
     return borrow_bit;
+
+	// TODO: add one n if (a-b) lt 0
 }
 
 void big_mul(ui z, ui a, ui_t al, ui b, ui_t bl) {
@@ -58,19 +76,43 @@ void big_mul(ui z, ui a, ui_t al, ui b, ui_t bl) {
 	ui_t u, v;
 	uni_t uv;
 
-	for(int i = 0; i <= al; i++) {
+	for(i = 0; i <= al; i++) {
 		z[i] = 0;
 	}
  	for(i = 0; i < al; i++) {
 	 	u = 0;	
 		for(j = 0; j < bl; j++) {
 			uv = (uni_t)z[i + j] + (uni_t)a[i] * (uni_t)b[j] + (uni_t)u;
-			u = uv >> 32;
-			v = uv & 0xFFFFFFFF;
+			u = uv >> W;
+			v = uv & 0xFFFFFFFF;  // TODO: W != 32?
 			z[i + j] = v; 
 		}
 		z[i + bl] = u;
 	}		
+}
+
+void big_mod_mul(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl, ui mu, ui_t mul) {
+	int i, j;
+	ui_t u, v, z_[2 * nl];
+	uni_t uv;
+
+	for(i = al + bl; i < 2 * nl; i++) {
+		z_[i] = 0;
+	}
+	for(i = 0; i <= al; i++) {
+		z_[i] = 0;
+	}
+ 	for(i = 0; i < al; i++) {
+	 	u = 0;	
+		for(j = 0; j < bl; j++) {
+			uv = (uni_t)z_[i + j] + (uni_t)a[i] * (uni_t)b[j] + (uni_t)u;
+			u = uv >> W;
+			v = uv & 0xFFFFFFFF; // TODO: W != 32?
+			z_[i + j] = v; 
+		}
+		z_[i + bl] = u;
+	}
+	barret_reduction(z, z_, 2 * nl, n, nl, mu, mul);
 }
 
 void big_get_mu(ui mu, ui n, ui_t nl) {
