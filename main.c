@@ -115,7 +115,7 @@ void aff_curve_point_test() {
     mpz_set_ui(mp_mod, 0L);
     mpz_set_ui(mp_dif, 0L);
 
-    for (i = 0; i < 100000; i++) {
+    for (i = 0; i < 10000; i++) {
         nl = (ui_t)(rand() % 100 + 1);
         ui_t n[nl], mu[nl + 1], d[nl];
         

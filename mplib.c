@@ -37,6 +37,29 @@ void big_print(FILE *fp, ui a, ui_t al, char *s, char *R) {
     fprintf(fp, ");\n\n");
 }
 
+void big_is_equal(int *z, ui a, ui b, ui_t l) {
+	int i;
+	*z = 1;
+	for(i = 0; i < l; i++) {
+		if(a[i] != b[i]) {
+			*z = 0;
+		}
+	}
+}
+
+void big_is_equal_ui(int *z, ui a, ui_t al, ui_t b) {
+	int i;
+	*z = 1;
+	if(a[0] != b) {
+		*z = 0;
+	}
+	for(i = 1; i < al; i++) {
+		if(a[i] != 0) {
+			*z = 0;
+		}
+	}
+}
+
 void big_add(ui z, ui a, ui_t al, ui b, ui_t bl) {
 	int i;
 	ui_t carry_bit = 0;
@@ -64,13 +87,13 @@ void big_mod_add(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl) {
 		}
 	}
 	if(carry_bit) {
-		big_sub(z, z_, nl, n, nl);
+		big_sub(z, &i, z_, nl, n, nl);
 	} else {
 		big_cpy(z, z_, 0, nl);
 	}
 }
 
-int big_sub(ui z, ui a, ui_t al, ui b, ui_t bl) {
+void big_sub(ui z, int *d, ui a, ui_t al, ui b, ui_t bl) {
 	int i;
 	ui_t borrow_bit = 0;
 
@@ -82,7 +105,7 @@ int big_sub(ui z, ui a, ui_t al, ui b, ui_t bl) {
 			borrow_bit = 1;
 		}
 	}
-	return borrow_bit;
+	*d = borrow_bit;
 }
 
 void big_mod_sub(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl) {
@@ -214,14 +237,51 @@ void barret_reduction(ui z, ui m, ui_t ml, ui n, ui_t nl, ui mu, ui_t mul) { // 
     big_cpy(mm, m, 0, k + 1); // mm = m mod b^(k + 1) 
     big_mul(qn, q, mul, n, nl); // qn = q * n 
     big_cpy(qnm, qn, 0, k + 1); // qnm = qn mod b^(k + 1) 
-    big_sub(r3, mm, k + 1, qnm, k + 1); // r3 = mm - qnm
+    big_sub(r3, &i, mm, k + 1, qnm, k + 1); // r3 = mm - qnm
 	big_cpy(z, r3, 0, k);
-    b = big_sub(r2, r3, nl, n, nl); // while r >= n do: r <- r - n
+    big_sub(r2, &b, r3, nl, n, nl); // while r >= n do: r <- r - n
 	r2[nl] = r3[nl] - b;
     while(!(r2[nl] >> (W - 1))) {
         big_cpy(z, r2, 0, k);
 		big_cpy(r3, r2, 0, k + 1);
-        b = big_sub(r2, r3, nl, n, nl);
+        big_sub(r2, &b, r3, nl, n, nl);
 		r2[nl] = r3[nl] - b;
     }
+}
+
+// Using GMP for now
+void big_gcd(ui d, ui a, ui_t al, ui b, ui_t bl) {
+    mpz_t mp_a, mp_b, mp_d;
+
+	mpz_init(mp_a);
+    mpz_init(mp_b);
+    mpz_init(mp_d);
+
+    mpz_set_ui(mp_a, 0L);
+	mpz_set_ui(mp_b, 0L);
+    mpz_set_ui(mp_d, 0L);
+
+	mpz_import(mp_a, al, -1, 4, 0, 0, a);
+    mpz_import(mp_b, bl, -1, 4, 0, 0, b);
+	mpz_gcd(mp_d, mp_a, mp_b);
+	mpz_export(d, NULL, -1, 4, 0, 0, mp_d);                 
+}
+
+void big_invert(ui z, ui a, ui_t al, ui b, ui_t bl) {
+	int i;
+	mpz_t mp_z, mp_a, mp_b;
+
+	mpz_init(mp_z);
+	mpz_init(mp_a);
+	mpz_init(mp_b);
+
+	mpz_import(mp_a, al, -1, 4, 0, 0, a);
+	mpz_import(mp_b, bl, -1, 4, 0, 0, b);
+	mpz_set_ui(mp_z, 0L);
+
+	for(i = 0; i < bl; i++) {
+		z[i] = 0L;
+	}
+	mpz_invert(mp_z, mp_a, mp_b);
+	mpz_export(z, NULL, -1, 4, 0, 0, mp_z);       // iY2Z = Inv(Y^2Z)
 }
