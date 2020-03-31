@@ -5,7 +5,7 @@
 #include "mplib.h"
 
 void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_t mul, int *flag) {
-    ui_t A__[2 * nl], X__[2 * nl], Y__[2 * nl], Z__[2 * nl], A2[nl], X2[nl], AX2[nl], AX2Z[nl], X3[nl], Z2[nl], XZ2[nl], Y2[nl], Y2Z[nl], iY2Z[nl], RHS1_[2 * nl], RHS1[nl], RHS_[2 * nl], RHS[nl];
+    ui_t A__[2 * nl], X__[2 * nl], Y__[2 * nl], Z__[2 * nl], A2[nl], X2[nl], AX2[nl], AX2Z[nl], X3[nl], Z2[nl], XZ2[nl], Y2[nl], Y2Z[nl], iY2Z[nl], RHS1[nl], RHS[nl];
     ui A = (ui)malloc(sizeof(ui_t) * nl);
     ui B = (ui)malloc(sizeof(ui_t) * nl);
     ui X = (ui)malloc(sizeof(ui_t) * nl);
@@ -46,14 +46,8 @@ void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_
         big_mod_mul(XZ2, X, nl, Z2, nl, n, nl, mu, mul);        // XZ2 = XZ^2
         big_mod_mul(Y2, Y, nl, Y, nl, n, nl, mu, mul);          // Y2 = Y^2
         big_mod_mul(Y2Z, Y2, nl, Z, nl, n, nl, mu, mul);        // Y2Z = Y^2Z
-        for(i = nl + 1; i < 2 * nl; i++) {
-            RHS1_[i] = 0L;
-            RHS_[i] = 0L;
-        }
-        big_add(RHS1_, X3, nl, AX2Z, nl);
-        barret_reduction(RHS1, RHS1_, 2 * nl, n, nl, mu, mul);  // RHS1 = X^3 + AX^2Z
-        big_add(RHS_, RHS1, nl, XZ2, nl);
-        barret_reduction(RHS, RHS_, 2 * nl, n, nl, mu, mul);    // RHS = X^3 + AX^2Z + XZ^2
+        big_mod_add(RHS1, X3, nl, AX2Z, nl, n, nl);                 // RHS1 = X^3 + AX^2Z
+        big_mod_add(RHS, RHS1, nl, XZ2, nl, n, nl);                 // RHS = X^3 + AX^2Z + XZ^2
         mpz_import(mp_Y2Z, nl, -1, 4, 0, 0, Y2Z);
         mpz_gcd(mp_d, mp_Y2Z, mp_n);
         mpz_export(d, NULL, -1, 4, 0, 0, mp_d);                 // d = GCD(Y^2Z, n)
@@ -83,7 +77,7 @@ void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_
 }
 
 void aff_curve_point(ui d, MONTG_CURVE c, AFF_POINT p, ui n, ui_t nl, ui mu, ui_t mul, int *flag) {
-    ui_t A2[nl], x2[nl], x3[nl], Ax2[nl], y2[nl], iy2[nl], rhs1_[2 * nl], rhs1[nl], rhs_[2 * nl], rhs[nl];
+    ui_t A2[nl], x2[nl], x3[nl], Ax2[nl], y2[nl], iy2[nl], rhs1[nl], rhs[nl];
     ui A = (ui)malloc(sizeof(ui_t) * nl);
     ui B = (ui)malloc(sizeof(ui_t) * nl);
     ui x = (ui)malloc(sizeof(ui_t) * nl);
@@ -118,14 +112,8 @@ void aff_curve_point(ui d, MONTG_CURVE c, AFF_POINT p, ui n, ui_t nl, ui mu, ui_
         big_mod_mul(Ax2, A, nl, x2, nl, n, nl, mu, mul);        // Ax2 = Ax^2
         big_mod_mul(x3, x2, nl, x, nl, n, nl, mu, mul);         // x3 = x^3
         big_mod_mul(y2, y, nl, y, nl, n, nl, mu, mul);          // y2 = y^2
-        for(i = nl + 1; i < 2 * nl; i++) {
-            rhs1_[i] = 0L;
-            rhs_[i] = 0L;
-        }
-        big_add(rhs1_, x3, nl, Ax2, nl);
-        barret_reduction(rhs1, rhs1_, 2 * nl, n, nl, mu, mul);  // rhs1 = x^3 + Ax^2
-        big_add(rhs_, rhs1, nl, x, nl);
-        barret_reduction(rhs, rhs_, 2 * nl, n, nl, mu, mul);    // rhs = x^3 + Ax^2 + x
+        big_mod_add(rhs1, x3, nl, Ax2, nl, n, nl);                  // rhs1 = x^3 + Ax^2
+        big_mod_add(rhs, rhs1, nl, x, nl, n, nl);                   // rhs = x^3 + Ax^2 + x
         mpz_import(mp_y2, nl, -1, 4, 0, 0, y2);
         mpz_gcd(mp_d, mp_y2, mp_n);
         mpz_export(d, NULL, -1, 4, 0, 0, mp_d);                 // d = GCD(y^2, n)
@@ -154,46 +142,19 @@ void aff_curve_point(ui d, MONTG_CURVE c, AFF_POINT p, ui n, ui_t nl, ui mu, ui_
 }
 
 void pro_add(PRO_POINT p, PRO_POINT p1, PRO_POINT p2, PRO_POINT pd, ui n, ui_t nl, ui mu, ui_t mul) {
-    ui_t a_[2 * nl], a[nl], b[nl], bs[nl + 1], c_[2 * nl], c[nl], d[nl], ds[nl + 1], da[nl], cb[nl], e_[2 * nl], e[nl], f[nl], fs[nl + 1], e2[nl], f2[nl];
+    ui_t a[nl], b[nl], bs[nl + 1], c[nl], d[nl], ds[nl + 1], da[nl], cb[nl], e[nl], f[nl], fs[nl + 1], e2[nl], f2[nl];
     ui X = (ui)malloc(sizeof(ui_t) * nl);
     ui Z = (ui)malloc(sizeof(ui_t) * nl);
     int i, s;
 
-    for(i = nl + 1; i < 2 * nl; i++) {
-        a_[i] = 0L;
-        c_[i] = 0L;
-        e_[i] = 0L;
-    }
-
-    big_add(a_, p2->X, nl, p2->Z, nl);
-    barret_reduction(a, a_, 2 * nl, n, nl, mu, mul);        // a = X2 + Z2
-    s = big_sub(b, p2->X, nl, p2->Z, nl);
-    if(s) {
-        do {
-            big_add(bs, b, nl, n, nl);
-            big_cpy(b, bs, 0, nl);
-        } while((bs[nl] == 0));
-    }                                                       // b = X2 - Z2
-    big_add(c_, p1->X, nl, p1->Z, nl);
-    barret_reduction(c, c_, 2 * nl, n, nl, mu, mul);        // c = X1 + Z1
-    s = big_sub(d, p1->X, nl, p1->Z, nl);
-    if(s) {
-        do {
-            big_add(ds, d, nl, n, nl);
-            big_cpy(d, ds, 0, nl);
-        } while((ds[nl] == 0));
-    }                                                       // d = X1 - Z1
+    big_mod_add(a, p2->X, nl, p2->Z, nl, n, nl);                 // a = X2 + Z2
+    big_mod_sub(b, p2->X, nl, p2->Z, nl, n, nl);
+    big_mod_add(c, p1->X, nl, p1->Z, nl, n, nl);                // c = X1 + Z1
+    big_mod_sub(d, p1->X, nl, p1->Z, nl, n, nl);
     big_mod_mul(da, d, nl, a, nl, n, nl, mu, mul);          // da = d * a
     big_mod_mul(cb, c, nl, b, nl, n, nl, mu, mul);          // cb = c * b
-    big_add(e_, da, nl, cb, nl);
-    barret_reduction(e, e_, 2 * nl, n, nl, mu, mul);        // e = da + cb
-    s = big_sub(f, da, nl, cb, nl);
-    if(s) {
-        do {
-            big_add(fs, f, nl, n, nl);
-            big_cpy(f, fs, 0, nl);
-        } while((fs[nl] == 0));
-    }                                                       // f = da - cb
+    big_mod_add(e, da, nl, cb, nl, n, nl);                      // e = da + cb
+    big_mod_sub(f, da, nl, cb, nl, n, nl);
     big_mod_mul(e2, e, nl, e, nl, n, nl, mu, mul);          // e2 = e^2
     big_mod_mul(f2, f, nl, f, nl, n, nl, mu, mul);          // f2 = f^2
     big_mod_mul(X, pd->Z, nl, e2, nl, n, nl, mu, mul);      // X = Zd * e2
@@ -219,14 +180,14 @@ void aff_add(AFF_POINT p, AFF_POINT p1, AFF_POINT p2, ui A, ui B, ui n, ui_t nl,
     // s = big_sub(c, p2->y, nl, p1->y, nl);
     // if(s) {
     //     do {
-    //         big_add(cs, c, nl, n, nl);
+    //         big_mod_add(cs, c, nl, n, nl, n, nl);
     //         big_cpy(c, cs, 0, nl);
     //     } while((cs[nl] == 0));
     // }                                                       // c = y2 - y1
     // s = big_sub(d, p2->x, nl, p1->x, nl);
     // if(s) {
     //     do {
-    //         big_add(ds, d, nl, n, nl);
+    //         big_mod_add(ds, d, nl, n, nl, n, nl);
     //         big_cpy(d, ds, 0, nl);
     //     } while((ds[nl] == 0));
     // }                                                       // d = x2 - x1
@@ -241,23 +202,17 @@ void aff_add(AFF_POINT p, AFF_POINT p1, AFF_POINT p2, ui A, ui B, ui n, ui_t nl,
 }
 
 void pro_dbl(PRO_POINT p, PRO_POINT p1, ui A24, ui n, ui_t nl, ui mu, ui_t mul) {
-    ui_t a_[2 * nl], a [nl], a2[nl], bs[nl + 1], b[nl], b2[nl], cs[nl + 1], c[nl], d[nl], e_[2 * nl], e[nl];
+    ui_t a [nl], a2[nl], bs[nl + 1], b[nl], b2[nl], cs[nl + 1], c[nl], d[nl], e[nl];
     ui X = (ui)malloc(sizeof(ui_t) * nl);
     ui Z = (ui)malloc(sizeof(ui_t) * nl);
     int i, s;
 
-    for(i = nl + 1; i < 2 * nl; i++) {
-        a_[i] = 0L;
-        e_[i] = 0L;
-    }
-
-    big_add(a_, p1->X, nl, p1->Z, nl);
-    barret_reduction(a, a_, 2 * nl, n, nl, mu, mul);            // a = X + Z
+    big_mod_add(a, p1->X, nl, p1->Z, nl, n, nl);                    // a = X + Z
     big_mod_mul(a2, a, nl, a, nl, n, nl, mu, mul);              // a2 = a^2
     s = big_sub(b, p1->X, nl, p1->Z, nl);
     if(s) {
         do {
-            big_add(bs, b, nl, n, nl);
+            big_mod_add(bs, b, nl, n, nl, n, nl);
             big_cpy(b, bs, 0, nl);
         } while((bs[nl] == 0));
     }                                                           // b = X - Z
@@ -265,82 +220,81 @@ void pro_dbl(PRO_POINT p, PRO_POINT p1, ui A24, ui n, ui_t nl, ui mu, ui_t mul) 
     s = big_sub(c, a2, nl, b2, nl);
     if(s) {
         do {
-            big_add(cs, c, nl, n, nl);
+            big_mod_add(cs, c, nl, n, nl, n, nl);
             big_cpy(c, cs, 0, nl);
         } while((cs[nl] == 0));
     }                                                           // c = a2 - b2
     big_mod_mul(X, a2, nl, b2, nl, n, nl, mu, mul);             // X = a2 * b2
     big_mod_mul(d, A24, nl, c, nl, n, nl, mu, mul);             // d = a24 * c
-    big_add(e_, b2 ,nl, d, nl);
-    barret_reduction(e, e_, 2 * nl, n, nl, mu, mul);            // e = b2 + d
+    big_mod_add(e, b2 ,nl, d, nl, n, nl);                           // e = b2 + d
     big_mod_mul(Z, c, nl, e, nl, n, nl, mu, mul);               // Z = c * e
 
     p->X = X;
     p->Z = Z;
 }
 
-// // Reuqires division
-// void aff_dbl(ui x, ui z, ui x1, ui y1, ui A, ui B, ui n) {
-// }
+// // // Reuqires division
+// // void aff_dbl(ui x, ui z, ui x1, ui y1, ui A, ui B, ui n) {
+// // }
 
-// void pro_ladder(PRO_POINT p, PRO_POINT p1, ui A24, ui k, ui_t kl, ui n, ui_t nl, ui mu, ui_t mul) {
-//     ui_t a, x;
-//     PRO_POINT R0 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-//     PRO_POINT R1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-//     PRO_POINT_t R0_, R1_;
-//     int i, j;
+// // void pro_ladder(PRO_POINT p, PRO_POINT p1, ui A24, ui k, ui_t kl, ui n, ui_t nl, ui mu, ui_t mul) {
+// //     ui_t a, x;
+// //     PRO_POINT R0 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+// //     PRO_POINT R1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+// //     PRO_POINT_t R0_, R1_;
+// //     int i, j;
 
-//     R0->X = p1->X;
-//     R0->Z = p1->Z;
-//     pro_dbl(R1, p1, A24, n, nl, mu, mul);
+// //     R0->X = p1->X;
+// //     R0->Z = p1->Z;
+// //     pro_dbl(R1, p1, A24, n, nl, mu, mul);
 
-//     a = k[kl - 1];
-//     j = 0;
-//     while(a > 0) {
-//         a = a >> 1;
-//         j++;
-//     }                                                           // Find the index of the first 1
-//     for(i = j - 2; i >= 0; i--) {
-//         x = 1;
-//         x <<= i;
-//         R0_->X = R0->X;
-//         R0_->Z = R0->Z;
-//         R1_->X = R1->X;
-//         R1_->Z = R1->Z;
-//         if(!(k[kl - 1] & x)) {
-//             pro_dbl(R0, R0_, A24, n, nl, mu, mul);
-//             pro_add(R1, R0_, R1_, p1, n, nl, mu, mul);
-//         } else {
-//             pro_add(R0, R0_, R1_, p1, n, nl, mu, mul);
-//             pro_dbl(R1, R1_, A24, n, nl, mu, mul);
-//         }
-//     }
-//     for (i = kl - 2; i >= 0; i--) {
-//         for(j = W - 1; j >= 0; j--) {
-//             x = 1;
-//             x <<= i;
-//             R0_->X = R0->X;
-//             R0_->Z = R0->Z;
-//             R1_->X = R1->X;
-//             R1_->Z = R1->Z;
-//             if(!(k[kl - 1] & x)) {
-//                 pro_dbl(R0, R0_, A24, n, nl, mu, mul);
-//                 pro_add(R1, R0_, R1_, p1, n, nl, mu, mul);
-//             } else {
-//                 pro_add(R0, R0_, R1_, p1, n, nl, mu, mul);
-//                 pro_dbl(R1, R1_, A24, n, nl, mu, mul);
-//             }
-//         }
-//     }
-//     p->X = R0->X;
-//     p->Z = R0->Z;
-// }
+// //     a = k[kl - 1];
+// //     j = 0;
+// //     while(a > 0) {
+// //         a = a >> 1;
+// //         j++;
+// //     }                                                           // Find the index of the first 1
+// //     for(i = j - 2; i >= 0; i--) {
+// //         x = 1;
+// //         x <<= i;
+// //         R0_->X = R0->X;
+// //         R0_->Z = R0->Z;
+// //         R1_->X = R1->X;
+// //         R1_->Z = R1->Z;
+// //         if(!(k[kl - 1] & x)) {
+// //             pro_dbl(R0, R0_, A24, n, nl, mu, mul);
+// //             pro_add(R1, R0_, R1_, p1, n, nl, mu, mul);
+// //         } else {
+// //             pro_add(R0, R0_, R1_, p1, n, nl, mu, mul);
+// //             pro_dbl(R1, R1_, A24, n, nl, mu, mul);
+// //         }
+// //     }
+// //     for (i = kl - 2; i >= 0; i--) {
+// //         for(j = W - 1; j >= 0; j--) {
+// //             x = 1;
+// //             x <<= i;
+// //             R0_->X = R0->X;
+// //             R0_->Z = R0->Z;
+// //             R1_->X = R1->X;
+// //             R1_->Z = R1->Z;
+// //             if(!(k[kl - 1] & x)) {
+// //                 pro_dbl(R0, R0_, A24, n, nl, mu, mul);
+// //                 pro_add(R1, R0_, R1_, p1, n, nl, mu, mul);
+// //             } else {
+// //                 pro_add(R0, R0_, R1_, p1, n, nl, mu, mul);
+// //                 pro_dbl(R1, R1_, A24, n, nl, mu, mul);
+// //             }
+// //         }
+// //     }
+// //     p->X = R0->X;
+// //     p->Z = R0->Z;
+// // }
 
-// void aff_ladder(ui x, ui y, ui x1, ui y1, ui k, ui n) {
-// }
+// // void aff_ladder(ui x, ui y, ui x1, ui y1, ui k, ui n) {
+// // }
 
-// int pro_is_on_curve(ui A, ui B, ui X, ui Y, ui Z, ui n) {
-// }
+// // int pro_is_on_curve(ui A, ui B, ui X, ui Y, ui Z, ui n) {
+// // }
 
-// int aff_is_on_curve(ui A, ui B, ui x, ui y, ui n) {
-// }
+// // int aff_is_on_curve(ui A, ui B, ui x, ui y, ui n) {
+// // }

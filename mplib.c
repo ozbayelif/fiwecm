@@ -38,37 +38,70 @@ void big_print(FILE *fp, ui a, ui_t al, char *s, char *R) {
 }
 
 void big_add(ui z, ui a, ui_t al, ui b, ui_t bl) {
-	int j;
+	int i;
 	ui_t carry_bit = 0;
 	
-	for(j = 0; j < al; j++) {
-		z[j] = a[j] + b[j] + carry_bit;
-		if(z[j] < a[j]) {
+	for(i = 0; i < al; i++) {
+		z[i] = a[i] + b[i] + carry_bit;
+		if(z[i] < a[i]) {
 			carry_bit = 1;
-		} else if(z[j] > a[j]) {
+		} else if(z[i] > a[i]) {
 			carry_bit = 0;
 		}
 	}
-	z[al] = carry_bit;
+}
 
-	// TODO: subtract one n if (a+b) ge n
+void big_mod_add(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl) {
+	int i;
+	ui_t z_[nl], carry_bit = 0;
+	
+	for(i = 0; i < al; i++) {
+		z_[i] = a[i] + b[i] + carry_bit;
+		if(z_[i] < a[i]) {
+			carry_bit = 1;
+		} else if(z_[i] > a[i]) {
+			carry_bit = 0;
+		}
+	}
+	if(carry_bit) {
+		big_sub(z, z_, nl, n, nl);
+	} else {
+		big_cpy(z, z_, 0, nl);
+	}
 }
 
 int big_sub(ui z, ui a, ui_t al, ui b, ui_t bl) {
-	int j;
+	int i;
 	ui_t borrow_bit = 0;
 
-	for(j = 0; j < al; j++) {
-		z[j] = a[j] - b[j] - borrow_bit;
-		if(z[j] < a[j]) {
+	for(i = 0; i < al; i++) {
+		z[i] = a[i] - b[i] - borrow_bit;
+		if(z[i] < a[i]) {
 			borrow_bit = 0;
-		} else if(z[j] > a[j]) {
+		} else if(z[i] > a[i]) {
 			borrow_bit = 1;
 		}
 	}
-    return borrow_bit;
+	return borrow_bit;
+}
 
-	// TODO: add one n if (a-b) lt 0
+void big_mod_sub(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl) {
+	int i;
+	ui_t z_[nl], borrow_bit = 0;
+
+	for(i = 0; i < al; i++) {
+		z_[i] = a[i] - b[i] - borrow_bit;
+		if(z_[i] < a[i]) {
+			borrow_bit = 0;
+		} else if(z_[i] > a[i]) {
+			borrow_bit = 1;
+		}
+	}
+	if(borrow_bit) {
+    	big_add(z, z_, nl, n, nl);
+	} else {
+		big_cpy(z, z_, 0, nl);
+	}
 }
 
 void big_mul(ui z, ui a, ui_t al, ui b, ui_t bl) {
@@ -133,19 +166,15 @@ void big_get_mu(ui mu, ui n, ui_t nl) {
 }
 
 void big_get_A24(ui A24, ui A, ui n, ui_t nl, ui mu, ui_t mul) {
-	ui_t c_2[nl], A2_[2 * nl], A2[nl];
+	ui_t c_2[nl], A2[nl];
 	ui_t temp = 0L;
 	int i;
 
-	for(i = nl + 1; i < 2 * nl; i++) {
-        A2_[i] = 0L;
-    }
 	c_2[0] = 2L;
 	for (i = 1; i < nl; i++) {
 		c_2[i] = 0L;
 	}
-	big_add(A2_, A, nl, c_2, nl);
-	barret_reduction(A2, A2_, 2 * nl, n, nl, mu, mul);
+	big_mod_add(A2, A, nl, c_2, nl, n, nl);
 	big_cpy(A24, A2, 0, nl);
 	for(i = 0; i < nl - 1; i++) {
 		A24[i] >>= 2;
@@ -185,7 +214,7 @@ void barret_reduction(ui z, ui m, ui_t ml, ui n, ui_t nl, ui mu, ui_t mul) { // 
     big_cpy(mm, m, 0, k + 1); // mm = m mod b^(k + 1) 
     big_mul(qn, q, mul, n, nl); // qn = q * n 
     big_cpy(qnm, qn, 0, k + 1); // qnm = qn mod b^(k + 1) 
-    big_sub(r3, mm, k + 1, qnm, k + 1); // r2 = mm - qnm
+    big_sub(r3, mm, k + 1, qnm, k + 1); // r3 = mm - qnm
 	big_cpy(z, r3, 0, k);
     b = big_sub(r2, r3, nl, n, nl); // while r >= n do: r <- r - n
 	r2[nl] = r3[nl] - b;
