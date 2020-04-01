@@ -42,7 +42,7 @@ void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_
         big_is_equal_ui(&is_one, d, nl, 0L);
         big_is_equal(&is_n, d, n, nl);
         if(is_one || is_n) {
-            big_invert(iY2Z, Y2Z, nl, n, nl);
+            big_invert(iY2Z, Y2Z, nl, n, nl);                   // iY2Z = Inv(Y2Z)
             big_mod_mul(B, RHS, nl, iY2Z, nl, n, nl, mu, mul);  // B = RHS * Inv(Y^2Z)
             big_is_equal_ui(&is_zero, B, nl, 0L);
             if(!is_zero) {
@@ -66,18 +66,8 @@ void aff_curve_point(ui d, MONTG_CURVE c, AFF_POINT p, ui n, ui_t nl, ui mu, ui_
     ui B = (ui)malloc(sizeof(ui_t) * nl);
     ui x = (ui)malloc(sizeof(ui_t) * nl);
     ui y = (ui)malloc(sizeof(ui_t) * nl);
-    mpz_t mp_n, mp_b, mp_y2, mp_iy2, mp_d;
-    int i, s = 1;
+    int i, s = 1, is_zero, is_one, is_n;
 
-    mpz_init(mp_n);
-    mpz_init(mp_b);
-    mpz_init(mp_y2);
-    mpz_init(mp_iy2);
-    mpz_init(mp_d);
-    mpz_set_ui(mp_iy2, 0L);
-    mpz_set_ui(mp_d, 0L);
-
-    mpz_import(mp_n, nl, -1, 4, 0, 0, n);
     big_mod_rand(A, nl, n, nl, mu, mul);
     big_mod_rand(x, nl, n, nl, mu, mul);
     big_mod_rand(y, nl, n, nl, mu, mul);
@@ -96,22 +86,16 @@ void aff_curve_point(ui d, MONTG_CURVE c, AFF_POINT p, ui n, ui_t nl, ui mu, ui_
         big_mod_mul(Ax2, A, nl, x2, nl, n, nl, mu, mul);        // Ax2 = Ax^2
         big_mod_mul(x3, x2, nl, x, nl, n, nl, mu, mul);         // x3 = x^3
         big_mod_mul(y2, y, nl, y, nl, n, nl, mu, mul);          // y2 = y^2
-        big_mod_add(rhs1, x3, nl, Ax2, nl, n, nl);                  // rhs1 = x^3 + Ax^2
-        big_mod_add(rhs, rhs1, nl, x, nl, n, nl);                   // rhs = x^3 + Ax^2 + x
-        mpz_import(mp_y2, nl, -1, 4, 0, 0, y2);
-        mpz_gcd(mp_d, mp_y2, mp_n);
-        mpz_export(d, NULL, -1, 4, 0, 0, mp_d);                 // d = GCD(y^2, n)
-
-        if(mpz_cmp_ui(mp_d, 1) == 0 || mpz_cmp(mp_d, mp_n) == 0) {
-            for(i = 0; i < nl; i++) {
-                iy2[i] = 0L;
-            }
-            mpz_invert(mp_iy2, mp_y2, mp_n);
-            mpz_export(iy2, NULL, -1, 4, 0, 0, mp_iy2);         // iy2 = Inv(y^2)
-            big_mod_mul(B, rhs, nl, iy2, nl, n, nl, mu, mul);       // B = rhs * Inv(y^2)
-            mpz_import(mp_b, nl, -1, 4, 0, 0, B);
-            s = mpz_cmp_ui(mp_b, 0L);
-            if(s != 0) {
+        big_mod_add(rhs1, x3, nl, Ax2, nl, n, nl);              // rhs1 = x^3 + Ax^2
+        big_mod_add(rhs, rhs1, nl, x, nl, n, nl);               // rhs = x^3 + Ax^2 + x
+        big_gcd(d, y2, nl, n, nl);                              // d = GCD(y^2, n)
+        big_is_equal_ui(&is_one, d, nl, 0L);
+        big_is_equal(&is_n, d, n, nl);
+        if(is_one || is_n) {
+            big_invert(iy2, y2, nl, n, nl);                     // iy2 = Inv(y^2)
+            big_mod_mul(B, rhs, nl, iy2, nl, n, nl, mu, mul);   // B = rhs * Inv(y^2)
+            big_is_equal_ui(&is_zero, B, nl, 0L);
+            if(!is_zero) {
                 c->A = A;
                 c->B = B;
                 c->n = n;
@@ -183,68 +167,68 @@ void pro_dbl(PRO_POINT p, PRO_POINT p1, ui A24, ui n, ui_t nl, ui mu, ui_t mul) 
     p->Z = Z;
 }
 
-// // // Reuqires division
-// // void aff_dbl(ui x, ui z, ui x1, ui y1, ui A, ui B, ui n) {
-// // }
+// Reuqires division
+void aff_dbl(ui x, ui z, ui x1, ui y1, ui A, ui B, ui n) {
+}
 
-// // void pro_ladder(PRO_POINT p, PRO_POINT p1, ui A24, ui k, ui_t kl, ui n, ui_t nl, ui mu, ui_t mul) {
-// //     ui_t a, x;
-// //     PRO_POINT R0 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-// //     PRO_POINT R1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-// //     PRO_POINT_t R0_, R1_;
-// //     int i, j;
+void pro_ladder(PRO_POINT p, PRO_POINT p1, ui A24, ui k, ui_t kl, ui n, ui_t nl, ui mu, ui_t mul) {
+    ui_t a, x;
+    PRO_POINT R0 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    PRO_POINT R1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    PRO_POINT_t R0_, R1_;
+    int i, j;
 
-// //     R0->X = p1->X;
-// //     R0->Z = p1->Z;
-// //     pro_dbl(R1, p1, A24, n, nl, mu, mul);
+    R0->X = p1->X;
+    R0->Z = p1->Z;
+    pro_dbl(R1, p1, A24, n, nl, mu, mul);
 
-// //     a = k[kl - 1];
-// //     j = 0;
-// //     while(a > 0) {
-// //         a = a >> 1;
-// //         j++;
-// //     }                                                           // Find the index of the first 1
-// //     for(i = j - 2; i >= 0; i--) {
-// //         x = 1;
-// //         x <<= i;
-// //         R0_->X = R0->X;
-// //         R0_->Z = R0->Z;
-// //         R1_->X = R1->X;
-// //         R1_->Z = R1->Z;
-// //         if(!(k[kl - 1] & x)) {
-// //             pro_dbl(R0, R0_, A24, n, nl, mu, mul);
-// //             pro_add(R1, R0_, R1_, p1, n, nl, mu, mul);
-// //         } else {
-// //             pro_add(R0, R0_, R1_, p1, n, nl, mu, mul);
-// //             pro_dbl(R1, R1_, A24, n, nl, mu, mul);
-// //         }
-// //     }
-// //     for (i = kl - 2; i >= 0; i--) {
-// //         for(j = W - 1; j >= 0; j--) {
-// //             x = 1;
-// //             x <<= i;
-// //             R0_->X = R0->X;
-// //             R0_->Z = R0->Z;
-// //             R1_->X = R1->X;
-// //             R1_->Z = R1->Z;
-// //             if(!(k[kl - 1] & x)) {
-// //                 pro_dbl(R0, R0_, A24, n, nl, mu, mul);
-// //                 pro_add(R1, R0_, R1_, p1, n, nl, mu, mul);
-// //             } else {
-// //                 pro_add(R0, R0_, R1_, p1, n, nl, mu, mul);
-// //                 pro_dbl(R1, R1_, A24, n, nl, mu, mul);
-// //             }
-// //         }
-// //     }
-// //     p->X = R0->X;
-// //     p->Z = R0->Z;
-// // }
+    a = k[kl - 1];
+    j = 0;
+    while(a > 0) {
+        a = a >> 1;
+        j++;
+    }                                                           // Find the index of the first 1
+    for(i = j - 2; i >= 0; i--) {
+        x = 1;
+        x <<= i;
+        R0_->X = R0->X;
+        R0_->Z = R0->Z;
+        R1_->X = R1->X;
+        R1_->Z = R1->Z;
+        if(!(k[kl - 1] & x)) {
+            pro_dbl(R0, R0_, A24, n, nl, mu, mul);
+            pro_add(R1, R0_, R1_, p1, n, nl, mu, mul);
+        } else {
+            pro_add(R0, R0_, R1_, p1, n, nl, mu, mul);
+            pro_dbl(R1, R1_, A24, n, nl, mu, mul);
+        }
+    }
+    for (i = kl - 2; i >= 0; i--) {
+        for(j = W - 1; j >= 0; j--) {
+            x = 1;
+            x <<= i;
+            R0_->X = R0->X;
+            R0_->Z = R0->Z;
+            R1_->X = R1->X;
+            R1_->Z = R1->Z;
+            if(!(k[kl - 1] & x)) {
+                pro_dbl(R0, R0_, A24, n, nl, mu, mul);
+                pro_add(R1, R0_, R1_, p1, n, nl, mu, mul);
+            } else {
+                pro_add(R0, R0_, R1_, p1, n, nl, mu, mul);
+                pro_dbl(R1, R1_, A24, n, nl, mu, mul);
+            }
+        }
+    }
+    p->X = R0->X;
+    p->Z = R0->Z;
+}
 
-// // void aff_ladder(ui x, ui y, ui x1, ui y1, ui k, ui n) {
-// // }
+void aff_ladder(ui x, ui y, ui x1, ui y1, ui k, ui n) {
+}
 
-// // int pro_is_on_curve(ui A, ui B, ui X, ui Y, ui Z, ui n) {
-// // }
+int pro_is_on_curve(ui A, ui B, ui X, ui Y, ui Z, ui n) {
+}
 
-// // int aff_is_on_curve(ui A, ui B, ui x, ui y, ui n) {
-// // }
+int aff_is_on_curve(ui A, ui B, ui x, ui y, ui n) {
+}
