@@ -110,19 +110,18 @@ void aff_curve_point(ui d, MONTG_CURVE c, AFF_POINT p, ui n, ui_t nl, ui mu, ui_
 }
 
 void pro_add(PRO_POINT p, PRO_POINT p1, PRO_POINT p2, PRO_POINT pd, ui n, ui_t nl, ui mu, ui_t mul) {
-    ui_t a[nl], b[nl], bs[nl + 1], c[nl], d[nl], ds[nl + 1], da[nl], cb[nl], e[nl], f[nl], fs[nl + 1], e2[nl], f2[nl];
+    ui_t a[nl], b[nl],  c[nl], d[nl], da[nl], cb[nl], e[nl], f[nl], e2[nl], f2[nl];
     ui X = (ui)malloc(sizeof(ui_t) * nl);
     ui Z = (ui)malloc(sizeof(ui_t) * nl);
-    int i, s;
 
     big_mod_add(a, p2->X, nl, p2->Z, nl, n, nl);            // a = X2 + Z2
-    big_mod_sub(b, p2->X, nl, p2->Z, nl, n, nl);
+    big_mod_sub(b, p2->X, nl, p2->Z, nl, n, nl);            // b = X2 - Z2
     big_mod_add(c, p1->X, nl, p1->Z, nl, n, nl);            // c = X1 + Z1
-    big_mod_sub(d, p1->X, nl, p1->Z, nl, n, nl);
+    big_mod_sub(d, p1->X, nl, p1->Z, nl, n, nl);            // d = X1 - Z1
     big_mod_mul(da, d, nl, a, nl, n, nl, mu, mul);          // da = d * a
     big_mod_mul(cb, c, nl, b, nl, n, nl, mu, mul);          // cb = c * b
     big_mod_add(e, da, nl, cb, nl, n, nl);                  // e = da + cb
-    big_mod_sub(f, da, nl, cb, nl, n, nl);
+    big_mod_sub(f, da, nl, cb, nl, n, nl);                  // f = da - cb
     big_mod_mul(e2, e, nl, e, nl, n, nl, mu, mul);          // e2 = e^2
     big_mod_mul(f2, f, nl, f, nl, n, nl, mu, mul);          // f2 = f^2
     big_mod_mul(X, pd->Z, nl, e2, nl, n, nl, mu, mul);      // X = Zd * e2
@@ -148,10 +147,9 @@ void aff_add(AFF_POINT p, AFF_POINT p1, AFF_POINT p2, ui A, ui B, ui n, ui_t nl,
 }
 
 void pro_dbl(PRO_POINT p, PRO_POINT p1, ui A24, ui n, ui_t nl, ui mu, ui_t mul) {
-    ui_t a [nl], a2[nl], bs[nl + 1], b[nl], b2[nl], cs[nl + 1], c[nl], d[nl], e[nl];
+    ui_t a [nl], a2[nl], b[nl], b2[nl], c[nl], d[nl], e[nl];
     ui X = (ui)malloc(sizeof(ui_t) * nl);
     ui Z = (ui)malloc(sizeof(ui_t) * nl);
-    int i, s;
 
     big_mod_add(a, p1->X, nl, p1->Z, nl, n, nl);            // a = X + Z
     big_mod_mul(a2, a, nl, a, nl, n, nl, mu, mul);          // a2 = a^2
@@ -187,7 +185,7 @@ void pro_ladder(PRO_POINT p, PRO_POINT p1, ui A24, ui k, ui_t kl, ui n, ui_t nl,
     while(a > 0) {
         a = a >> 1;
         j++;
-    }                                                           // Find the index of the first 1
+    }                                                       // Find the index of the first 1
     for(i = j - 2; i >= 0; i--) {
         x = 1;
         x <<= i;

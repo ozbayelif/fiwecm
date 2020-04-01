@@ -470,7 +470,7 @@ void pro_dbl_magma_test() {
 
 int main() {
     // pro_curve_point_test();
-    aff_curve_point_test();
+    // aff_curve_point_test();
     // pro_add_gmp_test();
     // pro_add_magma_test();
     // pro_dbl_magma_test();
