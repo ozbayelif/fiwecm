@@ -54,6 +54,8 @@ void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_
                 p->Z = Z;
                 *flag = 1;
             }
+        } else {
+            *flag = 0;
         }
     } else {
         *flag = -1;
@@ -103,6 +105,8 @@ void aff_curve_point(ui d, MONTG_CURVE c, AFF_POINT p, ui n, ui_t nl, ui mu, ui_
                 p->y = y;
                 *flag = 1;
             }
+        } else {
+            *flag = 0;
         }
     } else {
         *flag = -1;
