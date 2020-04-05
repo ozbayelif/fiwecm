@@ -39,7 +39,7 @@ void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_
         big_mod_add(RHS1, X3, nl, AX2Z, nl, n, nl);             // RHS1 = X^3 + AX^2Z
         big_mod_add(RHS, RHS1, nl, XZ2, nl, n, nl);             // RHS = X^3 + AX^2Z + XZ^2
         big_gcd(d, Y2Z, nl, n, nl);                             // d = GCD(Y^2Z, n)
-        big_is_equal_ui(&is_one, d, nl, 0L);
+        big_is_equal_ui(&is_one, d, nl, 1L);
         big_is_equal(&is_n, d, n, nl);
         if(is_one || is_n) {
             big_invert(iY2Z, Y2Z, nl, n, nl);                   // iY2Z = Inv(Y2Z)
@@ -89,7 +89,7 @@ void aff_curve_point(ui d, MONTG_CURVE c, AFF_POINT p, ui n, ui_t nl, ui mu, ui_
         big_mod_add(rhs1, x3, nl, Ax2, nl, n, nl);              // rhs1 = x^3 + Ax^2
         big_mod_add(rhs, rhs1, nl, x, nl, n, nl);               // rhs = x^3 + Ax^2 + x
         big_gcd(d, y2, nl, n, nl);                              // d = GCD(y^2, n)
-        big_is_equal_ui(&is_one, d, nl, 0L);
+        big_is_equal_ui(&is_one, d, nl, 1L);
         big_is_equal(&is_n, d, n, nl);
         if(is_one || is_n) {
             big_invert(iy2, y2, nl, n, nl);                     // iy2 = Inv(y^2)
