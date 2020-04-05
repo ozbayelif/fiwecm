@@ -188,24 +188,25 @@ void big_get_mu(ui mu, ui n, ui_t nl) {
 	mpz_export(mu, NULL, -1, 4, 0, 0, mp_mu);
 }
 
-void big_get_A24(ui A24, ui A, ui n, ui_t nl, ui mu, ui_t mul) {
-	ui_t c_2[nl], A2[nl];
-	ui_t temp = 0L;
-	int i;
+void big_get_A24(ui z, ui A, ui n, ui_t nl, ui mu, ui_t mul, int *flag) {
+	ui_t c_2[nl], c_4[nl], A2[nl], ic_4[nl];
+	int i, ret;
 
 	c_2[0] = 2L;
+	c_4[0] = 4L;
 	for (i = 1; i < nl; i++) {
 		c_2[i] = 0L;
+		c_4[i] = 0L;
 	}
 	big_mod_add(A2, A, nl, c_2, nl, n, nl);
-	big_cpy(A24, A2, 0, nl);
-	for(i = 0; i < nl - 1; i++) {
-		A24[i] >>= 2;
-		temp = A24[i + 1];
-		temp <<= (W - 2);
-		A24[i] |= temp; 
+	ret = big_invert(ic_4, c_4, nl, n, nl);
+	if(ret) { // Inverse exists
+		big_mod_mul(z, A2, nl, ic_4, nl, n, nl, mu, mul);
+		*flag = 1;
+	} else { // Inverse does not exist
+		big_gcd(z, c_4, nl, n, nl);
+		*flag = 0;
 	}
-	A24[nl - 1] >>= 2;
 }
 
 uni_t barret_reduction_UL(uni_t p, uni_t b, uni_t k, uni_t z, uni_t m, uni_t L) { // Calculate z mod p where z < 2^W and p < 2^W
@@ -252,7 +253,12 @@ void barret_reduction(ui z, ui m, ui_t ml, ui n, ui_t nl, ui mu, ui_t mul) { // 
 // Using GMP for now
 void big_gcd(ui d, ui a, ui_t al, ui b, ui_t bl) {
     mpz_t mp_a, mp_b, mp_d;
+	int i;
 
+	for(i = 0; i < al; i++) {
+		d[i] = 0L;
+	}
+	// TODO: Change al to dl
 	mpz_init(mp_a);
     mpz_init(mp_b);
     mpz_init(mp_d);
@@ -267,8 +273,8 @@ void big_gcd(ui d, ui a, ui_t al, ui b, ui_t bl) {
 	mpz_export(d, NULL, -1, 4, 0, 0, mp_d);                 
 }
 
-void big_invert(ui z, ui a, ui_t al, ui b, ui_t bl) {
-	int i;
+int big_invert(ui z, ui a, ui_t al, ui b, ui_t bl) {
+	int i, ret;
 	mpz_t mp_z, mp_a, mp_b;
 
 	mpz_init(mp_z);
@@ -282,6 +288,8 @@ void big_invert(ui z, ui a, ui_t al, ui b, ui_t bl) {
 	for(i = 0; i < bl; i++) {
 		z[i] = 0L;
 	}
-	mpz_invert(mp_z, mp_a, mp_b);
+	ret = mpz_invert(mp_z, mp_a, mp_b);
 	mpz_export(z, NULL, -1, 4, 0, 0, mp_z);       // iY2Z = Inv(Y^2Z)
+
+	return ret;
 }
