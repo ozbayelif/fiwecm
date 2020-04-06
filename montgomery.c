@@ -53,6 +53,8 @@ void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_
                 p->Y = Y;
                 p->Z = Z;
                 *flag = 1;
+            } else {
+                *flag = -1;
             }
         } else {
             *flag = 0;

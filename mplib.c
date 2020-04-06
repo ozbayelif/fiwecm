@@ -16,7 +16,7 @@ void big_mod_rand(ui z, ui_t l, ui n, ui_t nl, ui mu, ui_t mul) {
 	int i;
 
 	for(i = 0; i < l; i++) {
-		z[i] = ((ui_t)rand()) * ((ui_t)rand()) * ((ui_t)rand()) * ((ui_t)rand());
+		z_[i] = ((ui_t)rand()) * ((ui_t)rand()) * ((ui_t)rand()) * ((ui_t)rand());
 	}
 	for(i = l; i < 2 * nl; i++) {
 		z_[i] = 0L;
