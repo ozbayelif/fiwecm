@@ -204,7 +204,7 @@ void big_get_A24(ui z, ui A, ui n, ui_t nl, ui mu, ui_t mul, int *flag) {
 		big_mod_mul(z, A2, nl, ic_4, nl, n, nl, mu, mul);
 		*flag = 1;
 	} else { // Inverse does not exist
-		big_gcd(z, c_4, nl, n, nl);
+		big_gcd(z, nl, c_4, nl, n, nl);
 		*flag = 0;
 	}
 }
@@ -251,11 +251,11 @@ void barret_reduction(ui z, ui m, ui_t ml, ui n, ui_t nl, ui mu, ui_t mul) { // 
 }
 
 // Using GMP for now
-void big_gcd(ui d, ui a, ui_t al, ui b, ui_t bl) {
+void big_gcd(ui d, ui_t dl, ui a, ui_t al, ui b, ui_t bl) {
     mpz_t mp_a, mp_b, mp_d;
 	int i;
 
-	for(i = 0; i < al; i++) {
+	for(i = 0; i < dl; i++) {
 		d[i] = 0L;
 	}
 	// TODO: Change al to dl

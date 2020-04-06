@@ -28,5 +28,5 @@ void big_get_mu(ui z, ui n, ui_t nl);
 void big_get_A24(ui A24, ui A, ui n, ui_t nl, ui mu, ui_t mul, int *flag);
 uni_t barret_reduction_UL(uni_t p, uni_t b, uni_t k, uni_t z, uni_t m, uni_t L);
 void barret_reduction(ui z, ui m, ui_t ml, ui n, ui_t nl, ui mu, ui_t mul);
-void big_gcd(ui d, ui a, ui_t al, ui b, ui_t bl);
+void big_gcd(ui d, ui_t dl, ui a, ui_t al, ui b, ui_t bl);
 int big_invert(ui z, ui a, ui_t al, ui b, ui_t bl);

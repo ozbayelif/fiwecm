@@ -38,7 +38,7 @@ void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_
         big_mod_mul(Y2Z, Y2, nl, Z, nl, n, nl, mu, mul);        // Y2Z = Y^2Z
         big_mod_add(RHS1, X3, nl, AX2Z, nl, n, nl);             // RHS1 = X^3 + AX^2Z
         big_mod_add(RHS, RHS1, nl, XZ2, nl, n, nl);             // RHS = X^3 + AX^2Z + XZ^2
-        big_gcd(d, Y2Z, nl, n, nl);                             // d = GCD(Y^2Z, n)
+        big_gcd(d, nl, Y2Z, nl, n, nl);                             // d = GCD(Y^2Z, n)
         big_is_equal_ui(&is_one, d, nl, 1L);
         big_is_equal(&is_n, d, n, nl);
         if(is_one || is_n) {
@@ -92,7 +92,7 @@ void aff_curve_point(ui d, MONTG_CURVE c, AFF_POINT p, ui n, ui_t nl, ui mu, ui_
         big_mod_mul(y2, y, nl, y, nl, n, nl, mu, mul);          // y2 = y^2
         big_mod_add(rhs1, x3, nl, Ax2, nl, n, nl);              // rhs1 = x^3 + Ax^2
         big_mod_add(rhs, rhs1, nl, x, nl, n, nl);               // rhs = x^3 + Ax^2 + x
-        big_gcd(d, y2, nl, n, nl);                              // d = GCD(y^2, n)
+        big_gcd(d, nl, y2, nl, n, nl);                              // d = GCD(y^2, n)
         big_is_equal_ui(&is_one, d, nl, 1L);
         big_is_equal(&is_n, d, n, nl);
         if(is_one || is_n) {
