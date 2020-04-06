@@ -258,7 +258,6 @@ void big_gcd(ui d, ui_t dl, ui a, ui_t al, ui b, ui_t bl) {
 	for(i = 0; i < dl; i++) {
 		d[i] = 0L;
 	}
-	// TODO: Change al to dl
 	mpz_init(mp_a);
     mpz_init(mp_b);
     mpz_init(mp_d);
