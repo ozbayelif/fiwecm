@@ -1,3 +1,8 @@
+/**
+ * \file mplib.c
+ * \brief Implementation of mplib.h library.
+ */ 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <gmp.h>

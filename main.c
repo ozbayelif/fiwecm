@@ -3,6 +3,7 @@
 #include <gmp.h>
 #include "mplib.h"
 #include "montgomery.h"
+#include "ecm.h"
 
 void pro_curve_point_test() {
     MONTG_CURVE c = (MONTG_CURVE)malloc(sizeof(MONTG_CURVE_t) * 1);
@@ -36,7 +37,6 @@ void pro_curve_point_test() {
         nl = (ui_t)(rand() % 100 + 1);
         ui_t n[nl], mu[nl + 1], d[nl];
         
-        flag = 0;
         big_rand(n, nl);
         big_get_mu(mu, n, nl);
         for (j = 0; j < nl; j++) {
@@ -379,6 +379,7 @@ void pro_dbl_magma_test() {
         big_mod_rand(X1, nl, n, nl, mu, nl + 1);
         big_mod_rand(Z1, nl, n, nl, mu, nl + 1);
         big_mod_rand(A24, nl, n, nl, mu, nl + 1);
+        // TODO: Get with big_get_A24
 
         p1->X = X1;
         p1->Z = Z1;
@@ -408,65 +409,192 @@ void pro_dbl_magma_test() {
     fclose(fp);
 }
 
-// void pro_ladder_test() {
-//     FILE *fp = fopen("/home/ozbayelif/Development/FIWE/ecm/pro_ladder_test.magma", "a");
-//     MONTG_CURVE c = (MONTG_CURVE)malloc(sizeof(MONTG_CURVE_t) * 1);
-//     PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-//     PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-//     ui_t nl, kl;
-//     int i, j, flag, trues = 0, falses = 0;
+void pro_ladder_gmp_test() {
+    MONTG_CURVE c = (MONTG_CURVE)malloc(sizeof(MONTG_CURVE_t) * 1);
+    PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    PRO_POINT q = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    PRO_POINT p2 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    PRO_POINT pd = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    int i, j, nl, kl, res1 ,res2, flag, true = 0, false = 0;
+    mpz_t mp_px, mp_pz, mp_qx, mp_qz;
+    nl = (ui_t)(rand() % 100 + 1);
 
-//     fprintf(fp, "trues := 0;\n");
-//     fprintf(fp, "falses := 0;\n");
+    pd->X = (ui)malloc(sizeof(ui_t) * nl);
+    pd->Y = (ui)malloc(sizeof(ui_t) * nl);
+    pd->Z = (ui)malloc(sizeof(ui_t) * nl);
 
-//     for (i = 0; i < 1000; i++) {
-//         nl = (ui_t)(rand() % 100 + 1);
-//         kl = 1;
-//         ui_t n[nl], mu[nl + 1], X1[nl], Z1[nl], k[kl];
-//         ui d = (ui)malloc(sizeof(ui_t) * nl);
-//         ui A24 = (ui)malloc(sizeof(ui_t) * nl);
-//         flag = 0;
+    mpz_init(mp_px);
+    mpz_init(mp_pz);
+    mpz_init(mp_qx);
+    mpz_init(mp_qz);
 
-//         big_rand(n, nl);
-//         big_get_mu(mu, n, nl);
-//         pro_curve_point(d, c, p1, n, nl, mu, nl + 1, &flag);
-//         if(flag) {
-//             big_print(fp, n, nl, "n", NULL);
-//             fprintf(fp, "R:=RingOfIntegers(n);\n");
-//             big_print(fp, k, kl, "k", NULL);
-//             big_print(fp, c->A, nl, "A", "R");
-//             big_print(fp, c->B, nl, "B", "R");
-//             fprintf(fp, "S<X,Y,Z>:=ProjectiveSpace(R,2);\n");
-//             fprintf(fp, "C<X,Y,Z>:=Curve(S,[B*Y^2*Z-(X^3+A*X^2*Z+X*Z^2)]);\n");
-//             // fprintf(fp, "E,MtoW:=EllipticCurve(C,C![0,1,0]);\n"); // TODO: maile bak
-//             // fprintf(fp, "WtoM:=Inverse(MtoW);\n\n");
+    // TODO: k1*(k2*P) == k2*(k1*P)
 
-//             big_print(fp, p1->X, nl, "X1", "R");
-//             big_print(fp, p1->Y, nl, "Y1", "R");
-//             big_print(fp, p1->Z, nl, "Z1", "R");
+    for (i = 0; i < 1; i++) {
+        kl = 1;
+        ui_t n[nl], mu[nl + 1], A24[nl];
+        ui d = (ui)malloc(sizeof(ui_t) * nl);
+        ui k = (ui)malloc(sizeof(ui_t) * kl);
 
-//             fprintf(fp, "P1:=C![X1, Y1, Z1];\n\n");
+        big_rand(n, nl);
+        big_get_mu(mu, n, nl);
+        // big_rand(k, kl);
+        k[0] = 7L;
+        n[0]--;
 
-//             big_get_A24(A24, c->A, n, nl, mu, nl + 1);
-//             pro_ladder(p, p1, A24, k, kl, n, nl, mu, nl + 1);
+        do {
+            pro_curve_point(d, c, p1, n, nl, mu, nl + 1, &flag);
+        } while(flag != 1);
+        do {
+            big_get_A24(A24, c->A, n, nl, mu, nl + 1, &flag);
+        } while(flag != 1);
 
-//             big_print(fp, p->X, nl, "X", "R");
-//             big_print(fp, p->Z, nl, "Z", "R");
+        pro_ladder(p, p1, A24, k, kl, n, nl, mu, nl + 1);
 
-//             fprintf(fp, "P2 := k*P1;\n");
-//             fprintf(fp, "if (P2[1] eq X and P2[3] eq Z) then\n");
-//             fprintf(fp, "trues := trues + 1;\n");
-//             fprintf(fp, "else\n");
-//             fprintf(fp, "falses := falses + 1;\n");
-//             fprintf(fp, "end if;\n\n");
+        big_cpy(pd->X, p1->X, 0, nl);
+        big_cpy(pd->Z, p1->Z, 0, nl);                   // pd<-p1
+        pro_dbl(p2, p1, A24, n, nl, mu, nl + 1);        // p2<-2p1
+        for(j = 2; j < k[0]; j++) {
+            pro_add(q, p2, p1, pd, n,nl, mu, nl + 1);   // q<-3p1,  q<-4p1,  q<-5p1
+            big_cpy(pd->X, p2->X, 0, nl);               // pd<-2p1, pd<-3p1, pd<-4p1
+            big_cpy(pd->Z, p2->Z, 0, nl);
+            big_cpy(p2->X, q->X, 0, nl);                // p2<-3p1, p2<-4p1, p2<-5p1
+            big_cpy(p2->Z, q->Z, 0, nl);
+        }
 
-//         }
-//     }
-//     fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/pro_ladder_results.magma\", trues);\n");
-//     fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/pro_ladder_results.magma\", falses);\n");
+        mpz_import(mp_px, nl, -1, 4, 0, 0, p->X);
+        mpz_import(mp_pz, nl, -1, 4, 0, 0, p->Z);
+        mpz_import(mp_qx, nl, -1, 4, 0, 0, q->X);
+        mpz_import(mp_qz, nl, -1, 4, 0, 0, q->Z);
+        res1 = mpz_cmp(mp_px, mp_qx);
+        res2 = mpz_cmp(mp_pz, mp_qz);
 
-//     fclose(fp);
-// }
+        if(res1 == 0 && res2 == 0) {
+            true++;
+        } else {
+            false++;
+        }
+    }
+    printf("TRUE: %d\n", true);
+    printf("FALSE: %d\n", false);
+}
+
+void pro_ladder_magma_test() {
+    // FILE *fp = fopen("/home/ozbayelif/Development/FIWE/ecm/pro_ladder_test.magma", "a");
+    FILE *fp = stdout;
+    MONTG_CURVE c = (MONTG_CURVE)malloc(sizeof(MONTG_CURVE_t) * 1);
+    PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    AFF_POINT ap1 = (AFF_POINT)malloc(sizeof(AFF_POINT_t) * 1);
+    PRO_POINT pp1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    ui_t nl, kl;
+    int i, j, flag, trues = 0, falses = 0;
+
+    fprintf(fp, "trues := 0;\n");
+    fprintf(fp, "falses := 0;\n");
+
+    fprintf(fp, "Fp:=GF(2^255-19);\n");
+
+    for (i = 0; i < 1; i++) {
+        nl = (ui_t)(rand() % 1 + 1);
+        kl = 1;
+        ui_t n[nl], mu[nl + 1], X1[nl], Z1[nl], k[kl], c_1[nl];
+        ui d = (ui)malloc(sizeof(ui_t) * nl);
+        ui A24 = (ui)malloc(sizeof(ui_t) * nl);
+        flag = 0;
+
+        c_1[0] = 1L;
+        for(j = 1; j < nl; j++) {
+            c_1[j] = 0L;
+        }
+        big_rand(n, nl);
+        n[0]--;
+        big_get_mu(mu, n, nl);
+
+        do {
+            aff_curve_point(d, c, ap1, n, nl, mu, nl + 1, &flag);
+        } while(flag != 1);
+        pp1->X = ap1->x;
+        pp1->Y = ap1->y;
+        pp1->Z = c_1;
+
+        do {
+            big_get_A24(A24, c->A, n, nl, mu, nl + 1, &flag);
+        } while(flag != 1);
+
+        big_print(fp, n, nl, "n", NULL);
+        fprintf(fp, "R:=RingOfIntegers(n);\n");
+        big_print(fp, k, kl, "k", NULL);
+        big_print(fp, c->A, nl, "A", NULL);
+        big_print(fp, c->B, nl, "B", NULL);
+        big_print(fp, pp1->X, nl, "X1", "R");
+        big_print(fp, pp1->Y, nl, "Y1", "R");
+        big_print(fp, pp1->Z, nl, "Z1", "R");
+
+        fprintf(fp, "E:=EllipticCurve([A,B]);\n");
+        fprintf(fp, "P:=E![X1,Y1];\n");
+
+        pro_ladder(p, pp1, A24, k, kl, n, nl, mu, nl + 1);
+
+        big_print(fp, p->X, nl, "X", "R");
+        big_print(fp, p->Z, nl, "Z", "R");
+
+        // fprintf(fp, "P2 := k*P1;\n");
+        // fprintf(fp, "if (P2[1] eq X and P2[3] eq Z) then\n");
+        // fprintf(fp, "trues := trues + 1;\n");
+        // fprintf(fp, "else\n");
+        // fprintf(fp, "falses := falses + 1;\n");
+        // fprintf(fp, "end if;\n\n");
+    }
+    // fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/pro_ladder_results.magma\", trues);\n");
+    // fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/pro_ladder_results.magma\", falses);\n");
+
+    fclose(fp);
+}
+
+void ecm_test() {
+    int i, nl, res, true = 0, false = 0, success = 0, fail = 0, success_type[3] = {0};
+    mpz_t mp_n, mp_d, mp_mod;
+
+    mpz_init(mp_n);
+    mpz_init(mp_mod);
+    mpz_init(mp_d);
+    mpz_set_ui(mp_d, 0L);
+
+    for(i = 0; i < 50; i++) {
+        nl = (ui_t)(rand() % 2 + 1);
+        ui_t n[nl], d[nl];
+        big_rand(n, nl);
+        n[0]--; // To make n most probably odd
+        int ret = ecm(d, n, nl);
+        if(ret) {
+            success++;
+            success_type[ret - 1]++;
+            mpz_import(mp_n, nl, -1, 4, 0, 0, n);
+            mpz_import(mp_d, nl, -1, 4, 0, 0, d);
+            mpz_mod(mp_mod, mp_n, mp_d);
+            res = mpz_cmp_ui(mp_mod, 0);
+            if(res == 0) {
+                gmp_printf("n:=%Zd;\n", mp_n);
+                gmp_printf("d:=%Zd;\n", mp_d);
+                printf("n mod d eq 0;\n");
+                true++;
+            } else {
+                false++;
+                printf("False at index: %d\n", i);
+            }
+        } else {
+            fail++;
+        }
+    }
+    printf("TRUE: %d\n", true);
+    printf("FALSE: %d\n", false);
+    printf("SUCCESS: %d\n", success);
+    printf("FAIL: %d\n", fail);
+    printf("FOUND IN pro_curve_point: %d\n", success_type[0]);
+    printf("FOUND IN ladder: %d\n", success_type[1]);
+    printf("FOUND IN A24: %d\n", success_type[2]);
+}
 
 int main() {
     // pro_curve_point_test();
@@ -474,5 +602,7 @@ int main() {
     // pro_add_gmp_test();
     // pro_add_magma_test();
     // pro_dbl_magma_test();
-    // pro_ladder_test();
+    pro_ladder_magma_test();
+    // pro_ladder_gmp_test();
+    // ecm_test();
 }

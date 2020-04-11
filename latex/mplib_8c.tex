@@ -1,0 +1,408 @@
+\hypertarget{mplib_8c}{}\doxysection{mplib.\+c File Reference}
+\label{mplib_8c}\index{mplib.c@{mplib.c}}
+
+
+Implementation of \mbox{\hyperlink{mplib_8h}{mplib.\+h}} library.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$gmp.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}mplib.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{mplib_8c_a4743cbb436fb0d5779e83e3589fc9110}{big\+\_\+rand}} (\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} z, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} l)
+\begin{DoxyCompactList}\small\item\em Initializes z with a random multi-\/precision number. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mplib_8c_ac86aa3c02b5fb9534422c057885fd985}{big\+\_\+mod\+\_\+rand}} (\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} z, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} l, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} n, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} nl, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} mu, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} mul)
+\begin{DoxyCompactList}\small\item\em Initializes z with a random multi-\/precision number mod n. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mplib_8c_a842ecf4973049814e3b933274838f91b}{big\+\_\+print}} (F\+I\+LE $\ast$fp, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} a, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} al, char $\ast$s, char $\ast$R)
+\begin{DoxyCompactList}\small\item\em Prints the given multi-\/precision number in Magma assignment format. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mplib_8c_a32cbee99fcf4a034528bbd2a44cdf75b}{big\+\_\+is\+\_\+equal}} (int $\ast$z, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} a, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} b, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} l)
+\begin{DoxyCompactList}\small\item\em Checks if two multi-\/precision numbers are equal. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mplib_8c_aeba30a3a53a527a0b061c7bd35f94e29}{big\+\_\+is\+\_\+equal\+\_\+ui}} (int $\ast$z, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} a, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} al, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} b)
+\begin{DoxyCompactList}\small\item\em Checks if a multi-\/precision number is equal to given unsigned integer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mplib_8c_a3c6e86631b5ed31221e14ae9f79d9d83}{big\+\_\+add}} (\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} z, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} a, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} al, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} b, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} bl)
+\begin{DoxyCompactList}\small\item\em Adds two multi-\/precision numbers. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mplib_8c_ab29a7708d96292aa030ba924a93d3453}{big\+\_\+mod\+\_\+add}} (\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} z, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} a, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} al, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} b, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} bl, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} n, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} nl)
+\begin{DoxyCompactList}\small\item\em Adds two multi-\/precision numbers in mod n. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mplib_8c_a9768f8f7521806e4e56b7f85288b7ae8}{big\+\_\+sub}} (\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} z, int $\ast$d, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} a, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} al, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} b, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} bl)
+\begin{DoxyCompactList}\small\item\em Subtracts two multi-\/precision numbers. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mplib_8c_afa7d7251a8e0d4320509230578c9f02f}{big\+\_\+mod\+\_\+sub}} (\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} z, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} a, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} al, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} b, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} bl, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} n, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} nl)
+\begin{DoxyCompactList}\small\item\em Subtracts two multi-\/precision numbers in mod n. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mplib_8c_a2a3831028bc258ca26eebdd43ffc32a1}{big\+\_\+mul}} (\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} z, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} a, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} al, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} b, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} bl)
+\begin{DoxyCompactList}\small\item\em Multiplies two multi-\/precision numbers. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mplib_8c_ae5fd245905a58bf689cf28fac4b6aded}{big\+\_\+mod\+\_\+mul}} (\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} z, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} a, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} al, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} b, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} bl, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} n, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} nl, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} mu, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} mul)
+\begin{DoxyCompactList}\small\item\em Multiplies two multi-\/precision numbers in mod n. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mplib_8c_a8cd40acc16b450df202feb4ef7ca087d}{big\+\_\+get\+\_\+mu}} (\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} mu, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} n, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} nl)
+\begin{DoxyCompactList}\small\item\em Calculates $(2^{W})^{2*nl} / n$. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mplib_8c_adae47843c29d15ede23ad1072915f68c}{big\+\_\+get\+\_\+\+A24}} (\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} z, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} A, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} n, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} nl, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} mu, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} mul, int $\ast$flag)
+\begin{DoxyCompactList}\small\item\em Calculates $(A + 2) / 4$. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{mplib_8h_a705e7079d4769b26dc06c390d20f8919}{uni\+\_\+t}} \mbox{\hyperlink{mplib_8c_a84a9defddf677149b30a3fe617a2b769}{barret\+\_\+reduction\+\_\+\+UL}} (\mbox{\hyperlink{mplib_8h_a705e7079d4769b26dc06c390d20f8919}{uni\+\_\+t}} p, \mbox{\hyperlink{mplib_8h_a705e7079d4769b26dc06c390d20f8919}{uni\+\_\+t}} b, \mbox{\hyperlink{mplib_8h_a705e7079d4769b26dc06c390d20f8919}{uni\+\_\+t}} k, \mbox{\hyperlink{mplib_8h_a705e7079d4769b26dc06c390d20f8919}{uni\+\_\+t}} z, \mbox{\hyperlink{mplib_8h_a705e7079d4769b26dc06c390d20f8919}{uni\+\_\+t}} m, \mbox{\hyperlink{mplib_8h_a705e7079d4769b26dc06c390d20f8919}{uni\+\_\+t}} L)
+\item 
+void \mbox{\hyperlink{mplib_8c_ac44422cbdd67e463376d9cb82e192ebd}{barret\+\_\+reduction}} (\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} z, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} m, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} ml, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} n, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} nl, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} mu, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} mul)
+\begin{DoxyCompactList}\small\item\em Calculates m mod n. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mplib_8c_a264cb0dd9496fef0f1d24c7ccaa3627c}{big\+\_\+gcd}} (\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} d, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} dl, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} a, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} al, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} b, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} bl)
+\item 
+int \mbox{\hyperlink{mplib_8c_ae15685825013ac1619ded985b37399c9}{big\+\_\+invert}} (\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} z, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} a, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} al, \mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}} b, \mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}} bl)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of \mbox{\hyperlink{mplib_8h}{mplib.\+h}} library. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{mplib_8c_ac44422cbdd67e463376d9cb82e192ebd}\label{mplib_8c_ac44422cbdd67e463376d9cb82e192ebd}} 
+\index{mplib.c@{mplib.c}!barret\_reduction@{barret\_reduction}}
+\index{barret\_reduction@{barret\_reduction}!mplib.c@{mplib.c}}
+\doxysubsubsection{\texorpdfstring{barret\_reduction()}{barret\_reduction()}}
+{\footnotesize\ttfamily void barret\+\_\+reduction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{z,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{m,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{ml,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{n,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{nl,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{mu,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{mul }\end{DoxyParamCaption})}
+
+
+
+Calculates m mod n. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em z} & result of the reduction \\
+\hline
+\mbox{\texttt{ in}}  & {\em m} & number to be reduced \\
+\hline
+\mbox{\texttt{ in}}  & {\em ml} & number of digits of m in base $2^W$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em n} & modular base for the reduction \\
+\hline
+\mbox{\texttt{ in}}  & {\em nl} & number of digits of n in base $2^W$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em mu} & precalculated value of $(2^{W})^{2*nl} / n$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em mul} & number of digits of mu in base $2^W$ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{mplib_8c_a84a9defddf677149b30a3fe617a2b769}\label{mplib_8c_a84a9defddf677149b30a3fe617a2b769}} 
+\index{mplib.c@{mplib.c}!barret\_reduction\_UL@{barret\_reduction\_UL}}
+\index{barret\_reduction\_UL@{barret\_reduction\_UL}!mplib.c@{mplib.c}}
+\doxysubsubsection{\texorpdfstring{barret\_reduction\_UL()}{barret\_reduction\_UL()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mplib_8h_a705e7079d4769b26dc06c390d20f8919}{uni\+\_\+t}} barret\+\_\+reduction\+\_\+\+UL (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{mplib_8h_a705e7079d4769b26dc06c390d20f8919}{uni\+\_\+t}}}]{p,  }\item[{\mbox{\hyperlink{mplib_8h_a705e7079d4769b26dc06c390d20f8919}{uni\+\_\+t}}}]{b,  }\item[{\mbox{\hyperlink{mplib_8h_a705e7079d4769b26dc06c390d20f8919}{uni\+\_\+t}}}]{k,  }\item[{\mbox{\hyperlink{mplib_8h_a705e7079d4769b26dc06c390d20f8919}{uni\+\_\+t}}}]{z,  }\item[{\mbox{\hyperlink{mplib_8h_a705e7079d4769b26dc06c390d20f8919}{uni\+\_\+t}}}]{m,  }\item[{\mbox{\hyperlink{mplib_8h_a705e7079d4769b26dc06c390d20f8919}{uni\+\_\+t}}}]{L }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{mplib_8c_a3c6e86631b5ed31221e14ae9f79d9d83}\label{mplib_8c_a3c6e86631b5ed31221e14ae9f79d9d83}} 
+\index{mplib.c@{mplib.c}!big\_add@{big\_add}}
+\index{big\_add@{big\_add}!mplib.c@{mplib.c}}
+\doxysubsubsection{\texorpdfstring{big\_add()}{big\_add()}}
+{\footnotesize\ttfamily void big\+\_\+add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{z,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{a,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{al,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{b,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{bl }\end{DoxyParamCaption})}
+
+
+
+Adds two multi-\/precision numbers. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em z} & result of the addition \\
+\hline
+\mbox{\texttt{ in}}  & {\em a} & first number \\
+\hline
+\mbox{\texttt{ in}}  & {\em al} & number of digits of a in base $2^W$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em b} & second number \\
+\hline
+\mbox{\texttt{ in}}  & {\em bl} & number of digits of b in base $2^W$ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{mplib_8c_a264cb0dd9496fef0f1d24c7ccaa3627c}\label{mplib_8c_a264cb0dd9496fef0f1d24c7ccaa3627c}} 
+\index{mplib.c@{mplib.c}!big\_gcd@{big\_gcd}}
+\index{big\_gcd@{big\_gcd}!mplib.c@{mplib.c}}
+\doxysubsubsection{\texorpdfstring{big\_gcd()}{big\_gcd()}}
+{\footnotesize\ttfamily void big\+\_\+gcd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{d,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{dl,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{a,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{al,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{b,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{bl }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{mplib_8c_adae47843c29d15ede23ad1072915f68c}\label{mplib_8c_adae47843c29d15ede23ad1072915f68c}} 
+\index{mplib.c@{mplib.c}!big\_get\_A24@{big\_get\_A24}}
+\index{big\_get\_A24@{big\_get\_A24}!mplib.c@{mplib.c}}
+\doxysubsubsection{\texorpdfstring{big\_get\_A24()}{big\_get\_A24()}}
+{\footnotesize\ttfamily void big\+\_\+get\+\_\+\+A24 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{A24,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{A,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{n,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{nl,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{mu,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{mul,  }\item[{int $\ast$}]{flag }\end{DoxyParamCaption})}
+
+
+
+Calculates $(A + 2) / 4$. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em A24} & result of $(A + 2) / 4$ or a factor of n \\
+\hline
+\mbox{\texttt{ in}}  & {\em A} & A in the equation \\
+\hline
+\mbox{\texttt{ in}}  & {\em n} & n modular base for the calculation \\
+\hline
+\mbox{\texttt{ in}}  & {\em number} & of digits of n in base $2^W$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em mu} & precalculated value of $(2^{W})^{2*nl} / n$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em mul} & number of digits of mu in base $2^W$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em flag} & 1 when calculation succeeds, 0 when factor gets found \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{mplib_8c_a8cd40acc16b450df202feb4ef7ca087d}\label{mplib_8c_a8cd40acc16b450df202feb4ef7ca087d}} 
+\index{mplib.c@{mplib.c}!big\_get\_mu@{big\_get\_mu}}
+\index{big\_get\_mu@{big\_get\_mu}!mplib.c@{mplib.c}}
+\doxysubsubsection{\texorpdfstring{big\_get\_mu()}{big\_get\_mu()}}
+{\footnotesize\ttfamily void big\+\_\+get\+\_\+mu (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{z,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{n,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{nl }\end{DoxyParamCaption})}
+
+
+
+Calculates $(2^{W})^{2*nl} / n$. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em z} & result of the calculation \\
+\hline
+\mbox{\texttt{ in}}  & {\em n} & n in the equation \\
+\hline
+\mbox{\texttt{ in}}  & {\em nl} & number of digits of n in base $2^W$ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{mplib_8c_ae15685825013ac1619ded985b37399c9}\label{mplib_8c_ae15685825013ac1619ded985b37399c9}} 
+\index{mplib.c@{mplib.c}!big\_invert@{big\_invert}}
+\index{big\_invert@{big\_invert}!mplib.c@{mplib.c}}
+\doxysubsubsection{\texorpdfstring{big\_invert()}{big\_invert()}}
+{\footnotesize\ttfamily int big\+\_\+invert (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{z,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{a,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{al,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{b,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{bl }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{mplib_8c_a32cbee99fcf4a034528bbd2a44cdf75b}\label{mplib_8c_a32cbee99fcf4a034528bbd2a44cdf75b}} 
+\index{mplib.c@{mplib.c}!big\_is\_equal@{big\_is\_equal}}
+\index{big\_is\_equal@{big\_is\_equal}!mplib.c@{mplib.c}}
+\doxysubsubsection{\texorpdfstring{big\_is\_equal()}{big\_is\_equal()}}
+{\footnotesize\ttfamily void big\+\_\+is\+\_\+equal (\begin{DoxyParamCaption}\item[{int $\ast$}]{z,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{a,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{b,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{l }\end{DoxyParamCaption})}
+
+
+
+Checks if two multi-\/precision numbers are equal. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em z} & 1 if equal, 0 otw \\
+\hline
+\mbox{\texttt{ in}}  & {\em a} & first number \\
+\hline
+\mbox{\texttt{ in}}  & {\em b} & second number \\
+\hline
+\mbox{\texttt{ in}}  & {\em l} & number of digits of a and b in base $2^W$ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{mplib_8c_aeba30a3a53a527a0b061c7bd35f94e29}\label{mplib_8c_aeba30a3a53a527a0b061c7bd35f94e29}} 
+\index{mplib.c@{mplib.c}!big\_is\_equal\_ui@{big\_is\_equal\_ui}}
+\index{big\_is\_equal\_ui@{big\_is\_equal\_ui}!mplib.c@{mplib.c}}
+\doxysubsubsection{\texorpdfstring{big\_is\_equal\_ui()}{big\_is\_equal\_ui()}}
+{\footnotesize\ttfamily void big\+\_\+is\+\_\+equal\+\_\+ui (\begin{DoxyParamCaption}\item[{int $\ast$}]{z,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{a,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{al,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{b }\end{DoxyParamCaption})}
+
+
+
+Checks if a multi-\/precision number is equal to given unsigned integer. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em z} & 1 if equal, 0 otw \\
+\hline
+\mbox{\texttt{ in}}  & {\em a} & first number \\
+\hline
+\mbox{\texttt{ in}}  & {\em al} & number of digits of a in base $2^W$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em b} & unsigned int to be compared \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{mplib_8c_ab29a7708d96292aa030ba924a93d3453}\label{mplib_8c_ab29a7708d96292aa030ba924a93d3453}} 
+\index{mplib.c@{mplib.c}!big\_mod\_add@{big\_mod\_add}}
+\index{big\_mod\_add@{big\_mod\_add}!mplib.c@{mplib.c}}
+\doxysubsubsection{\texorpdfstring{big\_mod\_add()}{big\_mod\_add()}}
+{\footnotesize\ttfamily void big\+\_\+mod\+\_\+add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{z,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{a,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{al,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{b,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{bl,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{n,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{nl }\end{DoxyParamCaption})}
+
+
+
+Adds two multi-\/precision numbers in mod n. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em z} & result of the addition \\
+\hline
+\mbox{\texttt{ in}}  & {\em a} & first number \\
+\hline
+\mbox{\texttt{ in}}  & {\em al} & number of digits of a in base $2^W$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em b} & second number \\
+\hline
+\mbox{\texttt{ in}}  & {\em bl} & number of digits of b in base $2^W$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em n} & modular base for the addition \\
+\hline
+\mbox{\texttt{ in}}  & {\em nl} & number of digits of n in base $2^W$ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{mplib_8c_ae5fd245905a58bf689cf28fac4b6aded}\label{mplib_8c_ae5fd245905a58bf689cf28fac4b6aded}} 
+\index{mplib.c@{mplib.c}!big\_mod\_mul@{big\_mod\_mul}}
+\index{big\_mod\_mul@{big\_mod\_mul}!mplib.c@{mplib.c}}
+\doxysubsubsection{\texorpdfstring{big\_mod\_mul()}{big\_mod\_mul()}}
+{\footnotesize\ttfamily void big\+\_\+mod\+\_\+mul (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{z,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{a,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{al,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{b,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{bl,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{n,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{nl,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{mu,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{mul }\end{DoxyParamCaption})}
+
+
+
+Multiplies two multi-\/precision numbers in mod n. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em z} & result of the multiplication \\
+\hline
+\mbox{\texttt{ in}}  & {\em a} & first number \\
+\hline
+\mbox{\texttt{ in}}  & {\em al} & number of digits of a in base $2^W$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em b} & second number \\
+\hline
+\mbox{\texttt{ in}}  & {\em bl} & number of digits of b in base $2^W$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em n} & modular base for the multiplication \\
+\hline
+\mbox{\texttt{ in}}  & {\em nl} & number of digits of n in base $2^W$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em mu} & precalculated value of $(2^{W})^{2*nl} / n$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em mul} & number of digits of mu in base $2^W$ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{mplib_8c_ac86aa3c02b5fb9534422c057885fd985}\label{mplib_8c_ac86aa3c02b5fb9534422c057885fd985}} 
+\index{mplib.c@{mplib.c}!big\_mod\_rand@{big\_mod\_rand}}
+\index{big\_mod\_rand@{big\_mod\_rand}!mplib.c@{mplib.c}}
+\doxysubsubsection{\texorpdfstring{big\_mod\_rand()}{big\_mod\_rand()}}
+{\footnotesize\ttfamily void big\+\_\+mod\+\_\+rand (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{z,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{l,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{n,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{nl,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{mu,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{mul }\end{DoxyParamCaption})}
+
+
+
+Initializes z with a random multi-\/precision number mod n. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em z} & multi-\/precision number to be initialized \\
+\hline
+\mbox{\texttt{ in}}  & {\em l} & number of digits of z in base $2^W$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em n} & modular base for z \\
+\hline
+\mbox{\texttt{ in}}  & {\em nl} & number of digits of n in base $2^W$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em mu} & precalculated value of $(2^{W})^{2*nl} / n$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em mul} & number of digits of mu in base $2^W$ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{mplib_8c_afa7d7251a8e0d4320509230578c9f02f}\label{mplib_8c_afa7d7251a8e0d4320509230578c9f02f}} 
+\index{mplib.c@{mplib.c}!big\_mod\_sub@{big\_mod\_sub}}
+\index{big\_mod\_sub@{big\_mod\_sub}!mplib.c@{mplib.c}}
+\doxysubsubsection{\texorpdfstring{big\_mod\_sub()}{big\_mod\_sub()}}
+{\footnotesize\ttfamily void big\+\_\+mod\+\_\+sub (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{z,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{a,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{al,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{b,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{bl,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{n,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{nl }\end{DoxyParamCaption})}
+
+
+
+Subtracts two multi-\/precision numbers in mod n. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em z} & result of the subtraction \\
+\hline
+\mbox{\texttt{ in}}  & {\em a} & first number \\
+\hline
+\mbox{\texttt{ in}}  & {\em al} & number of digits of a in base $2^W$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em b} & second number \\
+\hline
+\mbox{\texttt{ in}}  & {\em bl} & number of digits of b in base $2^W$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em n} & modular base for the subtraction \\
+\hline
+\mbox{\texttt{ in}}  & {\em nl} & number of digits of n in base $2^W$ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{mplib_8c_a2a3831028bc258ca26eebdd43ffc32a1}\label{mplib_8c_a2a3831028bc258ca26eebdd43ffc32a1}} 
+\index{mplib.c@{mplib.c}!big\_mul@{big\_mul}}
+\index{big\_mul@{big\_mul}!mplib.c@{mplib.c}}
+\doxysubsubsection{\texorpdfstring{big\_mul()}{big\_mul()}}
+{\footnotesize\ttfamily void big\+\_\+mul (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{z,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{a,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{al,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{b,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{bl }\end{DoxyParamCaption})}
+
+
+
+Multiplies two multi-\/precision numbers. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em z} & result of the multiplication \\
+\hline
+\mbox{\texttt{ in}}  & {\em a} & first number \\
+\hline
+\mbox{\texttt{ in}}  & {\em al} & number of digits of a in base $2^W$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em b} & second number \\
+\hline
+\mbox{\texttt{ in}}  & {\em bl} & number of digits of b in base $2^W$ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{mplib_8c_a842ecf4973049814e3b933274838f91b}\label{mplib_8c_a842ecf4973049814e3b933274838f91b}} 
+\index{mplib.c@{mplib.c}!big\_print@{big\_print}}
+\index{big\_print@{big\_print}!mplib.c@{mplib.c}}
+\doxysubsubsection{\texorpdfstring{big\_print()}{big\_print()}}
+{\footnotesize\ttfamily void big\+\_\+print (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$}]{fp,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{a,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{al,  }\item[{char $\ast$}]{s,  }\item[{char $\ast$}]{R }\end{DoxyParamCaption})}
+
+
+
+Prints the given multi-\/precision number in Magma assignment format. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em fp} & pointer to the file to print \\
+\hline
+\mbox{\texttt{ in}}  & {\em a} & multi-\/precision number to be printed \\
+\hline
+\mbox{\texttt{ in}}  & {\em al} & number of digits of a in base $2^W$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em s} & name of the variable going to be assigned to a \\
+\hline
+\mbox{\texttt{ in}}  & {\em R} & name of the ring that a is going to be defined in (optional) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{mplib_8c_a4743cbb436fb0d5779e83e3589fc9110}\label{mplib_8c_a4743cbb436fb0d5779e83e3589fc9110}} 
+\index{mplib.c@{mplib.c}!big\_rand@{big\_rand}}
+\index{big\_rand@{big\_rand}!mplib.c@{mplib.c}}
+\doxysubsubsection{\texorpdfstring{big\_rand()}{big\_rand()}}
+{\footnotesize\ttfamily void big\+\_\+rand (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{z,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{l }\end{DoxyParamCaption})}
+
+
+
+Initializes z with a random multi-\/precision number. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em z} & multi-\/precision number to be initialized \\
+\hline
+\mbox{\texttt{ in}}  & {\em l} & number of digits of z in base $2^W$ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{mplib_8c_a9768f8f7521806e4e56b7f85288b7ae8}\label{mplib_8c_a9768f8f7521806e4e56b7f85288b7ae8}} 
+\index{mplib.c@{mplib.c}!big\_sub@{big\_sub}}
+\index{big\_sub@{big\_sub}!mplib.c@{mplib.c}}
+\doxysubsubsection{\texorpdfstring{big\_sub()}{big\_sub()}}
+{\footnotesize\ttfamily void big\+\_\+sub (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{z,  }\item[{int $\ast$}]{d,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{a,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{al,  }\item[{\mbox{\hyperlink{mplib_8h_a2682ad0b52214e55689cf91b7f81a940}{ui}}}]{b,  }\item[{\mbox{\hyperlink{mplib_8h_af725d9f5d457c0cbd02e1778cb2294a8}{ui\+\_\+t}}}]{bl }\end{DoxyParamCaption})}
+
+
+
+Subtracts two multi-\/precision numbers. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em z} & result of the subtraction \\
+\hline
+\mbox{\texttt{ in}}  & {\em a} & first number \\
+\hline
+\mbox{\texttt{ in}}  & {\em al} & number of digits of a in base $2^W$ \\
+\hline
+\mbox{\texttt{ in}}  & {\em b} & second number \\
+\hline
+\mbox{\texttt{ in}}  & {\em bl} & number of digits of b in base $2^W$ \\
+\hline
+\end{DoxyParams}

@@ -1,3 +1,8 @@
+/**
+ * \file montgomery.c
+ * \brief Implementation of montgomery.h library.
+ */ 
+
 #include <gmp.h>
 #include <stdlib.h>
 #include <time.h>
@@ -38,7 +43,7 @@ void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_
         big_mod_mul(Y2Z, Y2, nl, Z, nl, n, nl, mu, mul);        // Y2Z = Y^2Z
         big_mod_add(RHS1, X3, nl, AX2Z, nl, n, nl);             // RHS1 = X^3 + AX^2Z
         big_mod_add(RHS, RHS1, nl, XZ2, nl, n, nl);             // RHS = X^3 + AX^2Z + XZ^2
-        big_gcd(d, nl, Y2Z, nl, n, nl);                             // d = GCD(Y^2Z, n)
+        big_gcd(d, nl, Y2Z, nl, n, nl);                         // d = GCD(Y^2Z, n)
         big_is_equal_ui(&is_one, d, nl, 1L);
         big_is_equal(&is_n, d, n, nl);
         if(is_one || is_n) {
@@ -92,7 +97,7 @@ void aff_curve_point(ui d, MONTG_CURVE c, AFF_POINT p, ui n, ui_t nl, ui mu, ui_
         big_mod_mul(y2, y, nl, y, nl, n, nl, mu, mul);          // y2 = y^2
         big_mod_add(rhs1, x3, nl, Ax2, nl, n, nl);              // rhs1 = x^3 + Ax^2
         big_mod_add(rhs, rhs1, nl, x, nl, n, nl);               // rhs = x^3 + Ax^2 + x
-        big_gcd(d, nl, y2, nl, n, nl);                              // d = GCD(y^2, n)
+        big_gcd(d, nl, y2, nl, n, nl);                          // d = GCD(y^2, n)
         big_is_equal_ui(&is_one, d, nl, 1L);
         big_is_equal(&is_n, d, n, nl);
         if(is_one || is_n) {
@@ -106,6 +111,8 @@ void aff_curve_point(ui d, MONTG_CURVE c, AFF_POINT p, ui n, ui_t nl, ui mu, ui_
                 p->x = x;
                 p->y = y;
                 *flag = 1;
+            } else {
+                *flag = -1;
             }
         } else {
             *flag = 0;
@@ -179,11 +186,23 @@ void pro_ladder(PRO_POINT p, PRO_POINT p1, ui A24, ui k, ui_t kl, ui n, ui_t nl,
     ui_t a, x;
     PRO_POINT R0 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT R1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-    PRO_POINT_t R0_, R1_;
+    PRO_POINT R0_ = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    PRO_POINT R1_ = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    R0->X = (ui)malloc(sizeof(ui_t) * nl);
+    R0->Y = (ui)malloc(sizeof(ui_t) * nl);
+    R0->Z = (ui)malloc(sizeof(ui_t) * nl);
+    R0_->X = (ui)malloc(sizeof(ui_t) * nl);
+    R0_->Y = (ui)malloc(sizeof(ui_t) * nl);
+    R0_->Z = (ui)malloc(sizeof(ui_t) * nl);
+    R1_->X = (ui)malloc(sizeof(ui_t) * nl);
+    R1_->Y = (ui)malloc(sizeof(ui_t) * nl);
+    R1_->Z = (ui)malloc(sizeof(ui_t) * nl);
+    p->X = (ui)malloc(sizeof(ui_t) * nl);
+    p->Z = (ui)malloc(sizeof(ui_t) * nl);
     int i, j;
 
-    R0->X = p1->X;
-    R0->Z = p1->Z;
+    big_cpy(R0->X, p1->X, 0, nl);
+    big_cpy(R0->Z, p1->Z, 0, nl);
     pro_dbl(R1, p1, A24, n, nl, mu, mul);
 
     a = k[kl - 1];
@@ -195,10 +214,10 @@ void pro_ladder(PRO_POINT p, PRO_POINT p1, ui A24, ui k, ui_t kl, ui n, ui_t nl,
     for(i = j - 2; i >= 0; i--) {
         x = 1;
         x <<= i;
-        R0_->X = R0->X;
-        R0_->Z = R0->Z;
-        R1_->X = R1->X;
-        R1_->Z = R1->Z;
+        big_cpy(R0_->X, R0->X, 0, nl);
+        big_cpy(R0_->Z, R0->Z, 0, nl);
+        big_cpy(R1_->X, R1->X, 0, nl);
+        big_cpy(R1_->Z, R1->Z, 0, nl);
         if(!(k[kl - 1] & x)) {
             pro_dbl(R0, R0_, A24, n, nl, mu, mul);
             pro_add(R1, R0_, R1_, p1, n, nl, mu, mul);
@@ -211,10 +230,10 @@ void pro_ladder(PRO_POINT p, PRO_POINT p1, ui A24, ui k, ui_t kl, ui n, ui_t nl,
         for(j = W - 1; j >= 0; j--) {
             x = 1;
             x <<= i;
-            R0_->X = R0->X;
-            R0_->Z = R0->Z;
-            R1_->X = R1->X;
-            R1_->Z = R1->Z;
+            big_cpy(R0_->X, R0->X, 0, nl);
+            big_cpy(R0_->Z, R0->Z, 0, nl);
+            big_cpy(R1_->X, R1->X, 0, nl);
+            big_cpy(R1_->Z, R1->Z, 0, nl);
             if(!(k[kl - 1] & x)) {
                 pro_dbl(R0, R0_, A24, n, nl, mu, mul);
                 pro_add(R1, R0_, R1_, p1, n, nl, mu, mul);
@@ -224,8 +243,8 @@ void pro_ladder(PRO_POINT p, PRO_POINT p1, ui A24, ui k, ui_t kl, ui n, ui_t nl,
             }
         }
     }
-    p->X = R0->X;
-    p->Z = R0->Z;
+    big_cpy(p->X, R0->X, 0, nl);
+    big_cpy(p->Z, R0->Z, 0, nl);
 }
 
 void aff_ladder(ui x, ui y, ui x1, ui y1, ui k, ui n) {
