@@ -1,0 +1,134 @@
+\hypertarget{test_8h}{}\doxysection{test.\+h File Reference}
+\label{test_8h}\index{test.h@{test.h}}
+
+
+A library to test ecm.  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{test_8h_a9900faa39014b9c8d8956e328546b41c}{pro\+\_\+curve\+\_\+point\+\_\+gmp\+\_\+test}} ()
+\begin{DoxyCompactList}\small\item\em Tests pro\+\_\+curve\+\_\+point function using G\+MP. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{test_8h_ae9ce82cb5db9c0d51e487951ef2c1541}{aff\+\_\+curve\+\_\+point\+\_\+gmp\+\_\+test}} ()
+\begin{DoxyCompactList}\small\item\em Tests aff\+\_\+curve\+\_\+point function using G\+MP. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{test_8h_a82dddc5d5006d1ddc2a3c57eeed79764}{pro\+\_\+add\+\_\+gmp\+\_\+test}} ()
+\begin{DoxyCompactList}\small\item\em Tests pro\+\_\+add function using G\+MP. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{test_8h_afeb3c776c3049fe683b05ecd94e08715}{pro\+\_\+add\+\_\+magma\+\_\+test}} ()
+\begin{DoxyCompactList}\small\item\em Tests pro\+\_\+add function using Magma. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{test_8h_a13af876f1dbb00ed8c40059778f46027}{pro\+\_\+dbl\+\_\+magma\+\_\+test}} ()
+\begin{DoxyCompactList}\small\item\em Tests pro\+\_\+dbl function using Magma. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{test_8h_a31b607744b3a3860a1652bc76a00c860}{pro\+\_\+ladder\+\_\+gmp\+\_\+test}} ()
+\item 
+void \mbox{\hyperlink{test_8h_adedb49e58087f91f128d2bde71ad43b4}{pro\+\_\+ladder\+\_\+magma\+\_\+test}} ()
+\item 
+void \mbox{\hyperlink{test_8h_ac050bc8ae15d1ce0e4192afeca23f907}{ecm\+\_\+test}} ()
+\begin{DoxyCompactList}\small\item\em Tests ecm function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A library to test ecm. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{test_8h_ae9ce82cb5db9c0d51e487951ef2c1541}\label{test_8h_ae9ce82cb5db9c0d51e487951ef2c1541}} 
+\index{test.h@{test.h}!aff\_curve\_point\_gmp\_test@{aff\_curve\_point\_gmp\_test}}
+\index{aff\_curve\_point\_gmp\_test@{aff\_curve\_point\_gmp\_test}!test.h@{test.h}}
+\doxysubsubsection{\texorpdfstring{aff\_curve\_point\_gmp\_test()}{aff\_curve\_point\_gmp\_test()}}
+{\footnotesize\ttfamily void aff\+\_\+curve\+\_\+point\+\_\+gmp\+\_\+test (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Tests aff\+\_\+curve\+\_\+point function using G\+MP. 
+
+
+\begin{DoxyEnumerate}
+\item Generates a random curve and a affine point using the function
+\item Checks if the coefficients of the curve and the point satisfies the curve equation using G\+MP 
+\end{DoxyEnumerate}\mbox{\Hypertarget{test_8h_ac050bc8ae15d1ce0e4192afeca23f907}\label{test_8h_ac050bc8ae15d1ce0e4192afeca23f907}} 
+\index{test.h@{test.h}!ecm\_test@{ecm\_test}}
+\index{ecm\_test@{ecm\_test}!test.h@{test.h}}
+\doxysubsubsection{\texorpdfstring{ecm\_test()}{ecm\_test()}}
+{\footnotesize\ttfamily void ecm\+\_\+test (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Tests ecm function. 
+
+
+\begin{DoxyEnumerate}
+\item Generates a random composite number
+\item Calculates a factor of the number using the function
+\item Checks whether the factor found actually divides the composite number 
+\end{DoxyEnumerate}\mbox{\Hypertarget{test_8h_a82dddc5d5006d1ddc2a3c57eeed79764}\label{test_8h_a82dddc5d5006d1ddc2a3c57eeed79764}} 
+\index{test.h@{test.h}!pro\_add\_gmp\_test@{pro\_add\_gmp\_test}}
+\index{pro\_add\_gmp\_test@{pro\_add\_gmp\_test}!test.h@{test.h}}
+\doxysubsubsection{\texorpdfstring{pro\_add\_gmp\_test()}{pro\_add\_gmp\_test()}}
+{\footnotesize\ttfamily void pro\+\_\+add\+\_\+gmp\+\_\+test (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Tests pro\+\_\+add function using G\+MP. 
+
+
+\begin{DoxyEnumerate}
+\item Generates two random points
+\item Computes the addition by implementing the algebraic calculations using G\+MP
+\item Compares the result of the function with the G\+MP result 
+\end{DoxyEnumerate}\mbox{\Hypertarget{test_8h_afeb3c776c3049fe683b05ecd94e08715}\label{test_8h_afeb3c776c3049fe683b05ecd94e08715}} 
+\index{test.h@{test.h}!pro\_add\_magma\_test@{pro\_add\_magma\_test}}
+\index{pro\_add\_magma\_test@{pro\_add\_magma\_test}!test.h@{test.h}}
+\doxysubsubsection{\texorpdfstring{pro\_add\_magma\_test()}{pro\_add\_magma\_test()}}
+{\footnotesize\ttfamily void pro\+\_\+add\+\_\+magma\+\_\+test (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Tests pro\+\_\+add function using Magma. 
+
+
+\begin{DoxyEnumerate}
+\item Generates two random points
+\item Computes the addition by implementing the algebraic calculations using Magma
+\item Compares the result of the function with the Magma result 
+\end{DoxyEnumerate}\mbox{\Hypertarget{test_8h_a9900faa39014b9c8d8956e328546b41c}\label{test_8h_a9900faa39014b9c8d8956e328546b41c}} 
+\index{test.h@{test.h}!pro\_curve\_point\_gmp\_test@{pro\_curve\_point\_gmp\_test}}
+\index{pro\_curve\_point\_gmp\_test@{pro\_curve\_point\_gmp\_test}!test.h@{test.h}}
+\doxysubsubsection{\texorpdfstring{pro\_curve\_point\_gmp\_test()}{pro\_curve\_point\_gmp\_test()}}
+{\footnotesize\ttfamily void pro\+\_\+curve\+\_\+point\+\_\+gmp\+\_\+test (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Tests pro\+\_\+curve\+\_\+point function using G\+MP. 
+
+
+\begin{DoxyEnumerate}
+\item Generates a random curve and a projective point using the function
+\item Checks if the coefficients of the curve and the point satisfies the curve equation using G\+MP 
+\end{DoxyEnumerate}\mbox{\Hypertarget{test_8h_a13af876f1dbb00ed8c40059778f46027}\label{test_8h_a13af876f1dbb00ed8c40059778f46027}} 
+\index{test.h@{test.h}!pro\_dbl\_magma\_test@{pro\_dbl\_magma\_test}}
+\index{pro\_dbl\_magma\_test@{pro\_dbl\_magma\_test}!test.h@{test.h}}
+\doxysubsubsection{\texorpdfstring{pro\_dbl\_magma\_test()}{pro\_dbl\_magma\_test()}}
+{\footnotesize\ttfamily void pro\+\_\+dbl\+\_\+magma\+\_\+test (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Tests pro\+\_\+dbl function using Magma. 
+
+
+\begin{DoxyEnumerate}
+\item Generates a random point
+\item Computes the double by implementing the algebraic calculations using Magma
+\item Compares the result of the function with the Magma result 
+\end{DoxyEnumerate}\mbox{\Hypertarget{test_8h_a31b607744b3a3860a1652bc76a00c860}\label{test_8h_a31b607744b3a3860a1652bc76a00c860}} 
+\index{test.h@{test.h}!pro\_ladder\_gmp\_test@{pro\_ladder\_gmp\_test}}
+\index{pro\_ladder\_gmp\_test@{pro\_ladder\_gmp\_test}!test.h@{test.h}}
+\doxysubsubsection{\texorpdfstring{pro\_ladder\_gmp\_test()}{pro\_ladder\_gmp\_test()}}
+{\footnotesize\ttfamily void pro\+\_\+ladder\+\_\+gmp\+\_\+test (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test_8h_adedb49e58087f91f128d2bde71ad43b4}\label{test_8h_adedb49e58087f91f128d2bde71ad43b4}} 
+\index{test.h@{test.h}!pro\_ladder\_magma\_test@{pro\_ladder\_magma\_test}}
+\index{pro\_ladder\_magma\_test@{pro\_ladder\_magma\_test}!test.h@{test.h}}
+\doxysubsubsection{\texorpdfstring{pro\_ladder\_magma\_test()}{pro\_ladder\_magma\_test()}}
+{\footnotesize\ttfamily void pro\+\_\+ladder\+\_\+magma\+\_\+test (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+

@@ -1,0 +1,142 @@
+\@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
+\contentsline {chapter}{\numberline {1}Class Index}{1}{chapter.1}% 
+\contentsline {section}{\numberline {1.1}Class List}{1}{section.1.1}% 
+\contentsline {chapter}{\numberline {2}File Index}{3}{chapter.2}% 
+\contentsline {section}{\numberline {2.1}File List}{3}{section.2.1}% 
+\contentsline {chapter}{\numberline {3}Class Documentation}{5}{chapter.3}% 
+\contentsline {section}{\numberline {3.1}Aff\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Point\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}s Struct Reference}{5}{section.3.1}% 
+\contentsline {subsection}{\numberline {3.1.1}Detailed Description}{5}{subsection.3.1.1}% 
+\contentsline {subsection}{\numberline {3.1.2}Member Data Documentation}{5}{subsection.3.1.2}% 
+\contentsline {subsubsection}{\numberline {3.1.2.1}x}{5}{subsubsection.3.1.2.1}% 
+\contentsline {subsubsection}{\numberline {3.1.2.2}y}{5}{subsubsection.3.1.2.2}% 
+\contentsline {section}{\numberline {3.2}Montg\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Curve\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}s Struct Reference}{6}{section.3.2}% 
+\contentsline {subsection}{\numberline {3.2.1}Detailed Description}{6}{subsection.3.2.1}% 
+\contentsline {subsection}{\numberline {3.2.2}Member Data Documentation}{6}{subsection.3.2.2}% 
+\contentsline {subsubsection}{\numberline {3.2.2.1}A}{6}{subsubsection.3.2.2.1}% 
+\contentsline {subsubsection}{\numberline {3.2.2.2}B}{6}{subsubsection.3.2.2.2}% 
+\contentsline {subsubsection}{\numberline {3.2.2.3}n}{6}{subsubsection.3.2.2.3}% 
+\contentsline {section}{\numberline {3.3}Pro\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Point\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}\_\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}s Struct Reference}{7}{section.3.3}% 
+\contentsline {subsection}{\numberline {3.3.1}Detailed Description}{7}{subsection.3.3.1}% 
+\contentsline {subsection}{\numberline {3.3.2}Member Data Documentation}{7}{subsection.3.3.2}% 
+\contentsline {subsubsection}{\numberline {3.3.2.1}X}{7}{subsubsection.3.3.2.1}% 
+\contentsline {subsubsection}{\numberline {3.3.2.2}Y}{7}{subsubsection.3.3.2.2}% 
+\contentsline {subsubsection}{\numberline {3.3.2.3}Z}{7}{subsubsection.3.3.2.3}% 
+\contentsline {chapter}{\numberline {4}File Documentation}{9}{chapter.4}% 
+\contentsline {section}{\numberline {4.1}ecm.\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}c File Reference}{9}{section.4.1}% 
+\contentsline {subsection}{\numberline {4.1.1}Detailed Description}{9}{subsection.4.1.1}% 
+\contentsline {subsection}{\numberline {4.1.2}Function Documentation}{9}{subsection.4.1.2}% 
+\contentsline {subsubsection}{\numberline {4.1.2.1}ecm()}{9}{subsubsection.4.1.2.1}% 
+\contentsline {section}{\numberline {4.2}ecm.\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}h File Reference}{10}{section.4.2}% 
+\contentsline {subsection}{\numberline {4.2.1}Detailed Description}{10}{subsection.4.2.1}% 
+\contentsline {subsection}{\numberline {4.2.2}Macro Definition Documentation}{10}{subsection.4.2.2}% 
+\contentsline {subsubsection}{\numberline {4.2.2.1}B\_THRESHOLD}{10}{subsubsection.4.2.2.1}% 
+\contentsline {subsubsection}{\numberline {4.2.2.2}CRV\_THRESHOLD}{11}{subsubsection.4.2.2.2}% 
+\contentsline {subsection}{\numberline {4.2.3}Function Documentation}{11}{subsection.4.2.3}% 
+\contentsline {subsubsection}{\numberline {4.2.3.1}ecm()}{11}{subsubsection.4.2.3.1}% 
+\contentsline {section}{\numberline {4.3}main.\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}c File Reference}{11}{section.4.3}% 
+\contentsline {subsection}{\numberline {4.3.1}Function Documentation}{11}{subsection.4.3.1}% 
+\contentsline {subsubsection}{\numberline {4.3.1.1}main()}{12}{subsubsection.4.3.1.1}% 
+\contentsline {section}{\numberline {4.4}montgomery.\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}c File Reference}{12}{section.4.4}% 
+\contentsline {subsection}{\numberline {4.4.1}Detailed Description}{12}{subsection.4.4.1}% 
+\contentsline {subsection}{\numberline {4.4.2}Function Documentation}{12}{subsection.4.4.2}% 
+\contentsline {subsubsection}{\numberline {4.4.2.1}aff\_add()}{13}{subsubsection.4.4.2.1}% 
+\contentsline {subsubsection}{\numberline {4.4.2.2}aff\_curve\_point()}{13}{subsubsection.4.4.2.2}% 
+\contentsline {subsubsection}{\numberline {4.4.2.3}aff\_dbl()}{14}{subsubsection.4.4.2.3}% 
+\contentsline {subsubsection}{\numberline {4.4.2.4}aff\_is\_on\_curve()}{14}{subsubsection.4.4.2.4}% 
+\contentsline {subsubsection}{\numberline {4.4.2.5}aff\_ladder()}{14}{subsubsection.4.4.2.5}% 
+\contentsline {subsubsection}{\numberline {4.4.2.6}pro\_add()}{14}{subsubsection.4.4.2.6}% 
+\contentsline {subsubsection}{\numberline {4.4.2.7}pro\_curve\_point()}{15}{subsubsection.4.4.2.7}% 
+\contentsline {subsubsection}{\numberline {4.4.2.8}pro\_dbl()}{15}{subsubsection.4.4.2.8}% 
+\contentsline {subsubsection}{\numberline {4.4.2.9}pro\_is\_on\_curve()}{16}{subsubsection.4.4.2.9}% 
+\contentsline {subsubsection}{\numberline {4.4.2.10}pro\_ladder()}{16}{subsubsection.4.4.2.10}% 
+\contentsline {section}{\numberline {4.5}montgomery.\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}h File Reference}{17}{section.4.5}% 
+\contentsline {subsection}{\numberline {4.5.1}Detailed Description}{18}{subsection.4.5.1}% 
+\contentsline {subsection}{\numberline {4.5.2}Typedef Documentation}{18}{subsection.4.5.2}% 
+\contentsline {subsubsection}{\numberline {4.5.2.1}AFF\_POINT}{18}{subsubsection.4.5.2.1}% 
+\contentsline {subsubsection}{\numberline {4.5.2.2}AFF\_POINT\_t}{18}{subsubsection.4.5.2.2}% 
+\contentsline {subsubsection}{\numberline {4.5.2.3}MONTG\_CURVE}{18}{subsubsection.4.5.2.3}% 
+\contentsline {subsubsection}{\numberline {4.5.2.4}MONTG\_CURVE\_t}{18}{subsubsection.4.5.2.4}% 
+\contentsline {subsubsection}{\numberline {4.5.2.5}PRO\_POINT}{19}{subsubsection.4.5.2.5}% 
+\contentsline {subsubsection}{\numberline {4.5.2.6}PRO\_POINT\_t}{19}{subsubsection.4.5.2.6}% 
+\contentsline {subsection}{\numberline {4.5.3}Function Documentation}{19}{subsection.4.5.3}% 
+\contentsline {subsubsection}{\numberline {4.5.3.1}aff\_add()}{19}{subsubsection.4.5.3.1}% 
+\contentsline {subsubsection}{\numberline {4.5.3.2}aff\_curve\_point()}{19}{subsubsection.4.5.3.2}% 
+\contentsline {subsubsection}{\numberline {4.5.3.3}aff\_dbl()}{20}{subsubsection.4.5.3.3}% 
+\contentsline {subsubsection}{\numberline {4.5.3.4}aff\_is\_on\_curve()}{20}{subsubsection.4.5.3.4}% 
+\contentsline {subsubsection}{\numberline {4.5.3.5}aff\_ladder()}{21}{subsubsection.4.5.3.5}% 
+\contentsline {subsubsection}{\numberline {4.5.3.6}pro\_add()}{21}{subsubsection.4.5.3.6}% 
+\contentsline {subsubsection}{\numberline {4.5.3.7}pro\_curve\_point()}{21}{subsubsection.4.5.3.7}% 
+\contentsline {subsubsection}{\numberline {4.5.3.8}pro\_dbl()}{22}{subsubsection.4.5.3.8}% 
+\contentsline {subsubsection}{\numberline {4.5.3.9}pro\_is\_on\_curve()}{22}{subsubsection.4.5.3.9}% 
+\contentsline {subsubsection}{\numberline {4.5.3.10}pro\_ladder()}{23}{subsubsection.4.5.3.10}% 
+\contentsline {section}{\numberline {4.6}mplib.\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}c File Reference}{23}{section.4.6}% 
+\contentsline {subsection}{\numberline {4.6.1}Detailed Description}{24}{subsection.4.6.1}% 
+\contentsline {subsection}{\numberline {4.6.2}Function Documentation}{24}{subsection.4.6.2}% 
+\contentsline {subsubsection}{\numberline {4.6.2.1}barret\_reduction()}{24}{subsubsection.4.6.2.1}% 
+\contentsline {subsubsection}{\numberline {4.6.2.2}barret\_reduction\_UL()}{25}{subsubsection.4.6.2.2}% 
+\contentsline {subsubsection}{\numberline {4.6.2.3}big\_add()}{25}{subsubsection.4.6.2.3}% 
+\contentsline {subsubsection}{\numberline {4.6.2.4}big\_gcd()}{25}{subsubsection.4.6.2.4}% 
+\contentsline {subsubsection}{\numberline {4.6.2.5}big\_get\_A24()}{26}{subsubsection.4.6.2.5}% 
+\contentsline {subsubsection}{\numberline {4.6.2.6}big\_get\_mu()}{26}{subsubsection.4.6.2.6}% 
+\contentsline {subsubsection}{\numberline {4.6.2.7}big\_invert()}{26}{subsubsection.4.6.2.7}% 
+\contentsline {subsubsection}{\numberline {4.6.2.8}big\_is\_equal()}{27}{subsubsection.4.6.2.8}% 
+\contentsline {subsubsection}{\numberline {4.6.2.9}big\_is\_equal\_ui()}{27}{subsubsection.4.6.2.9}% 
+\contentsline {subsubsection}{\numberline {4.6.2.10}big\_mod\_add()}{27}{subsubsection.4.6.2.10}% 
+\contentsline {subsubsection}{\numberline {4.6.2.11}big\_mod\_mul()}{28}{subsubsection.4.6.2.11}% 
+\contentsline {subsubsection}{\numberline {4.6.2.12}big\_mod\_rand()}{29}{subsubsection.4.6.2.12}% 
+\contentsline {subsubsection}{\numberline {4.6.2.13}big\_mod\_sub()}{29}{subsubsection.4.6.2.13}% 
+\contentsline {subsubsection}{\numberline {4.6.2.14}big\_mul()}{30}{subsubsection.4.6.2.14}% 
+\contentsline {subsubsection}{\numberline {4.6.2.15}big\_print()}{30}{subsubsection.4.6.2.15}% 
+\contentsline {subsubsection}{\numberline {4.6.2.16}big\_rand()}{30}{subsubsection.4.6.2.16}% 
+\contentsline {subsubsection}{\numberline {4.6.2.17}big\_sub()}{31}{subsubsection.4.6.2.17}% 
+\contentsline {section}{\numberline {4.7}mplib.\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}h File Reference}{31}{section.4.7}% 
+\contentsline {subsection}{\numberline {4.7.1}Detailed Description}{32}{subsection.4.7.1}% 
+\contentsline {subsection}{\numberline {4.7.2}Macro Definition Documentation}{33}{subsection.4.7.2}% 
+\contentsline {subsubsection}{\numberline {4.7.2.1}big\_cpy}{33}{subsubsection.4.7.2.1}% 
+\contentsline {subsubsection}{\numberline {4.7.2.2}W}{33}{subsubsection.4.7.2.2}% 
+\contentsline {subsection}{\numberline {4.7.3}Typedef Documentation}{33}{subsection.4.7.3}% 
+\contentsline {subsubsection}{\numberline {4.7.3.1}ui}{33}{subsubsection.4.7.3.1}% 
+\contentsline {subsubsection}{\numberline {4.7.3.2}ui\_t}{34}{subsubsection.4.7.3.2}% 
+\contentsline {subsubsection}{\numberline {4.7.3.3}uni}{34}{subsubsection.4.7.3.3}% 
+\contentsline {subsubsection}{\numberline {4.7.3.4}uni\_t}{34}{subsubsection.4.7.3.4}% 
+\contentsline {subsection}{\numberline {4.7.4}Function Documentation}{34}{subsection.4.7.4}% 
+\contentsline {subsubsection}{\numberline {4.7.4.1}barret\_reduction()}{34}{subsubsection.4.7.4.1}% 
+\contentsline {subsubsection}{\numberline {4.7.4.2}barret\_reduction\_UL()}{35}{subsubsection.4.7.4.2}% 
+\contentsline {subsubsection}{\numberline {4.7.4.3}big\_add()}{35}{subsubsection.4.7.4.3}% 
+\contentsline {subsubsection}{\numberline {4.7.4.4}big\_gcd()}{35}{subsubsection.4.7.4.4}% 
+\contentsline {subsubsection}{\numberline {4.7.4.5}big\_get\_A24()}{36}{subsubsection.4.7.4.5}% 
+\contentsline {subsubsection}{\numberline {4.7.4.6}big\_get\_mu()}{36}{subsubsection.4.7.4.6}% 
+\contentsline {subsubsection}{\numberline {4.7.4.7}big\_invert()}{36}{subsubsection.4.7.4.7}% 
+\contentsline {subsubsection}{\numberline {4.7.4.8}big\_is\_equal()}{37}{subsubsection.4.7.4.8}% 
+\contentsline {subsubsection}{\numberline {4.7.4.9}big\_is\_equal\_ui()}{37}{subsubsection.4.7.4.9}% 
+\contentsline {subsubsection}{\numberline {4.7.4.10}big\_mod\_add()}{37}{subsubsection.4.7.4.10}% 
+\contentsline {subsubsection}{\numberline {4.7.4.11}big\_mod\_mul()}{38}{subsubsection.4.7.4.11}% 
+\contentsline {subsubsection}{\numberline {4.7.4.12}big\_mod\_rand()}{39}{subsubsection.4.7.4.12}% 
+\contentsline {subsubsection}{\numberline {4.7.4.13}big\_mod\_sub()}{39}{subsubsection.4.7.4.13}% 
+\contentsline {subsubsection}{\numberline {4.7.4.14}big\_mul()}{40}{subsubsection.4.7.4.14}% 
+\contentsline {subsubsection}{\numberline {4.7.4.15}big\_print()}{40}{subsubsection.4.7.4.15}% 
+\contentsline {subsubsection}{\numberline {4.7.4.16}big\_rand()}{40}{subsubsection.4.7.4.16}% 
+\contentsline {subsubsection}{\numberline {4.7.4.17}big\_sub()}{41}{subsubsection.4.7.4.17}% 
+\contentsline {section}{\numberline {4.8}test.\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}c File Reference}{41}{section.4.8}% 
+\contentsline {subsection}{\numberline {4.8.1}Detailed Description}{42}{subsection.4.8.1}% 
+\contentsline {subsection}{\numberline {4.8.2}Function Documentation}{42}{subsection.4.8.2}% 
+\contentsline {subsubsection}{\numberline {4.8.2.1}aff\_curve\_point\_gmp\_test()}{42}{subsubsection.4.8.2.1}% 
+\contentsline {subsubsection}{\numberline {4.8.2.2}ecm\_test()}{42}{subsubsection.4.8.2.2}% 
+\contentsline {subsubsection}{\numberline {4.8.2.3}pro\_add\_gmp\_test()}{43}{subsubsection.4.8.2.3}% 
+\contentsline {subsubsection}{\numberline {4.8.2.4}pro\_add\_magma\_test()}{43}{subsubsection.4.8.2.4}% 
+\contentsline {subsubsection}{\numberline {4.8.2.5}pro\_curve\_point\_gmp\_test()}{43}{subsubsection.4.8.2.5}% 
+\contentsline {subsubsection}{\numberline {4.8.2.6}pro\_dbl\_magma\_test()}{43}{subsubsection.4.8.2.6}% 
+\contentsline {subsubsection}{\numberline {4.8.2.7}pro\_ladder\_gmp\_test()}{44}{subsubsection.4.8.2.7}% 
+\contentsline {subsubsection}{\numberline {4.8.2.8}pro\_ladder\_magma\_test()}{44}{subsubsection.4.8.2.8}% 
+\contentsline {section}{\numberline {4.9}test.\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}h File Reference}{44}{section.4.9}% 
+\contentsline {subsection}{\numberline {4.9.1}Detailed Description}{44}{subsection.4.9.1}% 
+\contentsline {subsection}{\numberline {4.9.2}Function Documentation}{44}{subsection.4.9.2}% 
+\contentsline {subsubsection}{\numberline {4.9.2.1}aff\_curve\_point\_gmp\_test()}{45}{subsubsection.4.9.2.1}% 
+\contentsline {subsubsection}{\numberline {4.9.2.2}ecm\_test()}{45}{subsubsection.4.9.2.2}% 
+\contentsline {subsubsection}{\numberline {4.9.2.3}pro\_add\_gmp\_test()}{45}{subsubsection.4.9.2.3}% 
+\contentsline {subsubsection}{\numberline {4.9.2.4}pro\_add\_magma\_test()}{45}{subsubsection.4.9.2.4}% 
+\contentsline {subsubsection}{\numberline {4.9.2.5}pro\_curve\_point\_gmp\_test()}{46}{subsubsection.4.9.2.5}% 
+\contentsline {subsubsection}{\numberline {4.9.2.6}pro\_dbl\_magma\_test()}{46}{subsubsection.4.9.2.6}% 
+\contentsline {subsubsection}{\numberline {4.9.2.7}pro\_ladder\_gmp\_test()}{46}{subsubsection.4.9.2.7}% 
+\contentsline {subsubsection}{\numberline {4.9.2.8}pro\_ladder\_magma\_test()}{46}{subsubsection.4.9.2.8}% 
+\contentsline {chapter}{Index}{47}{section*.18}% 

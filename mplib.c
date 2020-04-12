@@ -79,10 +79,13 @@ void big_add(ui z, ui a, ui_t al, ui b, ui_t bl) {
 	}
 }
 
-void big_mod_add(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl) {
+void big_mod_add(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl, ui mu, ui_t mul) {
 	int i;
-	ui_t z_[nl], carry_bit = 0;
+	ui_t z_[2 * nl], carry_bit = 0;
 	
+	for(i = al + 1; i < 2 * nl; i++) {
+		z_[i] = 0L;
+	}
 	for(i = 0; i < al; i++) {
 		z_[i] = a[i] + b[i] + carry_bit;
 		if(z_[i] < a[i]) {
@@ -91,11 +94,8 @@ void big_mod_add(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl) {
 			carry_bit = 0;
 		}
 	}
-	if(carry_bit) {
-		big_sub(z, &i, z_, nl, n, nl);
-	} else {
-		big_cpy(z, z_, 0, nl);
-	}
+	z_[al] = carry_bit;
+	barret_reduction(z, z_, 2 * nl, n, nl, mu, mul);
 }
 
 void big_sub(ui z, int *d, ui a, ui_t al, ui b, ui_t bl) {
@@ -203,7 +203,7 @@ void big_get_A24(ui z, ui A, ui n, ui_t nl, ui mu, ui_t mul, int *flag) {
 		c_2[i] = 0L;
 		c_4[i] = 0L;
 	}
-	big_mod_add(A2, A, nl, c_2, nl, n, nl);
+	big_mod_add(A2, A, nl, c_2, nl, n, nl, mu, mul);
 	ret = big_invert(ic_4, c_4, nl, n, nl);
 	if(ret) { // Inverse exists
 		big_mod_mul(z, A2, nl, ic_4, nl, n, nl, mu, mul);

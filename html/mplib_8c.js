@@ -9,7 +9,7 @@ var mplib_8c =
     [ "big_invert", "mplib_8c.html#ae15685825013ac1619ded985b37399c9", null ],
     [ "big_is_equal", "mplib_8c.html#a32cbee99fcf4a034528bbd2a44cdf75b", null ],
     [ "big_is_equal_ui", "mplib_8c.html#aeba30a3a53a527a0b061c7bd35f94e29", null ],
-    [ "big_mod_add", "mplib_8c.html#ab29a7708d96292aa030ba924a93d3453", null ],
+    [ "big_mod_add", "mplib_8c.html#ac1d528e5ffd3a344ba51da433c2e1e83", null ],
     [ "big_mod_mul", "mplib_8c.html#ae5fd245905a58bf689cf28fac4b6aded", null ],
     [ "big_mod_rand", "mplib_8c.html#ac86aa3c02b5fb9534422c057885fd985", null ],
     [ "big_mod_sub", "mplib_8c.html#afa7d7251a8e0d4320509230578c9f02f", null ],

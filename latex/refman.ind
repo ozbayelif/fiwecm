@@ -1,0 +1,301 @@
+\begin{theindex}
+
+  \item {A}
+    \subitem {Montg\_Curve\_s}, \hyperpage{6}
+  \item {aff\_add}
+    \subitem {montgomery.c}, \hyperpage{12}
+    \subitem {montgomery.h}, \hyperpage{19}
+  \item {aff\_curve\_point}
+    \subitem {montgomery.c}, \hyperpage{13}
+    \subitem {montgomery.h}, \hyperpage{19}
+  \item {aff\_curve\_point\_gmp\_test}
+    \subitem {test.c}, \hyperpage{42}
+    \subitem {test.h}, \hyperpage{44}
+  \item {aff\_dbl}
+    \subitem {montgomery.c}, \hyperpage{14}
+    \subitem {montgomery.h}, \hyperpage{20}
+  \item {aff\_is\_on\_curve}
+    \subitem {montgomery.c}, \hyperpage{14}
+    \subitem {montgomery.h}, \hyperpage{20}
+  \item {aff\_ladder}
+    \subitem {montgomery.c}, \hyperpage{14}
+    \subitem {montgomery.h}, \hyperpage{20}
+  \item {AFF\_POINT}
+    \subitem {montgomery.h}, \hyperpage{18}
+  \item {Aff\_Point\_s}, \hyperpage{5}
+    \subitem {x}, \hyperpage{5}
+    \subitem {y}, \hyperpage{5}
+  \item {AFF\_POINT\_t}
+    \subitem {montgomery.h}, \hyperpage{18}
+
+  \indexspace
+
+  \item {B}
+    \subitem {Montg\_Curve\_s}, \hyperpage{6}
+  \item {B\_THRESHOLD}
+    \subitem {ecm.h}, \hyperpage{10}
+  \item {barret\_reduction}
+    \subitem {mplib.c}, \hyperpage{24}
+    \subitem {mplib.h}, \hyperpage{34}
+  \item {barret\_reduction\_UL}
+    \subitem {mplib.c}, \hyperpage{25}
+    \subitem {mplib.h}, \hyperpage{35}
+  \item {big\_add}
+    \subitem {mplib.c}, \hyperpage{25}
+    \subitem {mplib.h}, \hyperpage{35}
+  \item {big\_cpy}
+    \subitem {mplib.h}, \hyperpage{33}
+  \item {big\_gcd}
+    \subitem {mplib.c}, \hyperpage{25}
+    \subitem {mplib.h}, \hyperpage{35}
+  \item {big\_get\_A24}
+    \subitem {mplib.c}, \hyperpage{25}
+    \subitem {mplib.h}, \hyperpage{35}
+  \item {big\_get\_mu}
+    \subitem {mplib.c}, \hyperpage{26}
+    \subitem {mplib.h}, \hyperpage{36}
+  \item {big\_invert}
+    \subitem {mplib.c}, \hyperpage{26}
+    \subitem {mplib.h}, \hyperpage{36}
+  \item {big\_is\_equal}
+    \subitem {mplib.c}, \hyperpage{27}
+    \subitem {mplib.h}, \hyperpage{37}
+  \item {big\_is\_equal\_ui}
+    \subitem {mplib.c}, \hyperpage{27}
+    \subitem {mplib.h}, \hyperpage{37}
+  \item {big\_mod\_add}
+    \subitem {mplib.c}, \hyperpage{27}
+    \subitem {mplib.h}, \hyperpage{37}
+  \item {big\_mod\_mul}
+    \subitem {mplib.c}, \hyperpage{28}
+    \subitem {mplib.h}, \hyperpage{38}
+  \item {big\_mod\_rand}
+    \subitem {mplib.c}, \hyperpage{28}
+    \subitem {mplib.h}, \hyperpage{38}
+  \item {big\_mod\_sub}
+    \subitem {mplib.c}, \hyperpage{29}
+    \subitem {mplib.h}, \hyperpage{39}
+  \item {big\_mul}
+    \subitem {mplib.c}, \hyperpage{29}
+    \subitem {mplib.h}, \hyperpage{39}
+  \item {big\_print}
+    \subitem {mplib.c}, \hyperpage{30}
+    \subitem {mplib.h}, \hyperpage{40}
+  \item {big\_rand}
+    \subitem {mplib.c}, \hyperpage{30}
+    \subitem {mplib.h}, \hyperpage{40}
+  \item {big\_sub}
+    \subitem {mplib.c}, \hyperpage{31}
+    \subitem {mplib.h}, \hyperpage{41}
+
+  \indexspace
+
+  \item {CRV\_THRESHOLD}
+    \subitem {ecm.h}, \hyperpage{10}
+
+  \indexspace
+
+  \item {ecm}
+    \subitem {ecm.c}, \hyperpage{9}
+    \subitem {ecm.h}, \hyperpage{11}
+  \item {ecm.c}, \hyperpage{9}
+    \subitem {ecm}, \hyperpage{9}
+  \item {ecm.h}, \hyperpage{10}
+    \subitem {B\_THRESHOLD}, \hyperpage{10}
+    \subitem {CRV\_THRESHOLD}, \hyperpage{10}
+    \subitem {ecm}, \hyperpage{11}
+  \item {ecm\_test}
+    \subitem {test.c}, \hyperpage{42}
+    \subitem {test.h}, \hyperpage{45}
+
+  \indexspace
+
+  \item {main}
+    \subitem {main.c}, \hyperpage{11}
+  \item {main.c}, \hyperpage{11}
+    \subitem {main}, \hyperpage{11}
+  \item {MONTG\_CURVE}
+    \subitem {montgomery.h}, \hyperpage{18}
+  \item {Montg\_Curve\_s}, \hyperpage{6}
+    \subitem {A}, \hyperpage{6}
+    \subitem {B}, \hyperpage{6}
+    \subitem {n}, \hyperpage{6}
+  \item {MONTG\_CURVE\_t}
+    \subitem {montgomery.h}, \hyperpage{18}
+  \item {montgomery.c}, \hyperpage{12}
+    \subitem {aff\_add}, \hyperpage{12}
+    \subitem {aff\_curve\_point}, \hyperpage{13}
+    \subitem {aff\_dbl}, \hyperpage{14}
+    \subitem {aff\_is\_on\_curve}, \hyperpage{14}
+    \subitem {aff\_ladder}, \hyperpage{14}
+    \subitem {pro\_add}, \hyperpage{14}
+    \subitem {pro\_curve\_point}, \hyperpage{15}
+    \subitem {pro\_dbl}, \hyperpage{15}
+    \subitem {pro\_is\_on\_curve}, \hyperpage{16}
+    \subitem {pro\_ladder}, \hyperpage{16}
+  \item {montgomery.h}, \hyperpage{17}
+    \subitem {aff\_add}, \hyperpage{19}
+    \subitem {aff\_curve\_point}, \hyperpage{19}
+    \subitem {aff\_dbl}, \hyperpage{20}
+    \subitem {aff\_is\_on\_curve}, \hyperpage{20}
+    \subitem {aff\_ladder}, \hyperpage{20}
+    \subitem {AFF\_POINT}, \hyperpage{18}
+    \subitem {AFF\_POINT\_t}, \hyperpage{18}
+    \subitem {MONTG\_CURVE}, \hyperpage{18}
+    \subitem {MONTG\_CURVE\_t}, \hyperpage{18}
+    \subitem {pro\_add}, \hyperpage{21}
+    \subitem {pro\_curve\_point}, \hyperpage{21}
+    \subitem {pro\_dbl}, \hyperpage{22}
+    \subitem {pro\_is\_on\_curve}, \hyperpage{22}
+    \subitem {pro\_ladder}, \hyperpage{22}
+    \subitem {PRO\_POINT}, \hyperpage{18}
+    \subitem {PRO\_POINT\_t}, \hyperpage{19}
+  \item {mplib.c}, \hyperpage{23}
+    \subitem {barret\_reduction}, \hyperpage{24}
+    \subitem {barret\_reduction\_UL}, \hyperpage{25}
+    \subitem {big\_add}, \hyperpage{25}
+    \subitem {big\_gcd}, \hyperpage{25}
+    \subitem {big\_get\_A24}, \hyperpage{25}
+    \subitem {big\_get\_mu}, \hyperpage{26}
+    \subitem {big\_invert}, \hyperpage{26}
+    \subitem {big\_is\_equal}, \hyperpage{27}
+    \subitem {big\_is\_equal\_ui}, \hyperpage{27}
+    \subitem {big\_mod\_add}, \hyperpage{27}
+    \subitem {big\_mod\_mul}, \hyperpage{28}
+    \subitem {big\_mod\_rand}, \hyperpage{28}
+    \subitem {big\_mod\_sub}, \hyperpage{29}
+    \subitem {big\_mul}, \hyperpage{29}
+    \subitem {big\_print}, \hyperpage{30}
+    \subitem {big\_rand}, \hyperpage{30}
+    \subitem {big\_sub}, \hyperpage{31}
+  \item {mplib.h}, \hyperpage{31}
+    \subitem {barret\_reduction}, \hyperpage{34}
+    \subitem {barret\_reduction\_UL}, \hyperpage{35}
+    \subitem {big\_add}, \hyperpage{35}
+    \subitem {big\_cpy}, \hyperpage{33}
+    \subitem {big\_gcd}, \hyperpage{35}
+    \subitem {big\_get\_A24}, \hyperpage{35}
+    \subitem {big\_get\_mu}, \hyperpage{36}
+    \subitem {big\_invert}, \hyperpage{36}
+    \subitem {big\_is\_equal}, \hyperpage{37}
+    \subitem {big\_is\_equal\_ui}, \hyperpage{37}
+    \subitem {big\_mod\_add}, \hyperpage{37}
+    \subitem {big\_mod\_mul}, \hyperpage{38}
+    \subitem {big\_mod\_rand}, \hyperpage{38}
+    \subitem {big\_mod\_sub}, \hyperpage{39}
+    \subitem {big\_mul}, \hyperpage{39}
+    \subitem {big\_print}, \hyperpage{40}
+    \subitem {big\_rand}, \hyperpage{40}
+    \subitem {big\_sub}, \hyperpage{41}
+    \subitem {ui}, \hyperpage{33}
+    \subitem {ui\_t}, \hyperpage{33}
+    \subitem {uni}, \hyperpage{34}
+    \subitem {uni\_t}, \hyperpage{34}
+    \subitem {W}, \hyperpage{33}
+
+  \indexspace
+
+  \item {n}
+    \subitem {Montg\_Curve\_s}, \hyperpage{6}
+
+  \indexspace
+
+  \item {pro\_add}
+    \subitem {montgomery.c}, \hyperpage{14}
+    \subitem {montgomery.h}, \hyperpage{21}
+  \item {pro\_add\_gmp\_test}
+    \subitem {test.c}, \hyperpage{42}
+    \subitem {test.h}, \hyperpage{45}
+  \item {pro\_add\_magma\_test}
+    \subitem {test.c}, \hyperpage{43}
+    \subitem {test.h}, \hyperpage{45}
+  \item {pro\_curve\_point}
+    \subitem {montgomery.c}, \hyperpage{15}
+    \subitem {montgomery.h}, \hyperpage{21}
+  \item {pro\_curve\_point\_gmp\_test}
+    \subitem {test.c}, \hyperpage{43}
+    \subitem {test.h}, \hyperpage{45}
+  \item {pro\_dbl}
+    \subitem {montgomery.c}, \hyperpage{15}
+    \subitem {montgomery.h}, \hyperpage{22}
+  \item {pro\_dbl\_magma\_test}
+    \subitem {test.c}, \hyperpage{43}
+    \subitem {test.h}, \hyperpage{46}
+  \item {pro\_is\_on\_curve}
+    \subitem {montgomery.c}, \hyperpage{16}
+    \subitem {montgomery.h}, \hyperpage{22}
+  \item {pro\_ladder}
+    \subitem {montgomery.c}, \hyperpage{16}
+    \subitem {montgomery.h}, \hyperpage{22}
+  \item {pro\_ladder\_gmp\_test}
+    \subitem {test.c}, \hyperpage{43}
+    \subitem {test.h}, \hyperpage{46}
+  \item {pro\_ladder\_magma\_test}
+    \subitem {test.c}, \hyperpage{44}
+    \subitem {test.h}, \hyperpage{46}
+  \item {PRO\_POINT}
+    \subitem {montgomery.h}, \hyperpage{18}
+  \item {Pro\_Point\_s}, \hyperpage{7}
+    \subitem {X}, \hyperpage{7}
+    \subitem {Y}, \hyperpage{7}
+    \subitem {Z}, \hyperpage{7}
+  \item {PRO\_POINT\_t}
+    \subitem {montgomery.h}, \hyperpage{19}
+
+  \indexspace
+
+  \item {test.c}, \hyperpage{41}
+    \subitem {aff\_curve\_point\_gmp\_test}, \hyperpage{42}
+    \subitem {ecm\_test}, \hyperpage{42}
+    \subitem {pro\_add\_gmp\_test}, \hyperpage{42}
+    \subitem {pro\_add\_magma\_test}, \hyperpage{43}
+    \subitem {pro\_curve\_point\_gmp\_test}, \hyperpage{43}
+    \subitem {pro\_dbl\_magma\_test}, \hyperpage{43}
+    \subitem {pro\_ladder\_gmp\_test}, \hyperpage{43}
+    \subitem {pro\_ladder\_magma\_test}, \hyperpage{44}
+  \item {test.h}, \hyperpage{44}
+    \subitem {aff\_curve\_point\_gmp\_test}, \hyperpage{44}
+    \subitem {ecm\_test}, \hyperpage{45}
+    \subitem {pro\_add\_gmp\_test}, \hyperpage{45}
+    \subitem {pro\_add\_magma\_test}, \hyperpage{45}
+    \subitem {pro\_curve\_point\_gmp\_test}, \hyperpage{45}
+    \subitem {pro\_dbl\_magma\_test}, \hyperpage{46}
+    \subitem {pro\_ladder\_gmp\_test}, \hyperpage{46}
+    \subitem {pro\_ladder\_magma\_test}, \hyperpage{46}
+
+  \indexspace
+
+  \item {ui}
+    \subitem {mplib.h}, \hyperpage{33}
+  \item {ui\_t}
+    \subitem {mplib.h}, \hyperpage{33}
+  \item {uni}
+    \subitem {mplib.h}, \hyperpage{34}
+  \item {uni\_t}
+    \subitem {mplib.h}, \hyperpage{34}
+
+  \indexspace
+
+  \item {W}
+    \subitem {mplib.h}, \hyperpage{33}
+
+  \indexspace
+
+  \item {X}
+    \subitem {Pro\_Point\_s}, \hyperpage{7}
+  \item {x}
+    \subitem {Aff\_Point\_s}, \hyperpage{5}
+
+  \indexspace
+
+  \item {Y}
+    \subitem {Pro\_Point\_s}, \hyperpage{7}
+  \item {y}
+    \subitem {Aff\_Point\_s}, \hyperpage{5}
+
+  \indexspace
+
+  \item {Z}
+    \subitem {Pro\_Point\_s}, \hyperpage{7}
+
+\end{theindex}

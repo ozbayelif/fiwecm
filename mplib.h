@@ -122,7 +122,7 @@ void big_add(ui z, ui a, ui_t al, ui b, ui_t bl);
  * @param[in] n modular base for the addition
  * @param[in] nl number of digits of n in base \f$2^W\f$
  */
-void big_mod_add(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl);
+void big_mod_add(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl, ui mu, ui_t mul);
 
 /**
  * \brief Subtracts two multi-precision numbers
