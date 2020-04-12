@@ -31,7 +31,7 @@ void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_
         if(A2[i] != 0L) {
             s = 1;
         }
-    }                                                           // Check singularity
+    }                                                           // If A^2 mod n = 4, singular
     if(s != 0) {
         big_mod_mul(X2, X, nl, X, nl, n, nl, mu, mul);          // X2 = X^2
         big_mod_mul(AX2, A, nl, X2, nl, n, nl, mu, mul);        // AX = AX^2
@@ -41,15 +41,15 @@ void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_
         big_mod_mul(XZ2, X, nl, Z2, nl, n, nl, mu, mul);        // XZ2 = XZ^2
         big_mod_mul(Y2, Y, nl, Y, nl, n, nl, mu, mul);          // Y2 = Y^2
         big_mod_mul(Y2Z, Y2, nl, Z, nl, n, nl, mu, mul);        // Y2Z = Y^2Z
-        big_mod_add(RHS1, X3, nl, AX2Z, nl, n, nl, mu, mul);             // RHS1 = X^3 + AX^2Z
-        big_mod_add(RHS, RHS1, nl, XZ2, nl, n, nl, mu, mul);             // RHS = X^3 + AX^2Z + XZ^2
+        big_mod_add(RHS1, X3, nl, AX2Z, nl, n, nl, mu, mul);    // RHS1 = X^3 + AX^2Z
+        big_mod_add(RHS, RHS1, nl, XZ2, nl, n, nl, mu, mul);    // RHS = X^3 + AX^2Z + XZ^2
         big_gcd(d, nl, Y2Z, nl, n, nl);                         // d = GCD(Y^2Z, n)
         big_is_equal_ui(&is_one, d, nl, 1L);
         big_is_equal(&is_n, d, n, nl);
         if(is_one || is_n) {
             big_invert(iY2Z, Y2Z, nl, n, nl);                   // iY2Z = Inv(Y2Z)
             big_mod_mul(B, RHS, nl, iY2Z, nl, n, nl, mu, mul);  // B = RHS * Inv(Y^2Z)
-            big_is_equal_ui(&is_zero, B, nl, 0L);
+            big_is_equal_ui(&is_zero, B, nl, 0L);               // If B mod n = 0, singular
             if(!is_zero) {
                 c->A = A;
                 c->B = B;
