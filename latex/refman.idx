@@ -107,8 +107,8 @@
 \indexentry{big\_mod\_add@{big\_mod\_add}!mplib.c@{mplib.c}|hyperpage}{27}
 \indexentry{mplib.c@{mplib.c}!big\_mod\_mul@{big\_mod\_mul}|hyperpage}{28}
 \indexentry{big\_mod\_mul@{big\_mod\_mul}!mplib.c@{mplib.c}|hyperpage}{28}
-\indexentry{mplib.c@{mplib.c}!big\_mod\_rand@{big\_mod\_rand}|hyperpage}{28}
-\indexentry{big\_mod\_rand@{big\_mod\_rand}!mplib.c@{mplib.c}|hyperpage}{28}
+\indexentry{mplib.c@{mplib.c}!big\_mod\_rand@{big\_mod\_rand}|hyperpage}{29}
+\indexentry{big\_mod\_rand@{big\_mod\_rand}!mplib.c@{mplib.c}|hyperpage}{29}
 \indexentry{mplib.c@{mplib.c}!big\_mod\_sub@{big\_mod\_sub}|hyperpage}{29}
 \indexentry{big\_mod\_sub@{big\_mod\_sub}!mplib.c@{mplib.c}|hyperpage}{29}
 \indexentry{mplib.c@{mplib.c}!big\_mul@{big\_mul}|hyperpage}{29}
@@ -154,8 +154,8 @@
 \indexentry{big\_mod\_add@{big\_mod\_add}!mplib.h@{mplib.h}|hyperpage}{37}
 \indexentry{mplib.h@{mplib.h}!big\_mod\_mul@{big\_mod\_mul}|hyperpage}{38}
 \indexentry{big\_mod\_mul@{big\_mod\_mul}!mplib.h@{mplib.h}|hyperpage}{38}
-\indexentry{mplib.h@{mplib.h}!big\_mod\_rand@{big\_mod\_rand}|hyperpage}{38}
-\indexentry{big\_mod\_rand@{big\_mod\_rand}!mplib.h@{mplib.h}|hyperpage}{38}
+\indexentry{mplib.h@{mplib.h}!big\_mod\_rand@{big\_mod\_rand}|hyperpage}{39}
+\indexentry{big\_mod\_rand@{big\_mod\_rand}!mplib.h@{mplib.h}|hyperpage}{39}
 \indexentry{mplib.h@{mplib.h}!big\_mod\_sub@{big\_mod\_sub}|hyperpage}{39}
 \indexentry{big\_mod\_sub@{big\_mod\_sub}!mplib.h@{mplib.h}|hyperpage}{39}
 \indexentry{mplib.h@{mplib.h}!big\_mul@{big\_mul}|hyperpage}{39}

@@ -424,7 +424,7 @@ void pro_ladder_gmp_test() {
 
     // TODO: k1*(k2*P) == k2*(k1*P)
 
-    for (i = 0; i < 1; i++) {
+    for (i = 0; i < 10; i++) {
         kl = 1;
         ui_t n[nl], mu[nl + 1], A24[nl];
         ui d = (ui)malloc(sizeof(ui_t) * nl);

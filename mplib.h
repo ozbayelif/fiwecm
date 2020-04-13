@@ -121,6 +121,8 @@ void big_add(ui z, ui a, ui_t al, ui b, ui_t bl);
  * @param[in] bl number of digits of b in base \f$2^W\f$
  * @param[in] n modular base for the addition
  * @param[in] nl number of digits of n in base \f$2^W\f$
+ * @param[in] mu precalculated value of \f$(2^{W})^{2*nl} / n\f$
+ * @param[in] mul number of digits of mu in base \f$2^W\f$
  */
 void big_mod_add(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl, ui mu, ui_t mul);
 

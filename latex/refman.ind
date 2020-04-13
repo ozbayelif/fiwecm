@@ -70,8 +70,8 @@
     \subitem {mplib.c}, \hyperpage{28}
     \subitem {mplib.h}, \hyperpage{38}
   \item {big\_mod\_rand}
-    \subitem {mplib.c}, \hyperpage{28}
-    \subitem {mplib.h}, \hyperpage{38}
+    \subitem {mplib.c}, \hyperpage{29}
+    \subitem {mplib.h}, \hyperpage{39}
   \item {big\_mod\_sub}
     \subitem {mplib.c}, \hyperpage{29}
     \subitem {mplib.h}, \hyperpage{39}
@@ -162,7 +162,7 @@
     \subitem {big\_is\_equal\_ui}, \hyperpage{27}
     \subitem {big\_mod\_add}, \hyperpage{27}
     \subitem {big\_mod\_mul}, \hyperpage{28}
-    \subitem {big\_mod\_rand}, \hyperpage{28}
+    \subitem {big\_mod\_rand}, \hyperpage{29}
     \subitem {big\_mod\_sub}, \hyperpage{29}
     \subitem {big\_mul}, \hyperpage{29}
     \subitem {big\_print}, \hyperpage{30}
@@ -181,7 +181,7 @@
     \subitem {big\_is\_equal\_ui}, \hyperpage{37}
     \subitem {big\_mod\_add}, \hyperpage{37}
     \subitem {big\_mod\_mul}, \hyperpage{38}
-    \subitem {big\_mod\_rand}, \hyperpage{38}
+    \subitem {big\_mod\_rand}, \hyperpage{39}
     \subitem {big\_mod\_sub}, \hyperpage{39}
     \subitem {big\_mul}, \hyperpage{39}
     \subitem {big\_print}, \hyperpage{40}
