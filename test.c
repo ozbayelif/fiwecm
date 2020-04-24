@@ -471,67 +471,13 @@ void pro_ladder_magma_test() {
     FILE *fp = stdout;
     MONTG_CURVE c = (MONTG_CURVE)malloc(sizeof(MONTG_CURVE_t) * 1);
     PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-    AFF_POINT ap1 = (AFF_POINT)malloc(sizeof(AFF_POINT_t) * 1);
-    PRO_POINT pp1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     ui_t nl, kl;
     int i, j, flag, trues = 0, falses = 0;
 
+    fprintf(fp, "load \"/home/ozbayelif/Development/FIWE/LadderMagmaTest/son-map.m\";\n");
     fprintf(fp, "trues := 0;\n");
-    fprintf(fp, "falses := 0;\n");
-
-    fprintf(fp, "Fp:=GF(2^255-19);\n");
-
-    for (i = 0; i < 1; i++) {
-        nl = (ui_t)(rand() % 1 + 1);
-        kl = 1;
-        ui_t n[nl], mu[nl + 1], X1[nl], Z1[nl], k[kl], c_1[nl];
-        ui d = (ui)malloc(sizeof(ui_t) * nl);
-        ui A24 = (ui)malloc(sizeof(ui_t) * nl);
-        flag = 0;
-
-        c_1[0] = 1L;
-        for(j = 1; j < nl; j++) {
-            c_1[j] = 0L;
-        }
-        big_rand(n, nl);
-        n[0]--;
-        big_get_mu(mu, n, nl);
-
-        do {
-            aff_curve_point(d, c, ap1, n, nl, mu, nl + 1, &flag);
-        } while(flag != 1);
-        pp1->X = ap1->x;
-        pp1->Y = ap1->y;
-        pp1->Z = c_1;
-
-        do {
-            big_get_A24(A24, c->A, n, nl, mu, nl + 1, &flag);
-        } while(flag != 1);
-
-        big_print(fp, n, nl, "n", NULL);
-        fprintf(fp, "R:=RingOfIntegers(n);\n");
-        big_print(fp, k, kl, "k", NULL);
-        big_print(fp, c->A, nl, "A", NULL);
-        big_print(fp, c->B, nl, "B", NULL);
-        big_print(fp, pp1->X, nl, "X1", "R");
-        big_print(fp, pp1->Y, nl, "Y1", "R");
-        big_print(fp, pp1->Z, nl, "Z1", "R");
-
-        fprintf(fp, "E:=EllipticCurve([A,B]);\n");
-        fprintf(fp, "P:=E![X1,Y1];\n");
-
-        pro_ladder(p, pp1, A24, k, kl, n, nl, mu, nl + 1);
-
-        big_print(fp, p->X, nl, "X", "R");
-        big_print(fp, p->Z, nl, "Z", "R");
-
-        // fprintf(fp, "P2 := k*P1;\n");
-        // fprintf(fp, "if (P2[1] eq X and P2[3] eq Z) then\n");
-        // fprintf(fp, "trues := trues + 1;\n");
-        // fprintf(fp, "else\n");
-        // fprintf(fp, "falses := falses + 1;\n");
-        // fprintf(fp, "end if;\n\n");
-    }
+    fprintf(fp, "falses := 0;\n\n");
     // fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/pro_ladder_results.magma\", trues);\n");
     // fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/pro_ladder_results.magma\", falses);\n");
 
