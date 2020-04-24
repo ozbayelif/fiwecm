@@ -57,10 +57,13 @@ void big_is_equal_ui(int *z, ui a, ui_t al, ui_t b) {
 	*z = 1;
 	if(a[0] != b) {
 		*z = 0;
-	}
-	for(i = 1; i < al; i++) {
-		if(a[i] != 0) {
-			*z = 0;
+	} else {
+		if(al > 1) {
+			for(i = 1; i < al; i++) {
+				if(a[i] != 0) {
+					*z = 0;
+				}
+			}
 		}
 	}
 }
