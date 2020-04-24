@@ -11,9 +11,9 @@ int main() {
     // pro_add_gmp_test();
     // pro_add_magma_test();
     // pro_dbl_magma_test();
+    // pro_ladder_gmp_test();
     // pro_ladder_magma_test();
-    pro_ladder_gmp_test();
     // ecm_test();
-    end = time(NULL);
-    printf("Time spent: %ld\n", end - start);
+    // end = time(NULL);
+    // printf("Time spent: %ld\n", end - start);
 }

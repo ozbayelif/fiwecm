@@ -405,36 +405,38 @@ void pro_dbl_magma_test() {
 void pro_ladder_gmp_test() {
     MONTG_CURVE c = (MONTG_CURVE)malloc(sizeof(MONTG_CURVE_t) * 1);
     PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-    PRO_POINT q = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p2 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-    PRO_POINT pd = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-    int i, j, nl, kl, res1 ,res2, flag, true = 0, false = 0;
-    mpz_t mp_px, mp_pz, mp_qx, mp_qz;
-    nl = (ui_t)(rand() % 100 + 1);
+    PRO_POINT p3 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    PRO_POINT p4 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    PRO_POINT p5 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    int i, j, nl, kl, ll, res1 ,res2, flag, true = 0, false = 0;
+    mpz_t mp_p3X, mp_p3Z, mp_p5X, mp_p5Z;
+    // nl = (ui_t)(rand() % 1 + 1);
+    nl = 1;
 
-    pd->X = (ui)malloc(sizeof(ui_t) * nl);
-    pd->Y = (ui)malloc(sizeof(ui_t) * nl);
-    pd->Z = (ui)malloc(sizeof(ui_t) * nl);
+    mpz_init(mp_p3X);
+    mpz_init(mp_p3Z);
+    mpz_init(mp_p5X);
+    mpz_init(mp_p5Z);
 
-    mpz_init(mp_px);
-    mpz_init(mp_pz);
-    mpz_init(mp_qx);
-    mpz_init(mp_qz);
-
-    // TODO: k1*(k2*P) == k2*(k1*P)
+    mpz_set_ui(mp_p3X, 0L);
+    mpz_set_ui(mp_p3Z, 0L);
+    mpz_set_ui(mp_p5X, 0L);
+    mpz_set_ui(mp_p5Z, 0L);
 
     for (i = 0; i < 10; i++) {
-        kl = 1;
+        kl = 1, ll = 1;
         ui_t n[nl], mu[nl + 1], A24[nl];
         ui d = (ui)malloc(sizeof(ui_t) * nl);
         ui k = (ui)malloc(sizeof(ui_t) * kl);
+        ui l = (ui)malloc(sizeof(ui_t) * ll);
 
+        // TODO: Work with prime n
         big_rand(n, nl);
         big_get_mu(mu, n, nl);
-        // big_rand(k, kl);
-        k[0] = 7L;
-        n[0]--;
+        big_rand(k, kl);
+        big_rand(l, ll);
 
         do {
             pro_curve_point(d, c, p1, n, nl, mu, nl + 1, &flag);
@@ -443,27 +445,18 @@ void pro_ladder_gmp_test() {
             big_get_A24(A24, c->A, n, nl, mu, nl + 1, &flag);
         } while(flag != 1);
 
-        pro_ladder(p, p1, A24, k, kl, n, nl, mu, nl + 1);
+        pro_ladder(p2, p1, A24, k, kl, n, nl, mu, nl + 1);  // p2 = k*P
+        pro_ladder(p3, p2, A24, l, ll, n, nl, mu, nl + 1);  // p3 = l*(k*P) 
 
-        big_cpy(pd->X, p1->X, 0, nl);
-        big_cpy(pd->Z, p1->Z, 0, nl);                   // pd<-p1
-        pro_dbl(p2, p1, A24, n, nl, mu, nl + 1);        // p2<-2p1
-        for(j = 2; j < k[0]; j++) {
-            pro_add(q, p2, p1, pd, n,nl, mu, nl + 1);   // q<-3p1,  q<-4p1,  q<-5p1
-            big_cpy(pd->X, p2->X, 0, nl);               // pd<-2p1, pd<-3p1, pd<-4p1
-            big_cpy(pd->Z, p2->Z, 0, nl);
-            big_cpy(p2->X, q->X, 0, nl);                // p2<-3p1, p2<-4p1, p2<-5p1
-            big_cpy(p2->Z, q->Z, 0, nl);
-        }
+        pro_ladder(p4, p1, A24, l, ll, n, nl, mu, nl + 1);  // p4 = l*P
+        pro_ladder(p5, p4, A24, k, kl, n, nl, mu, nl + 1);  // p5 = k*(l*P)
 
-        mpz_import(mp_px, nl, -1, 4, 0, 0, p->X);
-        mpz_import(mp_pz, nl, -1, 4, 0, 0, p->Z);
-        mpz_import(mp_qx, nl, -1, 4, 0, 0, q->X);
-        mpz_import(mp_qz, nl, -1, 4, 0, 0, q->Z);
-        res1 = mpz_cmp(mp_px, mp_qx);
-        res2 = mpz_cmp(mp_pz, mp_qz);
+        mpz_import(mp_p3X, nl, -1, 4, 0, 0, p3->X);
+        mpz_import(mp_p5X, nl, -1, 4, 0, 0, p5->X);
+        mpz_import(mp_p3Z, nl, -1, 4, 0, 0, p3->Z);
+        mpz_import(mp_p5Z, nl, -1, 4, 0, 0, p5->Z);
 
-        if(res1 == 0 && res2 == 0) {
+        if((mpz_cmp(mp_p3X, mp_p5X) == 0) && (mpz_cmp(mp_p3Z, mp_p5Z) == 0)) {
             true++;
         } else {
             false++;
