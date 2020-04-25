@@ -127,13 +127,13 @@ void pro_add(PRO_POINT p, PRO_POINT p1, PRO_POINT p2, PRO_POINT pd, ui n, ui_t n
     ui X = (ui)malloc(sizeof(ui_t) * nl);
     ui Z = (ui)malloc(sizeof(ui_t) * nl);
 
-    big_mod_add(a, p2->X, nl, p2->Z, nl, n, nl, mu, mul);            // a = X2 + Z2
+    big_mod_add(a, p2->X, nl, p2->Z, nl, n, nl, mu, mul);   // a = X2 + Z2
     big_mod_sub(b, p2->X, nl, p2->Z, nl, n, nl);            // b = X2 - Z2
-    big_mod_add(c, p1->X, nl, p1->Z, nl, n, nl, mu, mul);            // c = X1 + Z1
+    big_mod_add(c, p1->X, nl, p1->Z, nl, n, nl, mu, mul);   // c = X1 + Z1
     big_mod_sub(d, p1->X, nl, p1->Z, nl, n, nl);            // d = X1 - Z1
     big_mod_mul(da, d, nl, a, nl, n, nl, mu, mul);          // da = d * a
     big_mod_mul(cb, c, nl, b, nl, n, nl, mu, mul);          // cb = c * b
-    big_mod_add(e, da, nl, cb, nl, n, nl, mu, mul);                  // e = da + cb
+    big_mod_add(e, da, nl, cb, nl, n, nl, mu, mul);         // e = da + cb
     big_mod_sub(f, da, nl, cb, nl, n, nl);                  // f = da - cb
     big_mod_mul(e2, e, nl, e, nl, n, nl, mu, mul);          // e2 = e^2
     big_mod_mul(f2, f, nl, f, nl, n, nl, mu, mul);          // f2 = f^2
@@ -164,14 +164,14 @@ void pro_dbl(PRO_POINT p, PRO_POINT p1, ui A24, ui n, ui_t nl, ui mu, ui_t mul) 
     ui X = (ui)malloc(sizeof(ui_t) * nl);
     ui Z = (ui)malloc(sizeof(ui_t) * nl);
 
-    big_mod_add(a, p1->X, nl, p1->Z, nl, n, nl, mu, mul);            // a = X + Z
+    big_mod_add(a, p1->X, nl, p1->Z, nl, n, nl, mu, mul);   // a = X + Z
     big_mod_mul(a2, a, nl, a, nl, n, nl, mu, mul);          // a2 = a^2
     big_mod_sub(b, p1->X, nl, p1->Z, nl, n, nl);            // b = X - Z
     big_mod_mul(b2, b, nl, b, nl, n, nl, mu, mul);          // b2 = b^2
     big_mod_sub(c, a2, nl, b2, nl, n, nl);                  // c = a2 - b2
     big_mod_mul(X, a2, nl, b2, nl, n, nl, mu, mul);         // X = a2 * b2
     big_mod_mul(d, A24, nl, c, nl, n, nl, mu, mul);         // d = a24 * c
-    big_mod_add(e, b2 ,nl, d, nl, n, nl, mu, mul);                   // e = b2 + d
+    big_mod_add(e, b2 ,nl, d, nl, n, nl, mu, mul);          // e = b2 + d
     big_mod_mul(Z, c, nl, e, nl, n, nl, mu, mul);           // Z = c * e
 
     p->X = X;
