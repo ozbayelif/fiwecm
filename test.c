@@ -467,19 +467,95 @@ void pro_ladder_gmp_test() {
 }
 
 void pro_ladder_magma_test() {
-    // FILE *fp = fopen("/home/ozbayelif/Development/FIWE/ecm/pro_ladder_test.magma", "a");
-    FILE *fp = stdout;
+    FILE *fp = fopen("/home/ozbayelif/Development/FIWE/ecm/pro_ladder_test.magma", "a");
+    // FILE *fp = stdout;
     MONTG_CURVE c = (MONTG_CURVE)malloc(sizeof(MONTG_CURVE_t) * 1);
     PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-    ui_t nl, kl;
-    int i, j, flag, trues = 0, falses = 0;
+    PRO_POINT p2 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    PRO_POINT p3 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    PRO_POINT p4 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    PRO_POINT p5 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
+    int i, j, nl, kl, ll, res1 ,res2, flag, true = 0, false = 0;
+    nl = (ui_t)5, kl = 1, ll = 1;
+    ui_t mu[nl + 1], A24[nl];
 
-    fprintf(fp, "load \"/home/ozbayelif/Development/FIWE/LadderMagmaTest/son-map.m\";\n");
-    fprintf(fp, "trues := 0;\n");
-    fprintf(fp, "falses := 0;\n\n");
-    // fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/pro_ladder_results.magma\", trues);\n");
-    // fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/pro_ladder_results.magma\", falses);\n");
+    ui_t n[] = {3411243619, 3283606458, 2946840869, 2642350139, 82690173}; // Prime
+    
+    fprintf(fp, "clear;\n\n");
+    fprintf(fp, "load \"/home/ozbayelif/Development/FIWE/ecm/montgomery.m\";\n\n");
+    fprintf(fp, "trues:=0;\n\n");
+    fprintf(fp, "falses:=0;\n\n");
+
+    big_print(fp, n, nl, "n", NULL);
+    fprintf(fp, "F:=GF(n);\n\n");
+
+    ui d = (ui)malloc(sizeof(ui_t) * nl);
+    ui k = (ui)malloc(sizeof(ui_t) * kl);
+    ui l = (ui)malloc(sizeof(ui_t) * ll);
+
+    for (i = 0; i < 10000; i++) {
+        big_get_mu(mu, n, nl);
+        big_rand(k, kl);
+        big_rand(l, ll);
+        big_print(fp, k, kl, "k", NULL);
+        big_print(fp, l, ll, "l", NULL);
+
+        do {
+            pro_curve_point(d, c, p1, n, nl, mu, nl + 1, &flag);
+        } while(flag != 1);
+        big_print(fp, c->A, nl, "A", "F");
+        big_print(fp, c->B, nl, "B", "F");
+        fprintf(fp, "S<X,Y,Z>:=ProjectiveSpace(F,2);\n\n");
+        fprintf(fp, "C<X,Y,Z>:=Curve(S,[B*Y^2*Z-(X^3+A*X^2*Z+X*Z^2)]);\n\n");
+        fprintf(fp, "W,MtoW:=EllipticCurve(C,C![0,1,0]);\n\n");
+        fprintf(fp, "WtoM:=Inverse(MtoW);\n\n");
+        big_print(fp, p1->X, nl, "X1", "F");
+        big_print(fp, p1->Y, nl, "Y1", "F");
+        big_print(fp, p1->Z, nl, "Z1", "F");
+        fprintf(fp, "P1:=C![X1,Y1,Z1];\n\n");
+
+        do {
+            big_get_A24(A24, c->A, n, nl, mu, nl + 1, &flag);
+        } while(flag != 1);
+        big_print(fp, A24, nl, "A24", NULL);
+        fprintf(fp, "assert A24 eq (A+2)/4;\n\n");
+
+        pro_ladder(p2, p1, A24, k, kl, n, nl, mu, nl + 1);  // p2 = k*P
+        big_print(fp, p2->X, nl, "Xk_", NULL);
+        big_print(fp, p2->Z, nl, "Zk_", NULL);
+        fprintf(fp, "Xk,Zk:=LADDM(X1,Z1,k,A24);\n\n");
+        fprintf(fp, "assert (Xk_ eq Xk and Zk_ eq Zk);\n\n");
+
+        pro_ladder(p3, p2, A24, l, ll, n, nl, mu, nl + 1);  // p3 = l*(k*P)
+        big_print(fp, p3->X, nl, "Xlk_", NULL);
+        big_print(fp, p3->Z, nl, "Zlk_", NULL);
+        fprintf(fp, "Xlk,Zlk:=LADDM(Xk,Zk,l,A24);\n\n");
+        fprintf(fp, "assert (Xlk_ eq Xlk and Zlk_ eq Zlk);\n\n");
+
+        pro_ladder(p4, p1, A24, l, ll, n, nl, mu, nl + 1);  // p4 = l*P
+        big_print(fp, p4->X, nl, "Xl_", NULL);
+        big_print(fp, p4->Z, nl, "Zl_", NULL);
+        fprintf(fp, "Xl,Zl:=LADDM(X1,Z1,l,A24);\n\n");
+        fprintf(fp, "assert (Xl_ eq Xl and Zl_ eq Zl);\n\n");
+
+        pro_ladder(p5, p4, A24, k, kl, n, nl, mu, nl + 1);  // p5 = k*(l*P)
+        big_print(fp, p5->X, nl, "Xkl_", NULL);
+        big_print(fp, p5->Z, nl, "Zkl_", NULL);
+        fprintf(fp, "Xkl,Zkl:=LADDM(Xl,Zl,k,A24);\n\n");
+        fprintf(fp, "assert (Xkl_ eq Xkl and Zkl_ eq Zkl);\n\n");
+
+        fprintf(fp, "Xlk_:=F!Xlk_/Zlk_;\n\n");
+        fprintf(fp, "Xkl_:=F!Xkl_/Zkl_;\n\n");
+
+        fprintf(fp, "if Xlk_ eq Xkl_ then\n");
+        fprintf(fp, "trues:=trues + 1;\n");
+        fprintf(fp, "else\n");
+        fprintf(fp, "falses:=falses + 1;\n");
+        fprintf(fp, "end if;\n");
+    }
+    fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/pro_ladder_results.magma\", trues);\n");
+    fprintf(fp, "Write(\"/home/ozbayelif/Development/FIWE/ecm/pro_ladder_results.magma\", falses);\n");
 
     fclose(fp);
 }
