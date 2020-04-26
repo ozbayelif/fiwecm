@@ -10,8 +10,9 @@
  * 
  * 2. Checks if the coefficients of the curve and the
  * point satisfies the curve equation using GMP
+ * @param[in] THRESHOLD total number of tests
  */
-void pro_curve_point_gmp_test();
+void pro_curve_point_gmp_test(int THRESHOLD);
 
 /**
  * \brief Tests aff_curve_point function using GMP
@@ -20,8 +21,9 @@ void pro_curve_point_gmp_test();
  * 
  * 2. Checks if the coefficients of the curve and the
  * point satisfies the curve equation using GMP
+ * @param[in] THRESHOLD total number of tests
  */
-void aff_curve_point_gmp_test();
+void aff_curve_point_gmp_test(int THRESHOLD);
 
 /**
  * \brief Tests pro_add function using GMP
@@ -32,8 +34,9 @@ void aff_curve_point_gmp_test();
  * 
  * 3. Compares the result of the function
  * with the GMP result
+ * @param[in] THRESHOLD total number of tests
  */
-void pro_add_gmp_test();
+void pro_add_gmp_test(int THRESHOLD);
 
 /**
  * \brief Tests pro_add function using Magma
@@ -44,8 +47,9 @@ void pro_add_gmp_test();
  * 
  * 3. Compares the result of the function
  * with the Magma result
+ * @param[in] THRESHOLD total number of tests
  */
-void pro_add_magma_test();
+void pro_add_magma_test(int THRESHOLD);
 
 /**
  * \brief Tests pro_dbl function using Magma
@@ -56,14 +60,15 @@ void pro_add_magma_test();
  * 
  * 3. Compares the result of the function
  * with the Magma result
+ * @param[in] THRESHOLD total number of tests
  */
-void pro_dbl_magma_test();
+void pro_dbl_magma_test(int THRESHOLD);
 
 // TODO: Implement maybe?
-void pro_ladder_gmp_test();
+void pro_ladder_gmp_test(int THRESHOLD);
 
 // TODO: Implement
-void pro_ladder_magma_test();
+void pro_ladder_magma_test(int THRESHOLD);
 
 /**
  * \brief Tests ecm function
@@ -74,5 +79,6 @@ void pro_ladder_magma_test();
  * 
  * 3. Checks whether the factor found 
  * actually divides the composite number
+ * @param[in] THRESHOLD total number of tests
  */
-void ecm_test();
+void ecm_test(int THRESHOLD);

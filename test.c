@@ -11,7 +11,7 @@
 #include "ecm.h"
 #include "test.h"
 
-void pro_curve_point_gmp_test() {
+void pro_curve_point_gmp_test(int THRESHOLD) {
     MONTG_CURVE c = (MONTG_CURVE)malloc(sizeof(MONTG_CURVE_t) * 1);
     PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     mpz_t mp_n, mp_a, mp_b, mp_x, mp_y, mp_z, mp_y2, mp_x2, mp_x3, mp_by2, mp_by2z, mp_ax2, mp_ax2z, mp_z2, mp_xz2, mp_d, mp_mod, mp_dif;
@@ -39,7 +39,7 @@ void pro_curve_point_gmp_test() {
     mpz_set_ui(mp_mod, 0L);
     mpz_set_ui(mp_dif, 0L);
 
-    for (i = 0; i < 10000; i++) {
+    for (i = 0; i < THRESHOLD; i++) {
         nl = (ui_t)(rand() % 100 + 1);
         ui_t n[nl], mu[nl + 1], d[nl];
         
@@ -98,7 +98,7 @@ void pro_curve_point_gmp_test() {
     printf("SINGULAR: %d\n", singulars);
 }
 
-void aff_curve_point_gmp_test() {
+void aff_curve_point_gmp_test(int THRESHOLD) {
     MONTG_CURVE c = (MONTG_CURVE)malloc(sizeof(MONTG_CURVE_t) * 1);
     AFF_POINT p = (AFF_POINT)malloc(sizeof(AFF_POINT_t) * 1);
     mpz_t mp_n, mp_a, mp_b, mp_x, mp_y, mp_y2, mp_x2, mp_x3, mp_by2, mp_ax2, mp_d, mp_mod, mp_dif;
@@ -121,7 +121,7 @@ void aff_curve_point_gmp_test() {
     mpz_set_ui(mp_mod, 0L);
     mpz_set_ui(mp_dif, 0L);
 
-    for (i = 0; i < 10000; i++) {
+    for (i = 0; i < THRESHOLD; i++) {
         nl = (ui_t)(rand() % 100 + 1);
         ui_t n[nl], mu[nl + 1], d[nl];
         
@@ -176,7 +176,7 @@ void aff_curve_point_gmp_test() {
     printf("SINGULAR: %d\n", singulars);
 }
 
-void pro_add_gmp_test() {
+void pro_add_gmp_test(int THRESHOLD) {
     MONTG_CURVE c = (MONTG_CURVE)malloc(sizeof(MONTG_CURVE_t) * 1);
     PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
@@ -208,7 +208,7 @@ void pro_add_gmp_test() {
     mpz_init(mp_X);
     mpz_init(mp_Z);
     
-    for (i = 0; i < 10000; i++) {
+    for (i = 0; i < THRESHOLD; i++) {
         nl = (ui_t)(rand() % 100 + 1);
         ui_t n[nl], mu[nl + 1], X1[nl], X2[nl], Xd[nl], Z1[nl], Z2[nl], Zd[nl];
 
@@ -285,7 +285,7 @@ void pro_add_gmp_test() {
     printf("FALSE: %d\n", falses);
 }
 
-void pro_add_magma_test() {
+void pro_add_magma_test(int THRESHOLD) {
     FILE *fp = fopen("/home/ozbayelif/Development/FIWE/ecm/pro_add_test.magma", "a");
     PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
@@ -302,7 +302,7 @@ void pro_add_magma_test() {
     fprintf(fp, "trues := 0;\n");
     fprintf(fp, "falses := 0;\n");
 
-    for (i = 0; i < 10000; i++) {
+    for (i = 0; i < THRESHOLD; i++) {
         nl = (ui_t)(rand() % 100 + 1);
         ui_t n[nl], mu[nl + 1], X1[nl], X2[nl], Xd[nl], Z1[nl], Z2[nl], Zd[nl];
 
@@ -349,7 +349,7 @@ void pro_add_magma_test() {
     fclose(fp);
 }
 
-void pro_dbl_magma_test() {
+void pro_dbl_magma_test(int THRESHOLD) {
     FILE *fp = fopen("/home/ozbayelif/Development/FIWE/ecm/pro_dbl_test.magma", "a");
     PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
@@ -364,7 +364,7 @@ void pro_dbl_magma_test() {
     fprintf(fp, "trues := 0;\n");
     fprintf(fp, "falses := 0;\n");
 
-    for (i = 0; i < 10000; i++) {
+    for (i = 0; i < THRESHOLD; i++) {
         nl = (ui_t)(rand() % 100 + 1);
         ui_t n[nl], mu[nl + 1], X1[nl], Z1[nl], A24[nl];
 
@@ -402,7 +402,7 @@ void pro_dbl_magma_test() {
     fclose(fp);
 }
 
-void pro_ladder_gmp_test() {
+void pro_ladder_gmp_test(int THRESHOLD) {
     MONTG_CURVE c = (MONTG_CURVE)malloc(sizeof(MONTG_CURVE_t) * 1);
     PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
@@ -431,7 +431,7 @@ void pro_ladder_gmp_test() {
     mpz_set_ui(mp_Xlk, 0L);
     mpz_set_ui(mp_Xkl, 0L);
 
-    for (i = 0; i < 1000; i++) {
+    for (i = 0; i < THRESHOLD; i++) {
         big_rand(n, nl);
         n[0]--;
 
@@ -477,7 +477,7 @@ void pro_ladder_gmp_test() {
     printf("FALSE: %d\n", false);
 }
 
-void pro_ladder_magma_test() {
+void pro_ladder_magma_test(int THRESHOLD) {
     FILE *fp = fopen("/home/ozbayelif/Development/FIWE/ecm/pro_ladder_test.magma", "a");
     // FILE *fp = stdout;
     MONTG_CURVE c = (MONTG_CURVE)malloc(sizeof(MONTG_CURVE_t) * 1);
@@ -501,7 +501,7 @@ void pro_ladder_magma_test() {
     big_print(fp, n, nl, "n", NULL);
     fprintf(fp, "F:=GF(n);\n\n");
 
-    for (i = 0; i < 10000; i++) {
+    for (i = 0; i < THRESHOLD; i++) {
         big_rand(k, kl);
         big_rand(l, ll);
         big_print(fp, k, kl, "k", NULL);
@@ -570,7 +570,7 @@ void pro_ladder_magma_test() {
     fclose(fp);
 }
 
-void ecm_test() {
+void ecm_test(int THRESHOLD) {
     int i, nl, res, true = 0, false = 0, success = 0, fail = 0, success_type[3] = {0};
     mpz_t mp_n, mp_d, mp_mod;
 
@@ -579,7 +579,7 @@ void ecm_test() {
     mpz_init(mp_d);
     mpz_set_ui(mp_d, 0L);
 
-    for(i = 0; i < 50; i++) {
+    for(i = 0; i < THRESHOLD; i++) {
         nl = (ui_t)(rand() % 2 + 1);
         ui_t n[nl], d[nl];
         big_rand(n, nl);

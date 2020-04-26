@@ -6,14 +6,14 @@
 int main() {
     time_t start, end;
     start = time(NULL);
-    // pro_curve_point_gmp_test();
-    // aff_curve_point_gmp_test();
-    // pro_add_gmp_test();
-    // pro_add_magma_test();
-    // pro_dbl_magma_test();
-    // pro_ladder_gmp_test();
-    pro_ladder_magma_test();
-    // ecm_test();
+    // pro_curve_point_gmp_test(10000);
+    // aff_curve_point_gmp_test(10000);
+    // pro_add_gmp_test(10000);
+    // pro_add_magma_test(10000);
+    // pro_dbl_magma_test(10000);
+    // pro_ladder_gmp_test(10000);
+    pro_ladder_magma_test(100);
+    // ecm_test(10000);
     end = time(NULL);
     printf("Time spent: %ld\n", end - start);
 }
