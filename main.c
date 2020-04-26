@@ -1,3 +1,8 @@
+/**
+ * \file main.c
+ * \brief Main of the software
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
