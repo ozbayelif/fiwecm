@@ -192,9 +192,6 @@ void big_get_mu(ui z, ui n, ui_t nl);
  */
 void big_get_A24(ui A24, ui A, ui n, ui_t nl, ui mu, ui_t mul, int *flag);
 
-// TODO : Remove barret_UL
-uni_t barret_reduction_UL(uni_t p, uni_t b, uni_t k, uni_t z, uni_t m, uni_t L);
-
 /**
  * \brief Calculates m mod n
  * @param[out] z result of the reduction

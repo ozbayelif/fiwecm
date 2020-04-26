@@ -217,28 +217,10 @@ void big_get_A24(ui z, ui A, ui n, ui_t nl, ui mu, ui_t mul, int *flag) {
 	}
 }
 
-uni_t barret_reduction_UL(uni_t p, uni_t b, uni_t k, uni_t z, uni_t m, uni_t L) { // Calculate z mod p where z < 2^W and p < 2^W
-    uni_t bkpp = (k + 1) * L;
-    uni_t bkmp = (k - 1) * L;
-    uni_t bkp = 1 << bkpp;
-    uni_t bkm = 1 << bkmp;
-    
-    uni_t q = ((z >> bkmp) * m) >> bkpp;
-    uni_t r = (z & (bkp - 1)) - ((q * p) & (bkp - 1));
-    if(r < 0) {
-        r = r + bkp;
-    }
-    while(r >= p) {
-        r -= p;
-    }
-    
-    return r;
-}
-
 // ml = 2 * nl
 void barret_reduction(ui z, ui m, ui_t ml, ui n, ui_t nl, ui mu, ui_t mul) { // Calculate m mod n
     ui_t k = nl, md[k + 1], mdmu[mul + k + 1], q[mul], mm[k + 1], qn[mul + nl], qnm[k + 1], r2[k + 1], r3[k + 1];
-    int i, j, b;
+    int i, b;
 
     big_cpy(md, m, k - 1, k + 1); // md = m / b^(k - 1) 
     big_mul(mdmu, md, k + 1, mu, mul); // mdmu = md * mu 

@@ -177,7 +177,6 @@ void aff_curve_point_gmp_test(int THRESHOLD) {
 }
 
 void pro_add_gmp_test(int THRESHOLD) {
-    MONTG_CURVE c = (MONTG_CURVE)malloc(sizeof(MONTG_CURVE_t) * 1);
     PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p2 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
@@ -292,7 +291,7 @@ void pro_add_magma_test(int THRESHOLD) {
     PRO_POINT p2 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT pd = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     ui_t nl;
-    int i, trues = 0, falses = 0;
+    int i;
 
     fprintf(fp, "clear;\n");
     fprintf(fp, "/****************************************************************************/\n");
@@ -354,7 +353,7 @@ void pro_dbl_magma_test(int THRESHOLD) {
     PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     ui_t nl;
-    int i, trues = 0, falses = 0;
+    int i;
 
     fprintf(fp, "clear;\n");
     fprintf(fp, "/****************************************************************************/\n");
@@ -404,13 +403,12 @@ void pro_dbl_magma_test(int THRESHOLD) {
 
 void pro_ladder_gmp_test(int THRESHOLD) {
     MONTG_CURVE c = (MONTG_CURVE)malloc(sizeof(MONTG_CURVE_t) * 1);
-    PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p2 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p3 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p4 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p5 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-    int i, j, nl, kl, ll, flag, true = 0, false = 0;
+    int i, nl, kl, ll, flag, true = 0, false = 0;
     nl = (ui_t)(rand() % 10 + 1), kl = 1, ll = 1;
     ui_t n[nl], mu[nl + 1], A24[nl], d[nl], k[kl], l[ll];
     mpz_t mp_n, mp_p3X, mp_p3Z, mp_p5X, mp_p5Z, mp_Xlk, mp_Xkl;
@@ -481,13 +479,12 @@ void pro_ladder_magma_test(int THRESHOLD) {
     FILE *fp = fopen("/home/ozbayelif/Development/FIWE/ecm/pro_ladder_test.magma", "a");
     // FILE *fp = stdout;
     MONTG_CURVE c = (MONTG_CURVE)malloc(sizeof(MONTG_CURVE_t) * 1);
-    PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p2 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p3 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p4 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p5 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-    int i, j, nl, kl, ll, res1 ,res2, flag, true = 0, false = 0;
+    int i, nl, kl, ll, flag;
     nl = (ui_t)5, kl = 1, ll = 1;
     ui_t mu[nl + 1], A24[nl], d[nl], k[kl], l[ll];
     ui_t n[] = {3411243619, 3283606458, 2946840869, 2642350139, 82690173}; // Prime

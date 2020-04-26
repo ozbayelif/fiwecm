@@ -233,9 +233,3 @@ void pro_ladder(PRO_POINT p, PRO_POINT p1, ui A24, ui k, ui_t kl, ui n, ui_t nl,
 
 void aff_ladder(ui x, ui y, ui x1, ui y1, ui k, ui n) {
 }
-
-int pro_is_on_curve(ui A, ui B, ui X, ui Y, ui Z, ui n) {
-}
-
-int aff_is_on_curve(ui A, ui B, ui x, ui y, ui n) {
-}
