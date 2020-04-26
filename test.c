@@ -489,9 +489,9 @@ void pro_ladder_magma_test() {
     PRO_POINT p5 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     int i, j, nl, kl, ll, res1 ,res2, flag, true = 0, false = 0;
     nl = (ui_t)5, kl = 1, ll = 1;
-    ui_t mu[nl + 1], A24[nl];
-
+    ui_t mu[nl + 1], A24[nl], d[nl], k[kl], l[ll];
     ui_t n[] = {3411243619, 3283606458, 2946840869, 2642350139, 82690173}; // Prime
+    big_get_mu(mu, n, nl);
     
     fprintf(fp, "clear;\n\n");
     fprintf(fp, "load \"/home/ozbayelif/Development/FIWE/ecm/montgomery.m\";\n\n");
@@ -501,20 +501,17 @@ void pro_ladder_magma_test() {
     big_print(fp, n, nl, "n", NULL);
     fprintf(fp, "F:=GF(n);\n\n");
 
-    ui d = (ui)malloc(sizeof(ui_t) * nl);
-    ui k = (ui)malloc(sizeof(ui_t) * kl);
-    ui l = (ui)malloc(sizeof(ui_t) * ll);
-
     for (i = 0; i < 10000; i++) {
-        big_get_mu(mu, n, nl);
         big_rand(k, kl);
         big_rand(l, ll);
         big_print(fp, k, kl, "k", NULL);
         big_print(fp, l, ll, "l", NULL);
 
-        do {
-            pro_curve_point(d, c, p1, n, nl, mu, nl + 1, &flag);
-        } while(flag != 1);
+        pro_curve_point(d, c, p1, n, nl, mu, nl + 1, &flag);
+        if(flag != 1) {
+            i--;
+            continue;
+        }
         big_print(fp, c->A, nl, "A", "F");
         big_print(fp, c->B, nl, "B", "F");
         fprintf(fp, "S<X,Y,Z>:=ProjectiveSpace(F,2);\n\n");
@@ -526,9 +523,11 @@ void pro_ladder_magma_test() {
         big_print(fp, p1->Z, nl, "Z1", "F");
         fprintf(fp, "P1:=C![X1,Y1,Z1];\n\n");
 
-        do {
-            big_get_A24(A24, c->A, n, nl, mu, nl + 1, &flag);
-        } while(flag != 1);
+        big_get_A24(A24, c->A, n, nl, mu, nl + 1, &flag);
+        if(flag != 1) {
+            i--;
+            continue;
+        }
         big_print(fp, A24, nl, "A24", NULL);
         fprintf(fp, "assert A24 eq (A+2)/4;\n\n");
 
