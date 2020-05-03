@@ -62,59 +62,6 @@ void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_
     }
 }
 
-void aff_curve_point(ui d, MONTG_CURVE c, AFF_POINT p, ui n, ui_t nl, ui mu, ui_t mul, int *flag) {
-    ui_t A2[nl], x2[nl], x3[nl], Ax2[nl], y2[nl], iy2[nl], rhs1[nl], rhs[nl];
-    ui A = (ui)malloc(sizeof(ui_t) * nl);
-    ui B = (ui)malloc(sizeof(ui_t) * nl);
-    ui x = (ui)malloc(sizeof(ui_t) * nl);
-    ui y = (ui)malloc(sizeof(ui_t) * nl);
-    int i, s = 1, is_zero, is_one, is_n;
-
-    big_mod_rand(A, nl, n, nl, mu, mul);
-    big_mod_rand(x, nl, n, nl, mu, mul);
-    big_mod_rand(y, nl, n, nl, mu, mul);
-
-    big_mod_mul(A2, A, nl, A, nl, n, nl, mu, mul);
-    if(A2[0] == 4L) {
-        s = 0;
-    }
-    for(i = 1; i < nl; i++) {
-        if(A2[i] != 0L) {
-            s = 1;
-        }
-    }                                                           // Check singularity
-    if(s != 0) {
-        big_mod_mul(x2, x, nl, x, nl, n, nl, mu, mul);          // x2 = x^2
-        big_mod_mul(Ax2, A, nl, x2, nl, n, nl, mu, mul);        // Ax2 = Ax^2
-        big_mod_mul(x3, x2, nl, x, nl, n, nl, mu, mul);         // x3 = x^3
-        big_mod_mul(y2, y, nl, y, nl, n, nl, mu, mul);          // y2 = y^2
-        big_mod_add(rhs1, x3, nl, Ax2, nl, n, nl, mu, mul);              // rhs1 = x^3 + Ax^2
-        big_mod_add(rhs, rhs1, nl, x, nl, n, nl, mu, mul);               // rhs = x^3 + Ax^2 + x
-        big_gcd(d, nl, y2, nl, n, nl);                          // d = GCD(y^2, n)
-        big_is_equal_ui(&is_one, d, nl, 1L);
-        big_is_equal(&is_n, d, n, nl);
-        if(is_one || is_n) {
-            big_invert(iy2, y2, nl, n, nl);                     // iy2 = Inv(y^2)
-            big_mod_mul(B, rhs, nl, iy2, nl, n, nl, mu, mul);   // B = rhs * Inv(y^2)
-            big_is_equal_ui(&is_zero, B, nl, 0L);
-            if(!is_zero) {
-                c->A = A;
-                c->B = B;
-                c->n = n;
-                p->x = x;
-                p->y = y;
-                *flag = 1;
-            } else {
-                *flag = -1;
-            }
-        } else {
-            *flag = 0;
-        }
-    } else {
-        *flag = -1;
-    }
-}
-
 void pro_add(PRO_POINT p, PRO_POINT p1, PRO_POINT p2, PRO_POINT pd, ui n, ui_t nl, ui mu, ui_t mul) {
     ui_t a[nl], b[nl],  c[nl], d[nl], da[nl], cb[nl], e[nl], f[nl], e2[nl], f2[nl];
     ui X = (ui)malloc(sizeof(ui_t) * nl);
@@ -137,21 +84,6 @@ void pro_add(PRO_POINT p, PRO_POINT p1, PRO_POINT p2, PRO_POINT pd, ui n, ui_t n
     p->Z = Z;
 }
 
-// Reuqires division
-void aff_add(AFF_POINT p, AFF_POINT p1, AFF_POINT p2, ui A, ui B, ui n, ui_t nl, ui mu, ui_t mul) {
-    // ui_t c[nl], c2[nl], c3[nl], d[nl], d2[nl], d3[nl];
-    // ui x = (ui)malloc(sizeof(ui_t) * nl);
-    // ui y = (ui)malloc(sizeof(ui_t) * nl);
-    // int i, s;
-
-    // big_mod_sub(c, p2->y, nl, p1->y, nl, n, nl);             // c = y2 - y1
-    // big_mod_sub(d, p2->x, nl, p1->x, nl, n, nl);             // d = x2 - x1
-    // big_mod_mul(c2, c, nl, c, nl, n, nl, mu, mul);           // c2 = c^2
-    // big_mod_mul(d2, d, nl, d, nl, n, nl, mu, mul);           // d2 = d^2
-    // big_mod_mul(c3, c2, nl, c, nl, n, nl, mu, mul);          // c3 = c^3
-    // big_mod_mul(d3, d2, nl, d, nl, n, nl, mu, mul);          // d3 = d^3
-}
-
 void pro_dbl(PRO_POINT p, PRO_POINT p1, ui A24, ui n, ui_t nl, ui mu, ui_t mul) {
     ui_t a [nl], a2[nl], b[nl], b2[nl], c[nl], d[nl], e[nl];
     ui X = (ui)malloc(sizeof(ui_t) * nl);
@@ -169,10 +101,6 @@ void pro_dbl(PRO_POINT p, PRO_POINT p1, ui A24, ui n, ui_t nl, ui mu, ui_t mul) 
 
     p->X = X;
     p->Z = Z;
-}
-
-// Reuqires division
-void aff_dbl(ui x, ui z, ui x1, ui y1, ui A, ui B, ui n) {
 }
 
 // Assumes k < 2^W
@@ -222,7 +150,4 @@ void pro_ladder(PRO_POINT p, PRO_POINT p1, ui A24, ui k, ui_t kl, ui n, ui_t nl,
     }
     big_cpy(p->X, R0->X, 0, nl);
     big_cpy(p->Z, R0->Z, 0, nl);
-}
-
-void aff_ladder(ui x, ui y, ui x1, ui y1, ui k, ui n) {
 }
