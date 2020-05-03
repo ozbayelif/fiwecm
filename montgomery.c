@@ -16,7 +16,7 @@ void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_
     ui X = (ui)malloc(sizeof(ui_t) * nl);
     ui Y = (ui)malloc(sizeof(ui_t) * nl);
     ui Z = (ui)malloc(sizeof(ui_t) * nl);
-    int i, s = 1, is_zero, is_one, is_n;
+    int is_four = 1, is_zero, is_one, is_n;
 
     big_mod_rand(A, nl, n, nl, mu, mul);
     big_mod_rand(X, nl, n, nl, mu, mul);
@@ -24,15 +24,8 @@ void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_
     big_mod_rand(Z, nl, n, nl, mu, mul);
     
     big_mod_mul(A2, A, nl, A, nl, n, nl, mu, mul);
-    if(A2[0] == 4L) {
-        s = 0;
-    }
-    for(i = 1; i < nl; i++) {
-        if(A2[i] != 0L) {
-            s = 1;
-        }
-    }                                                           // If A^2 mod n = 4, singular
-    if(s != 0) {
+    big_is_equal_ui(&is_four, A2, nl, 4L);
+    if(is_four != 1) {
         big_mod_mul(X2, X, nl, X, nl, n, nl, mu, mul);          // X2 = X^2
         big_mod_mul(AX2, A, nl, X2, nl, n, nl, mu, mul);        // AX = AX^2
         big_mod_mul(AX2Z, AX2, nl, Z, nl, n, nl, mu, mul);      // AX2Z = AX^2Z
