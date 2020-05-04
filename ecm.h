@@ -25,6 +25,19 @@
  */
 #define CRV_THRESHOLD 20
 
+#define PRIMESL 39
+#define POWERSL 4
+
+extern int primes[39];
+extern int prime_powers[4];
+
+/**
+ * @brief Generates B-smooth numbers
+ * @param[out] n the number generated
+ * @param[in] nl number of digits of n in base \f$2^W\f$
+ */
+void generate_n(ui n, ui_t nl);
+
 /**
  * \brief Factorizes the given composite using Elliptic Curve Method
  * @param[out] d factor of n
