@@ -15,17 +15,6 @@
 void pro_curve_point_gmp_test(int THRESHOLD);
 
 /**
- * \brief Tests aff_curve_point function using GMP
- * 1. Generates a random curve and a affine point
- * using the function
- * 
- * 2. Checks if the coefficients of the curve and the
- * point satisfies the curve equation using GMP
- * @param[in] THRESHOLD total number of tests
- */
-void aff_curve_point_gmp_test(int THRESHOLD);
-
-/**
  * \brief Tests pro_add function using GMP
  * 1. Generates two random points
  * 
