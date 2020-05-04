@@ -489,7 +489,7 @@ void pro_ladder_magma_test(int THRESHOLD) {
     fclose(fp);
 }
 
-void ecm_test(int THRESHOLD) {
+void ecm_gmp_test(int THRESHOLD) {
     int i, nl, res, true = 0, false = 0, success = 0, fail = 0, success_type[3] = {0};
     mpz_t mp_n, mp_d, mp_mod;
 
@@ -499,22 +499,22 @@ void ecm_test(int THRESHOLD) {
     mpz_set_ui(mp_d, 0L);
 
     for(i = 0; i < THRESHOLD; i++) {
-        nl = (ui_t)(rand() % 2 + 1);
+        nl = (ui_t)(rand() % 10 + 1);
         ui_t n[nl], d[nl];
         big_rand(n, nl);
         n[0]--; // To make n most probably odd
         int ret = ecm(d, n, nl);
-        if(ret) {
+        big_print(stdout, n, nl, "n", NULL);
+        big_print(stdout, d, nl, "d", NULL);
+        printf("\n");
+        if(ret != 0) {
             success++;
             success_type[ret - 1]++;
             mpz_import(mp_n, nl, -1, 4, 0, 0, n);
             mpz_import(mp_d, nl, -1, 4, 0, 0, d);
             mpz_mod(mp_mod, mp_n, mp_d);
-            res = mpz_cmp_ui(mp_mod, 0);
+            res = mpz_cmp_ui(mp_mod, 0L);
             if(res == 0) {
-                gmp_printf("n:=%Zd;\n", mp_n);
-                gmp_printf("d:=%Zd;\n", mp_d);
-                printf("n mod d eq 0;\n");
                 true++;
             } else {
                 false++;

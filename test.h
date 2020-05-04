@@ -132,4 +132,4 @@ void pro_ladder_magma_test(int THRESHOLD);
  * actually divides the composite number
  * @param[in] THRESHOLD total number of tests
  */
-void ecm_test(int THRESHOLD);
+void ecm_gmp_test(int THRESHOLD);
