@@ -23,20 +23,21 @@
  * another one is tried until the number of
  * trials exceed CRV_THRESHOLD.
  */
-#define CRV_THRESHOLD 20
+#define CRV_THRESHOLD 10
 
-#define PRIMESL 39
-#define POWERSL 4
+#define PRIMESL 21
+#define POWERSL 5
 
-extern int primes[39];
-extern int prime_powers[4];
+extern int primes[PRIMESL];
+extern int prime_powers[POWERSL];
 
 /**
- * @brief Generates B-smooth numbers
- * @param[out] n the number generated
- * @param[in] nl number of digits of n in base \f$2^W\f$
+ * @brief Generates a B-smooth number
+ * @param[out] z the number generated
+ * @param[in] zl number of digits of z in base \f$2^W\f$
+ * @param[in] B smoothness constant
  */
-void generate_n(ui n, ui_t nl);
+void generate_B_smooth(ui z, ui_t l);
 
 /**
  * \brief Factorizes the given composite using Elliptic Curve Method

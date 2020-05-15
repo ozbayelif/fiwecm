@@ -501,12 +501,10 @@ void ecm_gmp_test(int THRESHOLD) {
     for(i = 0; i < THRESHOLD; i++) {
         nl = (ui_t)(rand() % 10 + 1);
         ui_t n[nl], d[nl];
-        big_rand(n, nl);
-        n[0]--; // To make n most probably odd
-        int ret = ecm(d, n, nl);
+        generate_B_smooth(n, nl);
         big_print(stdout, n, nl, "n", NULL);
-        big_print(stdout, d, nl, "d", NULL);
-        printf("\n");
+
+        int ret = ecm(d, n, nl);
         if(ret != 0) {
             success++;
             success_type[ret - 1]++;
@@ -515,12 +513,14 @@ void ecm_gmp_test(int THRESHOLD) {
             mpz_mod(mp_mod, mp_n, mp_d);
             res = mpz_cmp_ui(mp_mod, 0L);
             if(res == 0) {
+                big_print(stdout, d, nl, "d", NULL);
                 true++;
             } else {
                 false++;
                 printf("False at index: %d\n", i);
             }
         } else {
+            printf("fail \n");
             fail++;
         }
     }
