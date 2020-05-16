@@ -331,7 +331,7 @@ void pro_ladder_gmp_test(int THRESHOLD) {
     PRO_POINT p4 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p5 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     int i, nl, kl, ll, flag, true = 0, false = 0;
-    nl = (ui_t)(rand() % 10 + 1), kl = 1, ll = 1;
+    nl = (ui_t)(rand() % 10 + 1), kl = rand() % 3 + 1, ll = rand() % 3 + 1;
     ui_t n[nl], mu[nl + 1], A24[nl], d[nl], k[kl], l[ll];
     mpz_t mp_n, mp_p3X, mp_p3Z, mp_p5X, mp_p5Z, mp_Xlk, mp_Xkl;
 
@@ -407,7 +407,7 @@ void pro_ladder_magma_test(int THRESHOLD) {
     PRO_POINT p4 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     PRO_POINT p5 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
     int i, nl, kl, ll, flag;
-    nl = (ui_t)5, kl = 1, ll = 1;
+    nl = (ui_t)5, kl = rand() % 3 + 1, ll = rand() % 3 + 1;
     ui_t mu[nl + 1], A24[nl], d[nl], k[kl], l[ll];
     ui_t n[] = {3411243619, 3283606458, 2946840869, 2642350139, 82690173}; // Prime
     big_get_mu(mu, n, nl);
@@ -454,25 +454,25 @@ void pro_ladder_magma_test(int THRESHOLD) {
         big_print(fp, p2->X, nl, "Xk_", NULL);
         big_print(fp, p2->Z, nl, "Zk_", NULL);
         fprintf(fp, "Xk,Zk:=LADDM(X1,Z1,k,A24);\n\n");
-        fprintf(fp, "assert (Xk_ eq Xk and Zk_ eq Zk);\n\n");
+        fprintf(fp, "assert (Xk_ * Zk eq Xk * Zk_);\n\n");
 
         pro_ladder(p3, p2, A24, l, ll, n, nl, mu, nl + 1);  // p3 = l*(k*P)
         big_print(fp, p3->X, nl, "Xlk_", NULL);
         big_print(fp, p3->Z, nl, "Zlk_", NULL);
         fprintf(fp, "Xlk,Zlk:=LADDM(Xk,Zk,l,A24);\n\n");
-        fprintf(fp, "assert (Xlk_ eq Xlk and Zlk_ eq Zlk);\n\n");
+        fprintf(fp, "assert (Xlk_ * Zlk eq Xlk * Zlk_);\n\n");
 
         pro_ladder(p4, p1, A24, l, ll, n, nl, mu, nl + 1);  // p4 = l*P
         big_print(fp, p4->X, nl, "Xl_", NULL);
         big_print(fp, p4->Z, nl, "Zl_", NULL);
         fprintf(fp, "Xl,Zl:=LADDM(X1,Z1,l,A24);\n\n");
-        fprintf(fp, "assert (Xl_ eq Xl and Zl_ eq Zl);\n\n");
+        fprintf(fp, "assert (Xl_ * Zl eq Xl * Zl_);\n\n");
 
         pro_ladder(p5, p4, A24, k, kl, n, nl, mu, nl + 1);  // p5 = k*(l*P)
         big_print(fp, p5->X, nl, "Xkl_", NULL);
         big_print(fp, p5->Z, nl, "Zkl_", NULL);
         fprintf(fp, "Xkl,Zkl:=LADDM(Xl,Zl,k,A24);\n\n");
-        fprintf(fp, "assert (Xkl_ eq Xkl and Zkl_ eq Zkl);\n\n");
+        fprintf(fp, "assert (Xkl_ * Zkl eq Xkl * Zkl_);\n\n");
 
         fprintf(fp, "Xlk_:=F!Xlk_/Zlk_;\n\n");
         fprintf(fp, "Xkl_:=F!Xkl_/Zkl_;\n\n");

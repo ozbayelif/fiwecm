@@ -103,7 +103,6 @@ void pro_dbl(PRO_POINT p, PRO_POINT p1, ui A24, ui n, ui_t nl, ui mu, ui_t mul) 
     p->Z = Z;
 }
 
-// Assumes k < 2^W
 void pro_ladder(PRO_POINT p, PRO_POINT p1, ui A24, ui k, ui_t kl, ui n, ui_t nl, ui mu, ui_t mul) {
     ui_t a, x;
     PRO_POINT R0 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
@@ -133,20 +132,24 @@ void pro_ladder(PRO_POINT p, PRO_POINT p1, ui A24, ui k, ui_t kl, ui n, ui_t nl,
         a = a >> 1;
         j++;
     }                                                       // Find the index of the first 1
-    for(i = j - 2; i >= 0; i--) {
-        x = 1;
-        x <<= i;
-        big_cpy(R0_->X, R0->X, 0, nl);
-        big_cpy(R0_->Z, R0->Z, 0, nl);
-        big_cpy(R1_->X, R1->X, 0, nl);
-        big_cpy(R1_->Z, R1->Z, 0, nl);
-        if(!(k[kl - 1] & x)) {
-            pro_dbl(R0, R0_, A24, n, nl, mu, mul);
-            pro_add(R1, R0_, R1_, p1, n, nl, mu, mul);
-        } else {
-            pro_add(R0, R0_, R1_, p1, n, nl, mu, mul);
-            pro_dbl(R1, R1_, A24, n, nl, mu, mul);
+    j -= 2;
+    for (i = kl - 1; i >= 0; i--) {
+        for(; j >= 0; j--) {
+            x = 1;
+            x <<= j;
+            big_cpy(R0_->X, R0->X, 0, nl);
+            big_cpy(R0_->Z, R0->Z, 0, nl);
+            big_cpy(R1_->X, R1->X, 0, nl);
+            big_cpy(R1_->Z, R1->Z, 0, nl);
+            if(!(k[i] & x)) {
+                pro_dbl(R0, R0_, A24, n, nl, mu, mul);
+                pro_add(R1, R0_, R1_, p1, n, nl, mu, mul);
+            } else {
+                pro_add(R0, R0_, R1_, p1, n, nl, mu, mul);
+                pro_dbl(R1, R1_, A24, n, nl, mu, mul);
+            }
         }
+        j = W - 1;
     }
     big_cpy(p->X, R0->X, 0, nl);
     big_cpy(p->Z, R0->Z, 0, nl);
