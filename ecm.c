@@ -41,11 +41,8 @@ void generate_B_smooth(ui z, ui_t l) {
 }
 
 int ecm(ui d, ui n, ui_t nl) {
-    ui A24 = (ui)malloc(sizeof(ui_t) * nl);
-    MONTG_CURVE_t c;
-    PRO_POINT_t p;
-    PRO_POINT_t p1;
-    ui_t mu[nl + 1];
+    MONTG_CURVE_t c; PRO_POINT_t p, p1;
+    ui_t A24[nl], mu[nl + 1];
     int i, j, bl, is_one, is_n, is_zero, flag;
     
     bl = (nl >> 1) + 1; // For the choice of appropriate B. May change.
