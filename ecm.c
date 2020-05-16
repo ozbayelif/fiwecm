@@ -42,11 +42,14 @@ void generate_B_smooth(ui z, ui_t l) {
 
 int ecm(ui d, ui n, ui_t nl) {
     ui A24 = (ui)malloc(sizeof(ui_t) * nl);
-    MONTG_CURVE c = (MONTG_CURVE)malloc(sizeof(MONTG_CURVE_t) * 1);
-    PRO_POINT p = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-    PRO_POINT p1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-    ui_t mu[nl + 1], B[1];
-    int i, j, is_one, is_n, is_zero, flag;
+    MONTG_CURVE_t c;
+    PRO_POINT_t p;
+    PRO_POINT_t p1;
+    ui_t mu[nl + 1];
+    int i, j, bl, is_one, is_n, is_zero, flag;
+    
+    bl = (nl >> 1) + 1; // For the choice of appropriate B. May change.
+    ui_t B[bl];
 
     big_get_mu(mu, n, nl);
     for(i = 0; i < nl; i++) {
@@ -61,9 +64,9 @@ int ecm(ui d, ui n, ui_t nl) {
         } else {
             big_get_A24(A24, c->A, n, nl, mu, nl + 1, &flag);
             if(flag == 1) {
-                generate_B_smooth(B, 1);
+                generate_B_smooth(B, bl);
                 for(j = 0; j < B_THRESHOLD; j++) {
-                    pro_ladder(p, p1, A24, B, 1, n, nl, mu, nl + 1);
+                    pro_ladder(p, p1, A24, B, bl, n, nl, mu, nl + 1);
                     // big_print(stdout, p->Z, nl, "pZ", NULL);
                     // printf("GreatestCommonDivisor(pZ, n); \n\n");
                     big_is_equal_ui(&is_zero, p->Z, nl, 0L);

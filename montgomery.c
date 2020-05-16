@@ -105,19 +105,9 @@ void pro_dbl(PRO_POINT p, PRO_POINT p1, ui A24, ui n, ui_t nl, ui mu, ui_t mul) 
 
 void pro_ladder(PRO_POINT p, PRO_POINT p1, ui A24, ui k, ui_t kl, ui n, ui_t nl, ui mu, ui_t mul) {
     ui_t a, x;
-    PRO_POINT R0 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-    PRO_POINT R1 = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-    PRO_POINT R0_ = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-    PRO_POINT R1_ = (PRO_POINT)malloc(sizeof(PRO_POINT_t) * 1);
-    R0->X = (ui)malloc(sizeof(ui_t) * nl);
-    R0->Y = (ui)malloc(sizeof(ui_t) * nl);
-    R0->Z = (ui)malloc(sizeof(ui_t) * nl);
-    R0_->X = (ui)malloc(sizeof(ui_t) * nl);
-    R0_->Y = (ui)malloc(sizeof(ui_t) * nl);
-    R0_->Z = (ui)malloc(sizeof(ui_t) * nl);
-    R1_->X = (ui)malloc(sizeof(ui_t) * nl);
-    R1_->Y = (ui)malloc(sizeof(ui_t) * nl);
-    R1_->Z = (ui)malloc(sizeof(ui_t) * nl);
+    PRO_POINT_t R0, R1, R0_, R1_;
+    ui_t R0X[nl], R0Y[nl], R0Z[nl], R1X[nl], R1Y[nl], R1Z[nl], R0_X[nl], R0_Y[nl], R0_Z[nl], R1_X[nl], R1_Y[nl], R1_Z[nl];
+    R0->X= R0X; R0->Y = R0Y; R0->Z = R0Z; R0_->X = R0_X; R0_->Y = R0_Y; R0_->Z = R0_Z; R1->X= R1X; R1->Y = R1Y; R1->Z = R1Z; R1_->X = R1_X; R1_->Y = R1_Y; R1_->Z = R1_Z;
     p->X = (ui)malloc(sizeof(ui_t) * nl);
     p->Z = (ui)malloc(sizeof(ui_t) * nl);
     int i, j;
