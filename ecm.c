@@ -75,7 +75,7 @@ int ecm(ui d, ui n, ui_t nl) {
                             return 2;
                         }
                     }
-                    generate_B_smooth(B, 1);
+                    generate_B_smooth(B, bl);
                 }
             } else {
                 return 3;
