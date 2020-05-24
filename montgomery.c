@@ -62,45 +62,68 @@ void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_
     }
 }
 
-void pro_add(PRO_POINT p, PRO_POINT p1, PRO_POINT p2, PRO_POINT pd, ui n, ui_t nl, ui mu, ui_t mul) {
+void pro_add(PRO_POINT p, PRO_POINT p1, PRO_POINT p2, PRO_POINT pd, ui A24, ui n, ui_t nl, ui mu, ui_t mul) {
     ui_t a[nl], b[nl],  c[nl], d[nl], da[nl], cb[nl], e[nl], f[nl], e2[nl], f2[nl];
     ui X = (ui)malloc(sizeof(ui_t) * nl);
     ui Z = (ui)malloc(sizeof(ui_t) * nl);
+    int is_zero1, is_zero2, is_dbl1, is_dbl2;
 
-    big_mod_add(a, p2->X, nl, p2->Z, nl, n, nl, mu, mul);   // a = X2 + Z2
-    big_mod_sub(b, p2->X, nl, p2->Z, nl, n, nl);            // b = X2 - Z2
-    big_mod_add(c, p1->X, nl, p1->Z, nl, n, nl, mu, mul);   // c = X1 + Z1
-    big_mod_sub(d, p1->X, nl, p1->Z, nl, n, nl);            // d = X1 - Z1
-    big_mod_mul(da, d, nl, a, nl, n, nl, mu, mul);          // da = d * a
-    big_mod_mul(cb, c, nl, b, nl, n, nl, mu, mul);          // cb = c * b
-    big_mod_add(e, da, nl, cb, nl, n, nl, mu, mul);         // e = da + cb
-    big_mod_sub(f, da, nl, cb, nl, n, nl);                  // f = da - cb
-    big_mod_mul(e2, e, nl, e, nl, n, nl, mu, mul);          // e2 = e^2
-    big_mod_mul(f2, f, nl, f, nl, n, nl, mu, mul);          // f2 = f^2
-    big_mod_mul(X, pd->Z, nl, e2, nl, n, nl, mu, mul);      // X = Zd * e2
-    big_mod_mul(Z, pd->X, nl, f2, nl, n, nl, mu, mul);      // Z = Xd * f2
+    big_is_equal_ui(&is_zero1, p1->Z, nl, 0L);
+    big_is_equal_ui(&is_zero2, p2->Z, nl, 0L);
+    big_is_equal(&is_dbl1, p1->X, p2->X, nl);
+    big_is_equal(&is_dbl2, p1->Z, p2->Z, nl);
 
-    p->X = X;
-    p->Z = Z;
+    if(is_zero1 == 1) {
+        p->X = p2->X;
+        p->Z = p2->Z;
+    } else if(is_zero2 == 1) {
+        p->X = p1->X;
+        p->Z = p1->Z;
+    } else if(is_dbl1 == 1 && is_dbl2 == 1) {
+        pro_dbl(p, p1, A24, n, nl, mu, mul);
+    } else {
+        big_mod_add(a, p2->X, nl, p2->Z, nl, n, nl, mu, mul);   // a = X2 + Z2
+        big_mod_sub(b, p2->X, nl, p2->Z, nl, n, nl);            // b = X2 - Z2
+        big_mod_add(c, p1->X, nl, p1->Z, nl, n, nl, mu, mul);   // c = X1 + Z1
+        big_mod_sub(d, p1->X, nl, p1->Z, nl, n, nl);            // d = X1 - Z1
+        big_mod_mul(da, d, nl, a, nl, n, nl, mu, mul);          // da = d * a
+        big_mod_mul(cb, c, nl, b, nl, n, nl, mu, mul);          // cb = c * b
+        big_mod_add(e, da, nl, cb, nl, n, nl, mu, mul);         // e = da + cb
+        big_mod_sub(f, da, nl, cb, nl, n, nl);                  // f = da - cb
+        big_mod_mul(e2, e, nl, e, nl, n, nl, mu, mul);          // e2 = e^2
+        big_mod_mul(f2, f, nl, f, nl, n, nl, mu, mul);          // f2 = f^2
+        big_mod_mul(X, pd->Z, nl, e2, nl, n, nl, mu, mul);      // X = Zd * e2
+        big_mod_mul(Z, pd->X, nl, f2, nl, n, nl, mu, mul);      // Z = Xd * f2
+        p->X = X;
+        p->Z = Z;
+    }
+
 }
 
 void pro_dbl(PRO_POINT p, PRO_POINT p1, ui A24, ui n, ui_t nl, ui mu, ui_t mul) {
     ui_t a [nl], a2[nl], b[nl], b2[nl], c[nl], d[nl], e[nl];
     ui X = (ui)malloc(sizeof(ui_t) * nl);
     ui Z = (ui)malloc(sizeof(ui_t) * nl);
+    int is_zero1;
 
-    big_mod_add(a, p1->X, nl, p1->Z, nl, n, nl, mu, mul);   // a = X + Z
-    big_mod_mul(a2, a, nl, a, nl, n, nl, mu, mul);          // a2 = a^2
-    big_mod_sub(b, p1->X, nl, p1->Z, nl, n, nl);            // b = X - Z
-    big_mod_mul(b2, b, nl, b, nl, n, nl, mu, mul);          // b2 = b^2
-    big_mod_sub(c, a2, nl, b2, nl, n, nl);                  // c = a2 - b2
-    big_mod_mul(X, a2, nl, b2, nl, n, nl, mu, mul);         // X = a2 * b2
-    big_mod_mul(d, A24, nl, c, nl, n, nl, mu, mul);         // d = a24 * c
-    big_mod_add(e, b2 ,nl, d, nl, n, nl, mu, mul);          // e = b2 + d
-    big_mod_mul(Z, c, nl, e, nl, n, nl, mu, mul);           // Z = c * e
+    big_is_equal_ui(&is_zero1, p1->Z, nl, 0L);
 
-    p->X = X;
-    p->Z = Z;
+    if(is_zero1 == 1) {
+        p->X = p1->X;
+        p->Z = p1->Z;
+    } else {
+        big_mod_add(a, p1->X, nl, p1->Z, nl, n, nl, mu, mul);   // a = X + Z
+        big_mod_mul(a2, a, nl, a, nl, n, nl, mu, mul);          // a2 = a^2
+        big_mod_sub(b, p1->X, nl, p1->Z, nl, n, nl);            // b = X - Z
+        big_mod_mul(b2, b, nl, b, nl, n, nl, mu, mul);          // b2 = b^2
+        big_mod_sub(c, a2, nl, b2, nl, n, nl);                  // c = a2 - b2
+        big_mod_mul(X, a2, nl, b2, nl, n, nl, mu, mul);         // X = a2 * b2
+        big_mod_mul(d, A24, nl, c, nl, n, nl, mu, mul);         // d = a24 * c
+        big_mod_add(e, b2 ,nl, d, nl, n, nl, mu, mul);          // e = b2 + d
+        big_mod_mul(Z, c, nl, e, nl, n, nl, mu, mul);           // Z = c * e
+        p->X = X;
+        p->Z = Z;
+    }
 }
 
 void pro_ladder(PRO_POINT p, PRO_POINT p1, ui A24, ui k, ui_t kl, ui n, ui_t nl, ui mu, ui_t mul) {
@@ -133,14 +156,20 @@ void pro_ladder(PRO_POINT p, PRO_POINT p1, ui A24, ui k, ui_t kl, ui n, ui_t nl,
             big_cpy(R1_->Z, R1->Z, 0, nl);
             if(!(k[i] & x)) {
                 pro_dbl(R0, R0_, A24, n, nl, mu, mul);
-                pro_add(R1, R0_, R1_, p1, n, nl, mu, mul);
+                pro_add(R1, R0_, R1_, p1, A24, n, nl, mu, mul);
             } else {
-                pro_add(R0, R0_, R1_, p1, n, nl, mu, mul);
+                pro_add(R0, R0_, R1_, p1, A24, n, nl, mu, mul);
                 pro_dbl(R1, R1_, A24, n, nl, mu, mul);
             }
+            // if(R0->Z[0] == 0L) {
+            //     printf("zero\n");
+            // } else {
+            //     // printf("non-zero\n");
+            // }
         }
         j = W - 1;
     }
+    // printf("ladder-end\n");
     big_cpy(p->X, R0->X, 0, nl);
     big_cpy(p->Z, R0->Z, 0, nl);
 }

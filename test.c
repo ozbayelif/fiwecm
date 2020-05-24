@@ -131,7 +131,7 @@ void pro_add_gmp_test(int THRESHOLD) {
     
     for (i = 0; i < THRESHOLD; i++) {
         nl = (ui_t)(rand() % 100 + 1);
-        ui_t n[nl], mu[nl + 1], X1[nl], X2[nl], Xd[nl], Z1[nl], Z2[nl], Zd[nl];
+        ui_t n[nl], mu[nl + 1], X1[nl], X2[nl], Xd[nl], Z1[nl], Z2[nl], Zd[nl], A24[nl];
 
         mpz_set_ui(mp_X, 0L);
         mpz_set_ui(mp_Z, 0L);
@@ -144,6 +144,7 @@ void pro_add_gmp_test(int THRESHOLD) {
         big_mod_rand(Z1, nl, n, nl, mu, nl + 1);
         big_mod_rand(Z2, nl, n, nl, mu, nl + 1);
         big_mod_rand(Zd, nl, n, nl, mu, nl + 1);
+        big_mod_rand(A24, nl, n, nl, mu, nl + 1);
     
         mpz_import(mp_n, nl, -1, 4, 0, 0, n);
         mpz_import(mp_x1, nl, -1, 4, 0, 0, X1);
@@ -160,7 +161,7 @@ void pro_add_gmp_test(int THRESHOLD) {
         p2->Z = Z2;
         pd->Z = Zd;
 
-        pro_add(p, p1, p2, pd, n, nl, mu, nl + 1);
+        pro_add(p, p1, p2, pd, A24, n, nl, mu, nl + 1);
         mpz_import(mp_X, nl, -1, 4, 0, 0, p->X);
         mpz_import(mp_Z, nl, -1, 4, 0, 0, p->Z);
 
@@ -225,7 +226,7 @@ void pro_add_magma_test(int THRESHOLD) {
 
     for (i = 0; i < THRESHOLD; i++) {
         nl = (ui_t)(rand() % 100 + 1);
-        ui_t n[nl], mu[nl + 1], X1[nl], X2[nl], Xd[nl], Z1[nl], Z2[nl], Zd[nl];
+        ui_t n[nl], mu[nl + 1], X1[nl], X2[nl], Xd[nl], Z1[nl], Z2[nl], Zd[nl], A24[nl];
 
         big_rand(n, nl);
         big_get_mu(mu, n, nl);
@@ -235,6 +236,7 @@ void pro_add_magma_test(int THRESHOLD) {
         big_mod_rand(Z1, nl, n, nl, mu, nl + 1);
         big_mod_rand(Z2, nl, n, nl, mu, nl + 1);
         big_mod_rand(Zd, nl, n, nl, mu, nl + 1);
+        big_mod_rand(A24, nl, n, nl, mu, nl + 1);
 
         p1->X = X1;
         p2->X = X2;
@@ -243,7 +245,7 @@ void pro_add_magma_test(int THRESHOLD) {
         p2->Z = Z2;
         pd->Z = Zd;
 
-        pro_add(p, p1, p2, pd, n, nl, mu, nl + 1);
+        pro_add(p, p1, p2, pd, A24, n, nl, mu, nl + 1);
 
         big_print(fp, n, nl, "n", NULL);
         big_print(fp, p1->X, nl, "X1", NULL);
@@ -505,6 +507,7 @@ void ecm_gmp_test(int THRESHOLD) {
         big_print(stdout, n, nl, "n", NULL);
 
         int ret = ecm(d, n, nl);
+        printf("ret = %d\n", ret);
         if(ret != 0) {
             success++;
             success_type[ret - 1]++;

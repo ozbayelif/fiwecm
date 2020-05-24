@@ -49,12 +49,13 @@ void pro_curve_point(ui d, MONTG_CURVE c, PRO_POINT p, ui n, ui_t nl, ui mu, ui_
  * @param[in] p1 first operand of the addition
  * @param[in] p2 second operand of the addition
  * @param[in] pd differences of the first and second operands
+ * @param[in] A24 \f$(A+2)/4\f$ where A is the coefficient of the curve
  * @param[in] n modular base of the curve that is going to be generated
  * @param[in] nl number of digits of n in base \f$2^W\f$
  * @param[in] mu precalculated value of \f$(2^{W})^{2*nl} / n\f$
  * @param[in] mul number of digits of mu in base \f$2^W\f$
  */
-void pro_add(PRO_POINT p, PRO_POINT p1, PRO_POINT p2, PRO_POINT pd, ui n, ui_t nl, ui mu, ui_t mul);
+void pro_add(PRO_POINT p, PRO_POINT p1, PRO_POINT p2, PRO_POINT pd, ui A24, ui n, ui_t nl, ui mu, ui_t mul);
 
 /**
  * \brief Doubles a projective point on a curve
