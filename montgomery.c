@@ -159,11 +159,12 @@ void pro_ladder(PRO_POINT p, PRO_POINT p1, ui A24, ui k, ui_t kl, ui n, ui_t nl,
             pro_add(R0, R0_, R1_, p1, A24, n, nl, mu, mul);
             pro_dbl(R1, R1_, A24, n, nl, mu, mul);
         }
-            // if(R0->Z[0] == 0L) {
-            //     printf("zero\n");
-            // } else {
-            //     // printf("non-zero\n");
-            // }
+        big_is_equal_ui(&is_zero, R0->Z, nl, 0L);
+        if(is_zero == 1) {
+            big_cpy(p->X, R0->X, 0, nl);
+            big_cpy(p->Z, R0->Z, 0, nl);
+            k[0] >>= l;
+            return;
         }
     }
     big_cpy(p->X, R0->X, 0, nl);
