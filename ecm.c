@@ -42,11 +42,8 @@ void generate_B_smooth(ui z, ui_t l) {
 
 int ecm(ui d, ui n, ui_t nl) {
     MONTG_CURVE_t c; PRO_POINT_t p, p1;
-    ui_t A24[nl], mu[nl + 1];
-    int i, j, bl, is_one, is_n, is_zero, flag;
-    
-    bl = (nl >> 1) + 1; // For the choice of appropriate B. May change.
-    ui_t B[bl];
+    ui_t A24[nl], mu[nl + 1], k[1];
+    int i, j, is_one, is_n, is_zero, flag;
 
     big_get_mu(mu, n, nl);
     for(i = 0; i < nl; i++) {
@@ -61,21 +58,19 @@ int ecm(ui d, ui n, ui_t nl) {
         } else {
             big_get_A24(A24, c->A, n, nl, mu, nl + 1, &flag);
             if(flag == 1) {
-                generate_B_smooth(B, bl);
-                for(j = 0; j < B_THRESHOLD; j++) {
-                    pro_ladder(p, p1, A24, B, bl, n, nl, mu, nl + 1);
-                    // big_print(stdout, p->Z, nl, "pZ", NULL);
-                    // printf("GreatestCommonDivisor(pZ, n); \n\n");
+                generate_B_smooth(k, 1);
+                for(j = 0; j < k_THRESHOLD; j++) {
+                    pro_ladder(p, p1, A24, k, 1, n, nl, mu, nl + 1);
                     big_is_equal_ui(&is_zero, p->Z, nl, 0L);
                     if(is_zero == 1) {
-                        big_gcd(d, nl, B, 1, n, nl);
+                        big_gcd(d, nl, k, 1, n, nl);
                         big_is_equal_ui(&is_one, d, nl, 1L);
                         big_is_equal(&is_n, d, n, nl);
                         if(!is_one && !is_n) {
                             return 2;
                         }
                     }
-                    generate_B_smooth(B, bl);
+                    generate_B_smooth(k, 1);
                 }
             } else {
                 return 3;

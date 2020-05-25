@@ -133,43 +133,39 @@ void pro_ladder(PRO_POINT p, PRO_POINT p1, ui A24, ui k, ui_t kl, ui n, ui_t nl,
     R0->X= R0X; R0->Y = R0Y; R0->Z = R0Z; R0_->X = R0_X; R0_->Y = R0_Y; R0_->Z = R0_Z; R1->X= R1X; R1->Y = R1Y; R1->Z = R1Z; R1_->X = R1_X; R1_->Y = R1_Y; R1_->Z = R1_Z;
     p->X = (ui)malloc(sizeof(ui_t) * nl);
     p->Z = (ui)malloc(sizeof(ui_t) * nl);
-    int i, j;
+    int m, l, is_zero;
 
     big_cpy(R0->X, p1->X, 0, nl);
     big_cpy(R0->Z, p1->Z, 0, nl);
     pro_dbl(R1, p1, A24, n, nl, mu, mul);
 
     a = k[kl - 1];
-    j = 0;
+    m = 0;
     while(a > 0) {
         a = a >> 1;
-        j++;
+        m++;
     }                                                       // Find the index of the first 1
-    j -= 2;
-    for (i = kl - 1; i >= 0; i--) {
-        for(; j >= 0; j--) {
-            x = 1;
-            x <<= j;
-            big_cpy(R0_->X, R0->X, 0, nl);
-            big_cpy(R0_->Z, R0->Z, 0, nl);
-            big_cpy(R1_->X, R1->X, 0, nl);
-            big_cpy(R1_->Z, R1->Z, 0, nl);
-            if(!(k[i] & x)) {
-                pro_dbl(R0, R0_, A24, n, nl, mu, mul);
-                pro_add(R1, R0_, R1_, p1, A24, n, nl, mu, mul);
-            } else {
-                pro_add(R0, R0_, R1_, p1, A24, n, nl, mu, mul);
-                pro_dbl(R1, R1_, A24, n, nl, mu, mul);
-            }
+    for(l = m - 2; l >= 0; l--) {
+        x = 1;
+        x <<= l;
+        big_cpy(R0_->X, R0->X, 0, nl);
+        big_cpy(R0_->Z, R0->Z, 0, nl);
+        big_cpy(R1_->X, R1->X, 0, nl);
+        big_cpy(R1_->Z, R1->Z, 0, nl);
+        if(!(k[0] & x)) {
+            pro_dbl(R0, R0_, A24, n, nl, mu, mul);
+            pro_add(R1, R0_, R1_, p1, A24, n, nl, mu, mul);
+        } else {
+            pro_add(R0, R0_, R1_, p1, A24, n, nl, mu, mul);
+            pro_dbl(R1, R1_, A24, n, nl, mu, mul);
+        }
             // if(R0->Z[0] == 0L) {
             //     printf("zero\n");
             // } else {
             //     // printf("non-zero\n");
             // }
         }
-        j = W - 1;
     }
-    // printf("ladder-end\n");
     big_cpy(p->X, R0->X, 0, nl);
     big_cpy(p->Z, R0->Z, 0, nl);
 }

@@ -10,11 +10,11 @@
  * \brief Number of different B values to try
  *      during the factorization
  * 
- * If a B value does not produce a factor,
+ * If a k value does not produce a factor,
  * another one is tried until the number of
- * trials exceed B_THRESHOLD.
+ * trials exceed k_THRESHOLD.
  */
-#define B_THRESHOLD 1000
+#define k_THRESHOLD 1000
 /**
  * \brief Number of different curves to try
  *      during the factorization
