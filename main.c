@@ -36,7 +36,7 @@ int get_size(char *nstr, int len) {
 }
 
 ui str2arr(char *nstr, int len, int nl_dec, int nl) {
-    int i, j, k;
+    int i, j, k, was_newline;
     mpz_t mp_n;
     int firstIndexN = 0, lastIndexN = nl;
 
@@ -54,29 +54,34 @@ ui str2arr(char *nstr, int len, int nl_dec, int nl) {
         if(nstr[i] != '\n') {
             num[j] = nstr[i];
             j++;
+            was_newline = 0;
         } else {
-            num[j] = '\0';
-            num = realloc(num, sizeof(char) * j);
+            if(was_newline == 0) {
+                num[j] = '\0';
+                num = realloc(num, sizeof(char) *  + 1);
+                num[j] = '\0';
 
-            mpz_set_str(mp_n, num, 10);
-            for(k = 0; k < nl; k++) {
-                n_[k] = 0L;
-            }
-            mpz_export(n_, NULL, -1, 4, 0, 0, mp_n);
+                mpz_set_str(mp_n, num, 10);
+                for(k = 0; k < nl; k++) {
+                    n_[k] = 0L;
+                }
+                mpz_export(n_, NULL, -1, 4, 0, 0, mp_n);
 
-            j = 0;
-            for(k = firstIndexN; k < lastIndexN; k++) {
-                n[k] = n_[j];
-                j++;
-            }
-            firstIndexN += nl;
-            lastIndexN += nl;
+                j = 0;
+                for(k = firstIndexN; k < lastIndexN; k++) {
+                    n[k] = n_[j];
+                    j++;
+                }
+                firstIndexN += nl;
+                lastIndexN += nl;
 
-            num = realloc(num, sizeof(char) * nl_dec);
-            for(j = 0; j < nl_dec; j++) {
-                num[j] = '0';
+                num = realloc(num, sizeof(char) * nl_dec);
+                for(j = 0; j < nl_dec; j++) {
+                    num[j] = '0';
+                }
+                j = 0;
             }
-            j = 0;
+            was_newline = 1;
         }
     }
     return n;
@@ -232,11 +237,11 @@ int main(int argc, char *argv[]) {
     // pro_dbl_magma_test(10000);
     // pro_ladder_gmp_test(10000);
     // pro_ladder_magma_test(100);
-    ecm_gmp_test(500);
-    // bash_main(argc, argv);
+    // ecm_gmp_test(500);
+    bash_main(argc, argv);
    
     end = clock();
-    printf("// Time spent: %.4fms\n", (float)((end - start) / CLOCKS_PER_SEC));
+    printf("Time spent: %.4fms\n", (float)((end - start) / CLOCKS_PER_SEC));
 
     return 0;
 }
