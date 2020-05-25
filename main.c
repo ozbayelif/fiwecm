@@ -139,19 +139,7 @@ char *factorize(char *nstr1, int len, FILE *fp) {
     return res;
 }
 
-
-int main(int argc, char *argv[]) {
-    clock_t start, end;
-    start = clock();
-
-    // pro_curve_point_gmp_test(10000);
-    // pro_add_gmp_test(10000);
-    // pro_add_magma_test(10000);
-    // pro_dbl_magma_test(10000);
-    // pro_ladder_gmp_test(10000);
-    // pro_ladder_magma_test(100);
-    // ecm_gmp_test(100);
-
+int bash_main(int argc, char *argv[]) {
     SIZE = 1;
 
     if(argc == 1) {                                             // fiwecm
@@ -231,6 +219,21 @@ int main(int argc, char *argv[]) {
             }
         }
     }
+}
+
+
+int main(int argc, char *argv[]) {
+    clock_t start, end;
+    start = clock();
+
+    // pro_curve_point_gmp_test(10000);
+    // pro_add_gmp_test(10000);
+    // pro_add_magma_test(10000);
+    // pro_dbl_magma_test(10000);
+    // pro_ladder_gmp_test(10000);
+    // pro_ladder_magma_test(100);
+    ecm_gmp_test(500);
+    // bash_main(argc, argv);
    
     end = clock();
     printf("// Time spent: %.4fms\n", (float)((end - start) / CLOCKS_PER_SEC));
