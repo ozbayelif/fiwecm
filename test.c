@@ -8,7 +8,7 @@
 #include <gmp.h>
 #include "mplib.h"
 #include "montgomery.h"
-#include "ecm.h"
+#include "fiwecm.h"
 #include "test.h"
 
 void pro_curve_point_gmp_test(int THRESHOLD) {

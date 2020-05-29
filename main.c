@@ -11,7 +11,7 @@
 #include "mplib.h"
 #include "montgomery.h"
 #include "test.h"
-#include "ecm.h"
+#include "fiwecm.h"
 
 int SIZE;
 

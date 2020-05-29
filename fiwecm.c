@@ -8,7 +8,7 @@
 #include <time.h>
 #include "montgomery.h"
 #include "mplib.h"
-#include "ecm.h"
+#include "fiwecm.h"
 
 int primes[21] = {5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83};
 int prime_powers[5] = {1,2,3,4,5};
