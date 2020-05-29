@@ -9,8 +9,7 @@
 
 /**
  * \def W
- * \brief Size of a digit of a multi-precision
- *      integer.
+ * \brief Word size of the computer
  * 
  * The numbers are represented in base \f$2^{W}\f$
  * such that a digit of the number cannot exceed
@@ -204,5 +203,23 @@ void big_get_A24(ui A24, ui A, ui n, ui_t nl, ui mu, ui_t mul, int *flag);
  */
 void barret_reduction(ui z, ui m, ui_t ml, ui n, ui_t nl, ui mu, ui_t mul);
 
+/**
+ * \brief Calculates GCD(a,b)
+ * @param[out] d result of the GCD
+ * @param[in] dl number of digits of d in base \f$2^W\f$
+ * @param[in] a first operand
+ * @param[in] al number of digits of a in base \f$2^W\f$
+ * @param[in] b first operand
+ * @param[in] bl number of digits of b in base \f$2^W\f$
+ */
 void big_gcd(ui d, ui_t dl, ui a, ui_t al, ui b, ui_t bl);
+
+/**
+ * \brief Calculates \f$a^{-1} \pmod b\f$
+ * @param[out] z result of the inversion, \f$a^{-1}\f$
+ * @param[in] a first operand
+ * @param[in] al number of digits of a in base \f$2^W\f$
+ * @param[in] b first operand
+ * @param[in] bl number of digits of b in base \f$2^W\f$
+ */
 int big_invert(ui z, ui a, ui_t al, ui b, ui_t bl);

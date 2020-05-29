@@ -1,0 +1,5 @@
+gcc main.c -o fiwecm mplib.c montgomery.c test.c ecm.c -lgmp;
+sudo chmod u+x fiwecm;
+sudo rm -rf /usr/bin/fiwecm;
+sudo cp fiwecm /usr/bin/;
+echo fiwecm has been set up successfully.;

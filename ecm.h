@@ -1,13 +1,13 @@
 /**
  * \file ecm.h
  * \brief A library to implement Elliptic Curve Method
- *      to factorize a composite number.
+ *      to factorize composite numbers.
  */ 
 
 #include "mplib.h"
 
 /**
- * \brief Number of different B values to try
+ * \brief Number of different k values to try
  *      during the factorization
  * 
  * If a k value does not produce a factor,
@@ -15,6 +15,7 @@
  * trials exceed k_THRESHOLD.
  */
 #define k_THRESHOLD 1000
+
 /**
  * \brief Number of different curves to try
  *      during the factorization
@@ -23,19 +24,41 @@
  * another one is tried until the number of
  * trials exceed CRV_THRESHOLD.
  */
-#define CRV_THRESHOLD 10
+#define CRV_THRESHOLD 25
 
+/**
+ * \brief Total number of primes that are
+ *      put on prime list
+ */
 #define PRIMESL 21
+
+/**
+ * \brief Total number of power values that
+ *      are put on power list
+ */
 #define POWERSL 5
 
+/**
+ * \brief A list of small primes
+ * 
+ * Used by the generate_B_smooth
+ * function
+ */
 extern int primes[PRIMESL];
+
+/**
+ * \brief A list of small powers for
+ *      primes
+ * 
+ * Used by the generate_B_smooth
+ * function
+ */
 extern int prime_powers[POWERSL];
 
 /**
  * @brief Generates a B-smooth number
  * @param[out] z the number generated
- * @param[in] zl number of digits of z in base \f$2^W\f$
- * @param[in] B smoothness constant
+ * @param[in] l number of digits of z in base \f$2^W\f$
  */
 void generate_B_smooth(ui z, ui_t l);
 

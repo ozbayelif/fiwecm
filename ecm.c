@@ -42,13 +42,19 @@ void generate_B_smooth(ui z, ui_t l) {
 
 int ecm(ui d, ui n, ui_t nl) {
     MONTG_CURVE_t c; PRO_POINT_t p, p1;
-    ui_t A24[nl], mu[nl + 1], k[1];
     int i, j, is_one, is_n, is_zero, flag;
 
-    big_get_mu(mu, n, nl);
-    for(i = 0; i < nl; i++) {
-        d[i] = 0L;
+    for(i = nl - 1; i >= 0; i--) {
+        if(n[i] == 0L) {
+            nl--;
+            d[i] = 0L;
+        } else {
+            i = -1;
+        }
     }
+    ui_t A24[nl], mu[nl + 1], k[1];
+    big_get_mu(mu, n, nl);
+    
     for(i = 0; i < CRV_THRESHOLD; i++) {
         do {
             pro_curve_point(d, c, p1, n, nl, mu, nl + 1, &flag);
