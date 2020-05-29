@@ -8,7 +8,7 @@
 #include <gmp.h>
 #include "mplib.h"
 
-void big_rand(ui z, ui_t l) {
+void fiwe_rand(ui z, ui_t l) {
 	int i;
 
 	for(i = 0; i < l; i++) {
@@ -16,7 +16,7 @@ void big_rand(ui z, ui_t l) {
 	}
 }
 
-void big_mod_rand(ui z, ui_t l, ui n, ui_t nl, ui mu, ui_t mul) {
+void fiwe_mod_rand(ui z, ui_t l, ui n, ui_t nl, ui mu, ui_t mul) {
 	ui_t z_[2 * nl];
 	int i;
 
@@ -29,7 +29,7 @@ void big_mod_rand(ui z, ui_t l, ui n, ui_t nl, ui mu, ui_t mul) {
 	barret_reduction(z, z_, 2 * nl, n, nl, mu, mul);
 }
 
-void big_print(FILE *fp, ui a, ui_t al, char *s, char *R) {
+void fiwe_print(FILE *fp, ui a, ui_t al, char *s, char *R) {
     if(R != NULL) {
 	    fprintf(fp, "%s := %s!(", s, R);
     } else {
@@ -42,7 +42,7 @@ void big_print(FILE *fp, ui a, ui_t al, char *s, char *R) {
     fprintf(fp, ");\n\n");
 }
 
-void big_is_equal(int *z, ui a, ui b, ui_t l) {
+void fiwe_is_equal(int *z, ui a, ui b, ui_t l) {
 	int i;
 	*z = 1;
 	for(i = 0; i < l; i++) {
@@ -52,7 +52,7 @@ void big_is_equal(int *z, ui a, ui b, ui_t l) {
 	}
 }
 
-void big_is_equal_ui(int *z, ui a, ui_t al, ui_t b) {
+void fiwe_is_equal_ui(int *z, ui a, ui_t al, ui_t b) {
 	int i;
 	*z = 1;
 	if(a[0] != b) {
@@ -68,7 +68,7 @@ void big_is_equal_ui(int *z, ui a, ui_t al, ui_t b) {
 	}
 }
 
-void big_add(ui z, ui a, ui_t al, ui b, ui_t bl) {
+void fiwe_add(ui z, ui a, ui_t al, ui b, ui_t bl) {
 	int i;
 	ui_t carry_bit = 0;
 	
@@ -82,7 +82,7 @@ void big_add(ui z, ui a, ui_t al, ui b, ui_t bl) {
 	}
 }
 
-void big_mod_add(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl, ui mu, ui_t mul) {
+void fiwe_mod_add(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl, ui mu, ui_t mul) {
 	int i;
 	ui_t z_[2 * nl], carry_bit = 0;
 	
@@ -101,7 +101,7 @@ void big_mod_add(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl, ui mu, ui_t 
 	barret_reduction(z, z_, 2 * nl, n, nl, mu, mul);
 }
 
-void big_sub(ui z, int *d, ui a, ui_t al, ui b, ui_t bl) {
+void fiwe_sub(ui z, int *d, ui a, ui_t al, ui b, ui_t bl) {
 	int i;
 	ui_t borrow_bit = 0;
 
@@ -116,7 +116,7 @@ void big_sub(ui z, int *d, ui a, ui_t al, ui b, ui_t bl) {
 	*d = borrow_bit;
 }
 
-void big_mod_sub(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl) {
+void fiwe_mod_sub(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl) {
 	int i;
 	ui_t z_[nl], borrow_bit = 0;
 
@@ -129,13 +129,13 @@ void big_mod_sub(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl) {
 		}
 	}
 	if(borrow_bit) {
-    	big_add(z, z_, nl, n, nl);
+    	fiwe_add(z, z_, nl, n, nl);
 	} else {
-		big_cpy(z, z_, 0, nl);
+		fiwe_cpy(z, z_, 0, nl);
 	}
 }
 
-void big_mul(ui z, ui a, ui_t al, ui b, ui_t bl) {
+void fiwe_mul(ui z, ui a, ui_t al, ui b, ui_t bl) {
 	int i, j;
 	ui_t u, v;
 	uni_t uv;
@@ -155,7 +155,7 @@ void big_mul(ui z, ui a, ui_t al, ui b, ui_t bl) {
 	}		
 }
 
-void big_mod_mul(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl, ui mu, ui_t mul) {
+void fiwe_mod_mul(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl, ui mu, ui_t mul) {
 	int i, j;
 	ui_t u, v, z_[2 * nl];
 	uni_t uv;
@@ -179,7 +179,7 @@ void big_mod_mul(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl, ui mu, ui_t 
 	barret_reduction(z, z_, 2 * nl, n, nl, mu, mul);
 }
 
-void big_get_mu(ui mu, ui n, ui_t nl) {
+void fiwe_get_mu(ui mu, ui n, ui_t nl) {
 	mpz_t mp_n, mp_b2k, mp_mu;
 
     mpz_init(mp_n);
@@ -196,7 +196,7 @@ void big_get_mu(ui mu, ui n, ui_t nl) {
 	mpz_export(mu, NULL, -1, 4, 0, 0, mp_mu);
 }
 
-void big_get_A24(ui z, ui A, ui n, ui_t nl, ui mu, ui_t mul, int *flag) {
+void fiwe_get_A24(ui z, ui A, ui n, ui_t nl, ui mu, ui_t mul, int *flag) {
 	ui_t c_2[nl], c_4[nl], A2[nl], ic_4[nl];
 	int i, ret;
 
@@ -206,13 +206,13 @@ void big_get_A24(ui z, ui A, ui n, ui_t nl, ui mu, ui_t mul, int *flag) {
 		c_2[i] = 0L;
 		c_4[i] = 0L;
 	}
-	big_mod_add(A2, A, nl, c_2, nl, n, nl, mu, mul);
-	ret = big_invert(ic_4, c_4, nl, n, nl);
+	fiwe_mod_add(A2, A, nl, c_2, nl, n, nl, mu, mul);
+	ret = fiwe_invert(ic_4, c_4, nl, n, nl);
 	if(ret) { // Inverse exists
-		big_mod_mul(z, A2, nl, ic_4, nl, n, nl, mu, mul);
+		fiwe_mod_mul(z, A2, nl, ic_4, nl, n, nl, mu, mul);
 		*flag = 1;
 	} else { // Inverse does not exist
-		big_gcd(z, nl, c_4, nl, n, nl);
+		fiwe_gcd(z, nl, c_4, nl, n, nl);
 		*flag = 0;
 	}
 }
@@ -222,26 +222,26 @@ void barret_reduction(ui z, ui m, ui_t ml, ui n, ui_t nl, ui mu, ui_t mul) { // 
     ui_t k = nl, md[k + 1], mdmu[mul + k + 1], q[mul], mm[k + 1], qn[mul + nl], qnm[k + 1], r2[k + 1], r3[k + 1];
     int i, b;
 
-    big_cpy(md, m, k - 1, k + 1); // md = m / b^(k - 1) 
-    big_mul(mdmu, md, k + 1, mu, mul); // mdmu = md * mu 
-    big_cpy(q, mdmu, k + 1, mul); // q = (m / b^(k - 1) * mu) / b^(k + 1) 
-    big_cpy(mm, m, 0, k + 1); // mm = m mod b^(k + 1) 
-    big_mul(qn, q, mul, n, nl); // qn = q * n 
-    big_cpy(qnm, qn, 0, k + 1); // qnm = qn mod b^(k + 1) 
-    big_sub(r3, &i, mm, k + 1, qnm, k + 1); // r3 = mm - qnm
-	big_cpy(z, r3, 0, k);
-    big_sub(r2, &b, r3, nl, n, nl); // while r >= n do: r <- r - n
+    fiwe_cpy(md, m, k - 1, k + 1); // md = m / b^(k - 1) 
+    fiwe_mul(mdmu, md, k + 1, mu, mul); // mdmu = md * mu 
+    fiwe_cpy(q, mdmu, k + 1, mul); // q = (m / b^(k - 1) * mu) / b^(k + 1) 
+    fiwe_cpy(mm, m, 0, k + 1); // mm = m mod b^(k + 1) 
+    fiwe_mul(qn, q, mul, n, nl); // qn = q * n 
+    fiwe_cpy(qnm, qn, 0, k + 1); // qnm = qn mod b^(k + 1) 
+    fiwe_sub(r3, &i, mm, k + 1, qnm, k + 1); // r3 = mm - qnm
+	fiwe_cpy(z, r3, 0, k);
+    fiwe_sub(r2, &b, r3, nl, n, nl); // while r >= n do: r <- r - n
 	r2[nl] = r3[nl] - b;
     while(!(r2[nl] >> (W - 1))) {
-        big_cpy(z, r2, 0, k);
-		big_cpy(r3, r2, 0, k + 1);
-        big_sub(r2, &b, r3, nl, n, nl);
+        fiwe_cpy(z, r2, 0, k);
+		fiwe_cpy(r3, r2, 0, k + 1);
+        fiwe_sub(r2, &b, r3, nl, n, nl);
 		r2[nl] = r3[nl] - b;
     }
 }
 
 // Using GMP for now
-void big_gcd(ui d, ui_t dl, ui a, ui_t al, ui b, ui_t bl) {
+void fiwe_gcd(ui d, ui_t dl, ui a, ui_t al, ui b, ui_t bl) {
     mpz_t mp_a, mp_b, mp_d;
 	int i;
 
@@ -262,7 +262,7 @@ void big_gcd(ui d, ui_t dl, ui a, ui_t al, ui b, ui_t bl) {
 	mpz_export(d, NULL, -1, 4, 0, 0, mp_d);                 
 }
 
-int big_invert(ui z, ui a, ui_t al, ui b, ui_t bl) {
+int fiwe_invert(ui z, ui a, ui_t al, ui b, ui_t bl) {
 	int i, ret;
 	mpz_t mp_z, mp_a, mp_b;
 

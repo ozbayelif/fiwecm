@@ -44,7 +44,7 @@ typedef unsigned int ui_t;
  * @param[in] start starting index for the copy operation
  * @param[in] end ending index for the copy operation
  */
-#define big_cpy(z, a, start, end) if(1) { \
+#define fiwe_cpy(z, a, start, end) if(1) { \
     int i, j; \
     for(i = 0, j = (start); i < (end); i++, j++) { \
         z[i] = a[j]; \
@@ -57,7 +57,7 @@ typedef unsigned int ui_t;
  * @param[out] z multi-precision number to be initialized
  * @param[in] l number of digits of z in base \f$2^W\f$
  */
-void big_rand(ui z, ui_t l);
+void fiwe_rand(ui z, ui_t l);
 
 /**
  * \brief Initializes z with a random multi-precision
@@ -69,7 +69,7 @@ void big_rand(ui z, ui_t l);
  * @param[in] mu precalculated value of  \f$(2^{W})^{2*nl} / n\f$
  * @param[in] mul number of digits of mu in base \f$2^W\f$
  */
-void big_mod_rand(ui z, ui_t l, ui n, ui_t nl, ui mu, ui_t mul);
+void fiwe_mod_rand(ui z, ui_t l, ui n, ui_t nl, ui mu, ui_t mul);
 
 /**
  * \brief Prints the given multi-precision number in
@@ -80,7 +80,7 @@ void big_mod_rand(ui z, ui_t l, ui n, ui_t nl, ui mu, ui_t mul);
  * @param[in] s name of the variable going to be assigned to a
  * @param[in] R name of the ring that a is going to be defined in (optional)
  */
-void big_print(FILE *fp, ui a, ui_t al, char *s, char *R);
+void fiwe_print(FILE *fp, ui a, ui_t al, char *s, char *R);
 
 /**
  * \brief Checks if two multi-precision numbers are equal
@@ -89,7 +89,7 @@ void big_print(FILE *fp, ui a, ui_t al, char *s, char *R);
  * @param[in] b second number
  * @param[in] l number of digits of a and b in base \f$2^W\f$
  */
-void big_is_equal(int *z, ui a, ui b, ui_t l);
+void fiwe_is_equal(int *z, ui a, ui b, ui_t l);
 
 /**
  * \brief Checks if a multi-precision number is equal to given
@@ -99,7 +99,7 @@ void big_is_equal(int *z, ui a, ui b, ui_t l);
  * @param[in] al number of digits of a in base \f$2^W\f$
  * @param[in] b unsigned int to be compared
  */
-void big_is_equal_ui(int *z, ui a, ui_t al, ui_t b);
+void fiwe_is_equal_ui(int *z, ui a, ui_t al, ui_t b);
 
 /**
  * \brief Adds two multi-precision numbers
@@ -109,7 +109,7 @@ void big_is_equal_ui(int *z, ui a, ui_t al, ui_t b);
  * @param[in] b second number
  * @param[in] bl number of digits of b in base \f$2^W\f$
  */
-void big_add(ui z, ui a, ui_t al, ui b, ui_t bl);
+void fiwe_add(ui z, ui a, ui_t al, ui b, ui_t bl);
 
 /**
  * \brief Adds two multi-precision numbers in mod n
@@ -123,7 +123,7 @@ void big_add(ui z, ui a, ui_t al, ui b, ui_t bl);
  * @param[in] mu precalculated value of \f$(2^{W})^{2*nl} / n\f$
  * @param[in] mul number of digits of mu in base \f$2^W\f$
  */
-void big_mod_add(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl, ui mu, ui_t mul);
+void fiwe_mod_add(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl, ui mu, ui_t mul);
 
 /**
  * \brief Subtracts two multi-precision numbers
@@ -133,7 +133,7 @@ void big_mod_add(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl, ui mu, ui_t 
  * @param[in] b second number
  * @param[in] bl number of digits of b in base \f$2^W\f$
  */
-void big_sub(ui z, int *d, ui a, ui_t al, ui b, ui_t bl);
+void fiwe_sub(ui z, int *d, ui a, ui_t al, ui b, ui_t bl);
 
 /**
  * \brief Subtracts two multi-precision numbers in mod n
@@ -145,7 +145,7 @@ void big_sub(ui z, int *d, ui a, ui_t al, ui b, ui_t bl);
  * @param[in] n modular base for the subtraction
  * @param[in] nl number of digits of n in base \f$2^W\f$
  */
-void big_mod_sub(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl);
+void fiwe_mod_sub(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl);
 
 /**
  * \brief Multiplies two multi-precision numbers
@@ -155,7 +155,7 @@ void big_mod_sub(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl);
  * @param[in] b second number
  * @param[in] bl number of digits of b in base \f$2^W\f$
  */
-void big_mul(ui z, ui a, ui_t al, ui b, ui_t bl);
+void fiwe_mul(ui z, ui a, ui_t al, ui b, ui_t bl);
 
 /**
  * \brief Multiplies two multi-precision numbers in mod n
@@ -169,7 +169,7 @@ void big_mul(ui z, ui a, ui_t al, ui b, ui_t bl);
  * @param[in] mu precalculated value of \f$(2^{W})^{2*nl} / n\f$
  * @param[in] mul number of digits of mu in base \f$2^W\f$
  */
-void big_mod_mul(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl, ui mu, ui_t mul);
+void fiwe_mod_mul(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl, ui mu, ui_t mul);
 
 /**
  * \brief Calculates  \f$(2^{W})^{2*nl} / n\f$
@@ -177,7 +177,7 @@ void big_mod_mul(ui z, ui a, ui_t al, ui b, ui_t bl, ui n, ui_t nl, ui mu, ui_t 
  * @param[in] n n in the equation
  * @param[in] nl number of digits of n in base \f$2^W\f$
  */
-void big_get_mu(ui z, ui n, ui_t nl);
+void fiwe_get_mu(ui z, ui n, ui_t nl);
 
 /**
  * \brief Calculates \f$(A + 2) / 4\f$
@@ -189,7 +189,7 @@ void big_get_mu(ui z, ui n, ui_t nl);
  * @param[in] mul number of digits of mu in base \f$2^W\f$
  * @param[in] flag 1 when calculation succeeds, 0 when factor gets found
  */
-void big_get_A24(ui A24, ui A, ui n, ui_t nl, ui mu, ui_t mul, int *flag);
+void fiwe_get_A24(ui A24, ui A, ui n, ui_t nl, ui mu, ui_t mul, int *flag);
 
 /**
  * \brief Calculates m mod n
@@ -212,7 +212,7 @@ void barret_reduction(ui z, ui m, ui_t ml, ui n, ui_t nl, ui mu, ui_t mul);
  * @param[in] b first operand
  * @param[in] bl number of digits of b in base \f$2^W\f$
  */
-void big_gcd(ui d, ui_t dl, ui a, ui_t al, ui b, ui_t bl);
+void fiwe_gcd(ui d, ui_t dl, ui a, ui_t al, ui b, ui_t bl);
 
 /**
  * \brief Calculates \f$a^{-1} \pmod b\f$
@@ -222,4 +222,4 @@ void big_gcd(ui d, ui_t dl, ui a, ui_t al, ui b, ui_t bl);
  * @param[in] b first operand
  * @param[in] bl number of digits of b in base \f$2^W\f$
  */
-int big_invert(ui z, ui a, ui_t al, ui b, ui_t bl);
+int fiwe_invert(ui z, ui a, ui_t al, ui b, ui_t bl);

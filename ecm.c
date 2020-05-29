@@ -23,14 +23,14 @@ void generate_B_smooth(ui z, ui_t l) {
         factor[i] = 0L;
     }
     while(exceed != 1) {
-        big_cpy(z, z_, 0, l);
+        fiwe_cpy(z, z_, 0, l);
         prime = primes[rand() % PRIMESL];
         power = prime_powers[rand() % POWERSL];
         factor[0] = 1L;
         for(j = 0; j < power; j++) {
             factor[0] *= prime;
         }
-        big_mul(z_, z, l, factor, l);
+        fiwe_mul(z_, z, l, factor, l);
         for(k = l; k < 2 * l; k++) {
             if(z_[k] != 0L) {
                 k = 2 * l;
@@ -53,7 +53,7 @@ int ecm(ui d, ui n, ui_t nl) {
         }
     }
     ui_t A24[nl], mu[nl + 1], k[1];
-    big_get_mu(mu, n, nl);
+    fiwe_get_mu(mu, n, nl);
     
     for(i = 0; i < CRV_THRESHOLD; i++) {
         do {
@@ -62,16 +62,16 @@ int ecm(ui d, ui n, ui_t nl) {
         if(flag == 0) {
             return 1;
         } else {
-            big_get_A24(A24, c->A, n, nl, mu, nl + 1, &flag);
+            fiwe_get_A24(A24, c->A, n, nl, mu, nl + 1, &flag);
             if(flag == 1) {
                 generate_B_smooth(k, 1);
                 for(j = 0; j < k_THRESHOLD; j++) {
                     pro_ladder(p, p1, A24, k, 1, n, nl, mu, nl + 1);
-                    big_is_equal_ui(&is_zero, p->Z, nl, 0L);
+                    fiwe_is_equal_ui(&is_zero, p->Z, nl, 0L);
                     if(is_zero == 1) {
-                        big_gcd(d, nl, k, 1, n, nl);
-                        big_is_equal_ui(&is_one, d, nl, 1L);
-                        big_is_equal(&is_n, d, n, nl);
+                        fiwe_gcd(d, nl, k, 1, n, nl);
+                        fiwe_is_equal_ui(&is_one, d, nl, 1L);
+                        fiwe_is_equal(&is_n, d, n, nl);
                         if(!is_one && !is_n) {
                             return 2;
                         }

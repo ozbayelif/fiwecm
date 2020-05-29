@@ -246,10 +246,10 @@ int main(int argc, char *argv[]) {
     // pro_add_magma_test(10000);
     // pro_dbl_magma_test(10000);
     // pro_ladder_gmp_test(10000);
-    // pro_ladder_magma_test(100);
-    // ecm_gmp_test(1000);
+    // pro_ladder_magma_test(10000);
+    // ecm_gmp_test(100);
 
-    bash_main(argc, argv);
+    // bash_main(argc, argv);
 
     end = clock();
     printf("\nTime spent: %.4fms\n\n", (float)((end - start) / CLOCKS_PER_SEC));
