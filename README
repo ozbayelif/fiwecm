@@ -7,7 +7,7 @@ Can be used as an external C library.
   3. Include GMP lib to your source code
     #include <gmp.h>
   2. Link mplib.c montgomery.c fiwecm.c and gmp while compiling
-    gcc <yourmain.c> mplib.c montgomery.c fiwecm.c -lgmp
+    gcc <yourmain.c> mplib.c montgomery.c fiwecm.c test.c -lgmp
   3. Call ecm function anywhere
   
 Can be used as a bash script
