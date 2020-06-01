@@ -16,3 +16,6 @@ Can be used as a bash script
   2. Call fiwecm script from anywhere in your command prompt
     fiwecm --help
     fiwecm 120
+
+
+Doxygen document can be generated with doxy.cfg file.
