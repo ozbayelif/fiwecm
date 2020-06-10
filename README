@@ -1,1 +1,21 @@
 Elliptic Curve Method implementation on C
+
+Can be used as an external C library.
+  1. Add this folder to your project directory
+  2. Include fiwecm.h to your source code
+    #include "fiwecm.h"
+  3. Include GMP lib to your source code
+    #include <gmp.h>
+  2. Link mplib.c montgomery.c fiwecm.c and gmp while compiling
+    gcc <yourmain.c> mplib.c montgomery.c fiwecm.c test.c -lgmp
+  3. Call ecm function anywhere
+  
+Can be used as a bash script
+  1. Run the installation script
+    ./INSTALL
+  2. Call fiwecm script from anywhere in your command prompt
+    fiwecm --help
+    fiwecm 120
+
+
+Doxygen document can be generated with doxy.cfg file.
